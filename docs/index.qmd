@@ -1,0 +1,40 @@
+---
+title: "CFlowDist documentation"
+author: 
+    - name: Wenyu Liu
+      url: https://wenyuliu.ch/
+      orcid: 0009-0008-8368-4685
+    - name: Enea Figini
+      url: https://people.epfl.ch/enea.figini
+      orcid: 0000-0001-6270-3367
+    - name: Mario Paolone
+      url: https://people.epfl.ch/mario.paolone
+      orcid: 0000-0001-7073-9036
+    
+description: "Welcome to CFlowDist documentation!"
+date: today
+title-block-banner: "#009688"
+
+format: 
+  html:
+    code-tools: false
+    grid:
+      body-width: 900px
+    # html-math-method: katex
+
+execute: 
+  freeze: true
+  echo: true
+
+---
+
+
+::: {.launch-banner}
+## Welcome to the CFlowDist Public Preview
+The source code will be available on GitHub soon.
+:::
+
+
+# CFlowDist
+
+A Python toolkit for tracing carbon flows and allocating carbon intensity in distribution grids.

@@ -1,0 +1,217 @@
+/*-- scss:defaults --*/
+
+// Color system
+$primary:       #009688;
+$secondary:     #455a64;
+$accent:        #8BC34A;
+$important:     #ff5722;
+$primary-light: #B2DFDB;
+$primary-dark:  #00796B;
+$success:       #4CAF50;
+$info:          #2196F3;
+$warning:       #FFC107;
+$error:         #f44336;
+
+
+$white:    #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212121 !default;
+$black:    #000000 !default;
+
+
+// Font system
+$web-font-path: "https://fonts.googleapis.com/css2?&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" !default;
+
+$font-family-sans-serif: "Open Sans", system-ui, -apple-system, sans-serif;
+$font-family-monospace:   "Google Sans Code", monospace;
+
+
+$headings-font-family: "Jost" !default;
+// $headings-font-weight: 600 !default;
+
+$navbar-font-family: "Raleway" !default;
+$footer-font-family: "Jost" !default;
+$toc-font-family: "Jost" !default;
+
+// $font-size-root: 16px;
+
+// Body styling
+
+$body-color:  $gray-900 !default;
+$body-bg:     $gray-100 !default;
+
+// Navbar
+$navbar-bg:   $primary-dark;
+$navbar-fg:   $white;
+$navbar-hl:   lighten($primary-light, 10%);
+
+
+// Links
+$link-color: $primary !default;
+$link-decoration: none !default;
+$link-hover-color: (darken($primary, 10%)) !default;
+$link-hover-decoration: underline !default;
+
+/*-- scss:rules --*/
+
+@if $web-font-path {
+    @import url($web-font-path);
+}
+
+
+.navbar {
+    font-family: $navbar-font-family;
+    font-weight: 500;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+
+.sidebar-title {
+  font-weight: 700;
+  color: $primary;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+// Floating Table of Contents
+#quarto-toc-toggle {
+  color: $primary;
+}
+
+.launch-banner {
+  background: $primary-dark;
+  color: $gray-100;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.quarto-title-banner .code-tools-button {
+  color: $navbar-fg;
+}
+
+
+#title-block-header {
+    .quarto-title-banner {
+        font-family: $headings-font-family;
+        
+        .description {
+            font-size: 1.1em;
+            margin-top: 1em !important;
+        }
+    }
+}
+
+#TOC {
+    font-family: $toc-font-family;
+    padding-bottom: 0.1em;
+    font-weight: 400;
+
+    .active {
+        font-weight: 500;
+    }
+
+    #toc-title {
+        font-weight: 600;
+        font-size: .9em;
+    }
+}
+
+.nav-footer {
+    align-items: flex-start;  // Align all flex items to the top
+    flex-wrap: wrap;
+    border: 0 !important;
+    min-height: 4em;
+    font-family: $footer-font-family;
+    color: $white;
+    background: $primary-dark;
+
+    a {
+        color: $primary-light;
+    }
+
+    .faux-block {
+        display: block;
+        padding-bottom: 0.4em;
+    }
+
+    .fingerprint {
+        font-family: $font-family-monospace;
+        font-size: 0.8em;
+    }
+
+    // In the default Quarto template, .nav-footer-center has position: absolute 
+    // turned on, which makes the div not be a flex item
+    // This changes that so that it *is* a flex item
+    .nav-footer-center {
+        text-align: center;
+        position: inherit;
+        margin-top: 0;
+
+        @media (max-width: map-get($grid-breakpoints, md)) {
+            margin-top: 0.5em;
+            margin-bottom: 1.5em;
+        }
+    }
+
+    // When the screen is medium or smaller, make each footer chunk be 100% width 
+    // and centered; otherwise make them be 33% width and left/right/centerd
+    .nav-footer-left,
+    .nav-footer-right,
+    .nav-footer-center {
+        text-align: center;
+        width: 100%;
+        min-height: 2em;
+    }
+
+    @media (min-width: map-get($grid-breakpoints, md)) {
+        .nav-footer-left {
+            text-align: left;
+        }
+
+        .nav-footer-right {
+            text-align: right;
+        }
+
+        .nav-footer-left,
+        .nav-footer-right,
+        .nav-footer-center {
+            flex: 1 1 33%;
+        }
+    }
+    .faux-block svg {
+      height: 1em; 
+      width: auto; 
+      vertical-align: middle;
+      /* adds a tiny bit of breathing room */
+      margin-top: -0.2em; 
+      margin-left: .25em;
+    }
+}
+
+
+.quarto-title-author-orcid img {
+        margin-bottom: -3px;
+        display: none;
+}
+
+.quarto-title-author-orcid {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    background: url("https://orcid.org/assets/vectors/orcid.logo.icon.svg") no-repeat center center;
+    background-size: contain;
+}
+
