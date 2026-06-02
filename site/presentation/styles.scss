@@ -593,6 +593,13 @@ li::marker {
     font-size: 10px !important;
     color: $rouge !important;
     }
+
+    #live-link {
+        display: none !important; /* Hide the live link on smaller screens */
+    }
+    #svg-viewbox-cflowdist-presentation {
+        display: none !important; /* Hide the SVG viewbox on smaller screens */
+    }
 }
 
 @media screen and (min-width: 1200px) {
