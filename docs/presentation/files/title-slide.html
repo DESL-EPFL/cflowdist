@@ -19,6 +19,27 @@
             <img src="./files/epfl-block.svg" alt="EPFL Logo" style="width: 220px; height: auto;">
         </div>
 
+        <div class="svg-container" style="display: flex; justify-content: center; gap: 80px; margin-top: 10px; position: absolute; bottom: 20px; left: 28%; transform: translateX(-50%);">
+        <div class="svg-viewbox" id="svg-viewbox-cflowdist-presentation" style="width: 250px;">
+            <div class="qrcode" id="qrcode-cflowdist-presentation"></div>
+            <div class="qrcode-caption" style="color: #FFF;">
+            Scan to view online
+            </div>
+        </div>
+        </div>
+
+        <script>
+        var qrcode_cflowdist_presentation = new QRCode({
+        content: "https://desl-epfl.github.io/cflowdist/presentation/",
+        color: "#FFFFFF",
+        background: "rgba(0, 0, 0, 0)", //transparent background
+        container: "svg-viewbox", //Responsive use
+        join: true //Crisp rendering and 4-5x reduced file size
+        });
+        var svg_qrcode_cflowdist_presentation = qrcode_cflowdist_presentation.svg();
+        document.getElementById("qrcode-cflowdist-presentation").innerHTML = svg_qrcode_cflowdist_presentation;
+        </script>
+
         <div class="info-boxes">
             <div class="info-box-left red-box">
                 <div class="info-value" style="font-size: 2.3rem; font-weight: 700;">09 June 2026</div>
