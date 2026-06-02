@@ -1,0 +1,602 @@
+/*-- scss:defaults --*/
+
+$theme: "style" !default;
+
+//
+// Color system
+//
+
+$rouge:    #FF0000 !default;
+$groseille:#b51f1f !default;
+$leman:    #00a79f !default;
+$canard:   #007480 !default;
+$taupe:    #413D3a !default;
+$perle:    #CAC7C7 !default;
+
+
+$white:    #ffffff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black:    #000000 !default;
+
+
+
+
+// Fonts
+
+$font-family-sans-serif: "SuisseIntl", Arial, sans-serif !default;
+$font-family-monospace: "Google Sans Code" !default;
+
+
+
+// Body
+$body-color: $gray-900 !default;
+$dark-bg-text-color: $gray-300 !default;
+$dark-bg-link-color: $white !default;
+
+// Links
+$link-color: $rouge !default;
+// $link-decoration: underline !default;
+$link-hover-color: $canard !default;
+$link-hover-decoration: underline !default;
+
+$selection-bg: $perle !default;
+
+$presentation-font-size-root: 30px  !default;
+$presentation-h1-font-size: 1.8em !default;
+$presentation-h2-font-size: 1.3em !default;
+$presentation-h3-font-size: 1.05em !default;
+$presentation-font-smaller: 0.81 !default;
+
+$code-block-font-size: 0.75em !default;
+
+/*-- scss:rules --*/
+
+$web-font-path: "https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" !default;
+$local-font-path: "/files/fonts/" !default;
+
+@if $web-font-path {
+    @import url($web-font-path);
+}
+@if $local-font-path {
+    @font-face {
+    font-family: 'SuisseIntl';
+    src: url($local-font-path + 'SuisseIntl-Regular-WebS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    @font-face {
+    font-family: 'SuisseIntl';
+    src: url($local-font-path + 'SuisseIntl-RegularItalic-WebS.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    }
+
+
+    @font-face {
+    font-family: 'SuisseIntl';
+    src: url($local-font-path + 'SuisseIntl-SemiBold-WebS.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    }
+}
+
+
+.quarto-title-banner {
+    background-color: $gray-200;
+    color: $gray-800;
+    h1.title,a {
+        color: $gray-800;
+    }
+}
+
+
+.reveal h2 {
+    margin-bottom: 0.7em ;
+}
+
+.MathJax_Display, .MathJax_Display.notranslate {
+    margin: 0.6em 0em;
+}
+
+/* css styles */
+
+
+
+.reveal h1 {
+    margin-bottom: 0.8em;
+}
+
+.revreal h4 {
+    margin-top: 0.5em;
+    // margin-bottom: 0.5em;
+}
+
+.subtitle {
+    font-size: 1.3em;
+    margin-top: 0.5em;
+    margin-bottom: 3em;
+}
+
+.quarto-title-author-name {
+    margin-top: 3em !important;
+    margin-bottom: 0.2em !important;
+}
+.quarto-title-affiliation {
+    font-size: 0.9em !important;
+    margin-top: 0.5em !important;
+    margin-bottom: 1em !important;
+}
+
+// .reveal code {
+//   font-family: 'Libre Franklin', sans-serif;
+// }
+
+
+.reveal #refs.references.csl-bib-body {
+  font-size: 1em;
+}
+
+figcaption {
+  text-align: center;
+  margin-top: .2em;
+  margin-bottom: .3em;
+}
+
+// .reveal .slide figure>figcaption {
+//   text-align: center;
+//   margin-top: .2em;
+// }
+
+.quarto-title-author-orcid img {
+        margin-bottom: 0px;
+        display: none;
+}
+
+.quarto-title-author-orcid {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    background: url("https://orcid.org/assets/vectors/orcid.logo.icon.svg") no-repeat center center;
+    background-size: contain;
+}
+
+
+
+.reveal .slide-logo {
+    margin: 0 !important;
+    max-width: unset !important;
+    max-height: unset !important;
+    position: absolute !important;
+    top: 20px !important;
+    left: 50px !important;
+    width: 90px !important;
+    height: auto !important;
+}
+
+
+.reveal .slide-logo-normal img, 
+.reveal .slide-logo.slide-logo-normal {
+    top: 20px !important;
+    left: 50px !important;
+    width: 90px !important;
+    height: auto !important;
+}
+
+.reveal .slide-logo-max-size img, 
+.reveal .slide-logo.slide-logo-max-size {
+    top: 30px !important;
+    left: 60px !important;
+    width: 150px !important;
+    height: auto !important;
+}
+
+
+.reveal .slide-number {
+  position: absolute !important;
+  top: 25px !important;
+  right: 50px !important;
+  bottom: auto !important;
+  left: auto !important;
+  
+  // EPFL PPT Style: Large, Bold, Red
+  font-family: $font-family-sans-serif;
+  font-size: 21pt !important;
+  font-weight: 600 !important;
+  color: $rouge !important;
+  background: none !important;
+}
+
+
+.reveal .footer {
+  position: absolute !important;
+  top: 25px !important;
+  right: 150px !important;
+  width: auto !important;
+  max-height: 35px !important;
+  
+  // Layout matching the template alignment
+  
+
+  text-align: right !important;
+  font-size: 13px !important;
+  color: $rouge !important;
+}
+
+.reveal .title-slide .footer {
+  display: none !important;
+}
+
+.reveal h2 {
+  line-height: 1.1;
+  margin-top: 40px !important;
+  margin-bottom: 30px !important;
+}
+
+
+// change ul and ol symbols
+// color to rouge
+.reveal ul {
+    list-style-type: square !important;
+}
+
+.reveal ul ul {
+    list-style-type: disc !important;
+}
+
+.reveal ul ul ul {
+    list-style-type: square !important;
+}
+
+.reveal ul ul ul li::marker {
+  font-size: 0.8em !important;
+  vertical-align: middle !important;
+}
+
+li::marker {
+  color: $rouge !important;
+}
+
+
+.svg-viewbox {
+    position: relative;
+    display: inline-block;
+}
+
+.qrcode {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.qrcode-caption {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .9em;
+    width: 100%;
+    text-align: center;
+}
+
+.reveal .backgrounds .slide-background.title-slide, 
+.reveal .backgrounds .slide-background.unnumbered {
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+/* 2. Inject the gradient filter onto the full-bleed background viewport wrapper */
+.reveal .backgrounds .slide-background.title-slide::before,
+.reveal .backgrounds .slide-background.unnumbered::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;  /* Forces viewport width */
+    height: 100vh !important; /* Forces viewport height */
+    
+    /* Your exact dark-to-transparent corporate slide gradient design */
+    background: linear-gradient(
+        to left, 
+        rgba(23, 22, 21, 0) 0%, 
+        rgba(32, 30, 29, 0) 30%,  
+        rgba(32, 30, 29, 1) 60%, 
+        rgba(32, 30, 29, 1) 100%
+    ) !important;
+    
+    z-index: 1; /* Sits cleanly over the image asset but under the slide elements */
+}
+
+
+.reveal .slides section.title-slide {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important; /* Overrides Reveal's internal flex vertical alignment */
+}
+
+.epfl-title-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    // padding: 60px; /* Gives your content a consistent corporate margin from the edges */
+    z-index: 2; /* Ensures it is above the background image but below any other content */
+}
+
+
+
+
+/* Grouping event name and title */
+.title-group {
+    margin-top: auto; /* Pushes the title down */
+    margin-bottom: auto; /* Centres it in the space */
+    max-width: 42%; /* Optional: limits the width of the title group for better readability */
+}
+
+.event-name {
+    font-size: 1.2rem;
+    color: white;
+    text-transform: uppercase;
+}
+
+.presentation-title {
+    font-size: 6rem;
+    color: white !important;
+    margin: 10px 0 0 0; /* Add top margin */
+    font-weight: bold;
+}
+
+
+
+/* Info boxes at the bottom-right */
+.info-boxes {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 30px; /* Space between boxes */
+    width: auto;
+}
+
+.red-box {
+    background-color: red;
+    color: white;
+    padding: 40px 30px;
+    width: 370px;
+    min-height: 100px;
+    // small shadow effect one bottom right
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.info-label {
+    font-size: 1rem;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-value {
+    font-size: 2rem;
+    color: white;
+    margin: 0;
+}
+
+.epfl-block-svg {
+    color: $rouge;
+    position: absolute;
+    bottom: 10px;
+    left: -50px;
+    z-index: 2;
+    display: block;
+}
+
+
+.epfl-block ul > li:before {
+  content: "";
+  position: absolute;
+  top: 0.7rem;
+  right: calc(100% - 0.5rem);
+  width: 14px;
+  height: 12px;
+  background: #ff0000;
+  font-size: 1.1rem;
+  line-height: 0.8rem;
+}
+
+/* ==========================================================================
+   MOBILE ORIENTATION ENFORCER OVERLAY
+   ========================================================================== */
+
+/* 1. Create the overlay element style */
+#rotate-device-overlay {
+    display: none; /* Hidden by default on desktop / landscape */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #201e1d; /* Matches your dark EPFL theme baseline */
+    color: #ffffff;
+    z-index: 10000; /* Must sit completely above Reveal.js layouts */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    /* Flexbox to center the content */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#full-screen-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  color: white;
+  z-index: 9999; /* Sit on top of everything */
+  font-family: Arial, sans-serif;
+  
+  /* Flexbox to center the content */
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#full-screen-overlay button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#full-screen-overlay button#fullscreen-btn {
+  background-color: $rouge;
+}
+#cancel-fullscreen-btn {
+  background-color: $gray-600;
+}
+
+#full-screen-overlay button:hover {
+ // change pointer to hand and darken the button on hover
+  background-color: darken($rouge, 10%);
+  cursor: pointer;
+}
+
+
+#rotate-device-overlay .icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: rotateHint 2s ease-in-out infinite;
+}
+
+#full-screen-overlay .icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: zoomHint 2s ease-in-out infinite; /* You can define a zoom animation if desired */
+}
+
+#rotate-device-overlay h3, #full-screen-overlay h3 {
+    font-size: 1.6rem;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+#rotate-device-overlay p, #full-screen-overlay p {
+    font-size: 1.4rem;
+    color: #cac7c7;
+    margin: 0;
+}
+
+/* Simple rotation animation hint */
+@keyframes rotateHint {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
+
+// shrink the size of logo and slide number on mobile screens
+@media screen and (max-width: 1000px) {
+
+    .reveal .h2 {
+        margin-top: 60px !important;
+    }
+    
+    .reveal .slide-logo {
+        max-width: unset !important;
+        max-height: unset !important;
+        position: absolute !important;
+        top: 20px !important;
+        left: 40px !important;
+        width: 50px !important;
+        height: auto !important;
+    }
+
+
+    .reveal .slide-logo-normal img, 
+    .reveal .slide-logo.slide-logo-normal {
+        top: 20px !important;
+        left: 40px !important;
+        width: 50px !important;
+        height: auto !important;
+    }
+
+    .reveal .slide-logo-max-size img, 
+    .reveal .slide-logo.slide-logo-max-size {
+        top: 30px !important;
+        left: 60px !important;
+        width: 100px !important;
+        height: auto !important;
+    }
+
+
+
+
+    .reveal .slide-number {
+    position: absolute !important;
+    top: 15px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    left: auto !important;
+    
+    // EPFL PPT Style: Large, Bold, Red
+    font-family: $font-family-sans-serif;
+    font-size: 16pt !important;
+    font-weight: 600 !important;
+    color: $rouge !important;
+    background: none !important;
+    }
+
+
+    .reveal .footer {
+    position: absolute !important;
+    top: 10px !important;
+    right: 80px !important;
+    width: auto !important;
+    
+    // Layout matching the template alignment
+    
+    line-height: 0.9 !important;
+    text-align: right !important;
+    font-size: 10px !important;
+    color: $rouge !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #full-screen-overlay {
+        display: none; /* Hide the full-screen overlay on larger screens */
+    }
+}

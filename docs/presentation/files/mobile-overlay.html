@@ -1,0 +1,90 @@
+<div id="rotate-device-overlay">
+              
+    <div class="icon">🔄</div>
+    <h3>Please Rotate Your Device</h3>
+    <p style="margin-bottom: 20px;">This presentation is optimized for Landscape viewing.</p>
+</div>
+
+<div id="full-screen-overlay">
+    <div class="icon">⛶</div>
+    <h3>Enter Full Screen Mode</h3>
+    <p style="margin-bottom: 10px;">For the best experience, please view this presentation in full screen.</p>
+    <button id="fullscreen-btn">Go Full Screen</button>
+    <button id="cancel-fullscreen-btn">Cancel</button>
+</div>
+<script>
+const overlay = document.getElementById('full-screen-overlay');
+const btn = document.getElementById('fullscreen-btn');
+const cancelBtn = document.getElementById('cancel-fullscreen-btn');
+
+function checkFullScreen() {
+    // Check if the document is currently in full-screen mode and min width is less than 1200px
+    if (!document.fullscreenElement && window.innerWidth < 1200) {
+    // NOT in full screen -> Show the overlay
+    overlay.style.display = 'flex';
+    } else {
+    // IN full screen -> Hide the overlay
+    overlay.style.display = 'none';
+    }
+}
+
+function checkOrientation() {
+    if (window.innerWidth < window.innerHeight) {
+        // Portrait mode
+        document.getElementById('rotate-device-overlay').style.display = 'flex';
+    } else {
+        // Landscape mode
+        document.getElementById('rotate-device-overlay').style.display = 'none';
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+
+    checkOrientation();
+
+    // 2. Listen for window resizing (covers orientation swaps on almost all mobile browsers)
+    window.addEventListener("resize", checkOrientation);
+
+    // 3. Listen specifically to the Screen Orientation API (modern standard)
+    if (screen.orientation) {
+        screen.orientation.addEventListener("change", checkOrientation);
+    } else {
+        // Fallback for older iOS Safari versions
+        window.addEventListener("orientationchange", checkOrientation);
+    }
+
+
+    var fullscreenBtn = document.getElementById("fullscreen-btn");
+    var cancelBtn = document.getElementById("cancel-fullscreen-btn");
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener("click", () => {
+            // Target the root presentation element to make everything full screen
+            var element = document.documentElement; 
+
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { /* Firefox */
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { /* IE/Edge */
+                element.msRequestFullscreen();
+            }
+        });
+    }
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            overlay.style.display = 'none';
+        });
+    }
+});
+// Listen for full-screen change events (built into the browser)
+document.addEventListener('fullscreenchange', checkFullScreen);
+document.addEventListener('webkitfullscreenchange', checkFullScreen); // Safari
+document.addEventListener('mozfullscreenchange', checkFullScreen); // Firefox
+document.addEventListener('MSFullscreenChange', checkFullScreen); // IE/Edge
+
+// Run the check immediately on page load
+checkFullScreen();
+
+
+</script>

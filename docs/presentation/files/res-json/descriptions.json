@@ -1,0 +1,282 @@
+{
+	"0":{
+		"day":{
+			"description":"Sunny",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/clear-day.svg"
+		},
+		"night":{
+			"description":"Clear",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/clear-night.svg"
+		}
+	},
+	"1":{
+		"day":{
+			"description":"Mainly Sunny",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/mostly-clear-day.svg"
+		},
+		"night":{
+			"description":"Mainly Clear",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/mostly-clear-night.svg"
+		}
+	},
+	"2":{
+		"day":{
+			"description":"Partly Cloudy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day.svg"
+		},
+		"night":{
+			"description":"Partly Cloudy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night.svg"
+		}
+	},
+	"3":{
+		"day":{
+			"description":"Cloudy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day.svg"
+		},
+		"night":{
+			"description":"Cloudy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night.svg"
+		}
+	},
+	"45":{
+		"day":{
+			"description":"Foggy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/fog-day.svg"
+		},
+		"night":{
+			"description":"Foggy",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/fog-night.svg"
+		}
+	},
+	"48":{
+		"day":{
+			"description":"Rime Fog",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/fog-day.svg"
+		},
+		"night":{
+			"description":"Rime Fog",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/fog-night.svg"
+		}
+	},
+	"51":{
+		"day":{
+			"description":"Light Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-drizzle.svg"
+		},
+		"night":{
+			"description":"Light Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-drizzle.svg"
+		}
+	},
+	"53":{
+		"day":{
+			"description":"Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-drizzle.svg"
+		},
+		"night":{
+			"description":"Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-drizzle.svg"
+		}
+	},
+	"55":{
+		"day":{
+			"description":"Heavy Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-day-drizzle.svg"
+		},
+		"night":{
+			"description":"Heavy Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-night-drizzle.svg"
+		}
+	},
+	"56":{
+		"day":{
+			"description":"Light Freezing Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-sleet.svg"
+		},
+		"night":{
+			"description":"Light Freezing Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-sleet.svg"
+		}
+	},
+	"57":{
+		"day":{
+			"description":"Freezing Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-sleet.svg"
+		},
+		"night":{
+			"description":"Freezing Drizzle",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-sleet.svg"
+		}
+	},
+	"61":{
+		"day":{
+			"description":"Light Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-rain.svg"
+		},
+		"night":{
+			"description":"Light Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-rain.svg"
+		}
+	},
+	"63":{
+		"day":{
+			"description":"Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-rain.svg"
+		},
+		"night":{
+			"description":"Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-rain.svg"
+		}
+	},
+	"65":{
+		"day":{
+			"description":"Heavy Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-day-rain.svg"
+		},
+		"night":{
+			"description":"Heavy Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-night-rain.svg"
+		}
+	},
+	"66":{
+		"day":{
+			"description":"Light Freezing Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-sleet.svg"
+		},
+		"night":{
+			"description":"Light Freezing Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-sleet.svg"
+		}
+	},
+	"67":{
+		"day":{
+			"description":"Freezing Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-sleet.svg"
+		},
+		"night":{
+			"description":"Freezing Rain",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-sleet.svg"
+		}
+	},
+	"71":{
+		"day":{
+			"description":"Light Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-snow.svg"
+		},
+		"night":{
+			"description":"Light Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-snow.svg"
+		}
+	},
+	"73":{
+		"day":{
+			"description":"Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-snow.svg"
+		},
+		"night":{
+			"description":"Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-snow.svg"
+		}
+	},
+	"75":{
+		"day":{
+			"description":"Heavy Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-day-snow.svg"
+		},
+		"night":{
+			"description":"Heavy Snow",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-night-snow.svg"
+		}
+	},
+	"77":{
+		"day":{
+			"description":"Snow Grains",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-snow.svg"
+		},
+		"night":{
+			"description":"Snow Grains",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-snow.svg"
+		}
+	},
+	"80":{
+		"day":{
+			"description":"Light Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-rain.svg"
+		},
+		"night":{
+			"description":"Light Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-rain.svg"
+		}
+	},
+	"81":{
+		"day":{
+			"description":"Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-rain.svg"
+		},
+		"night":{
+			"description":"Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-rain.svg"
+		}
+	},
+	"82":{
+		"day":{
+			"description":"Heavy Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-day-rain.svg"
+		},
+		"night":{
+			"description":"Heavy Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/extreme-night-rain.svg"
+		}
+	},
+	"85":{
+		"day":{
+			"description":"Light Snow Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-day-sleet.svg"
+		},
+		"night":{
+			"description":"Light Snow Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/partly-cloudy-night-sleet.svg"
+		}
+	},
+	"86":{
+		"day":{
+			"description":"Snow Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-day-sleet.svg"
+		},
+		"night":{
+			"description":"Snow Showers",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/overcast-night-sleet.svg"
+		}
+	},
+	"95":{
+		"day":{
+			"description":"Thunderstorm",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-day.svg"
+		},
+		"night":{
+			"description":"Thunderstorm",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-night.svg"
+		}
+	},
+	"96":{
+		"day":{
+			"description":"Light Thunderstorms With Hail",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-overcast-day-hail.svg"
+		},
+		"night":{
+			"description":"Light Thunderstorms With Hail",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-overcast-night-hail.svg"
+		}
+	},
+	"99":{
+		"day":{
+			"description":"Thunderstorm With Hail",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-extreme-day-hail.svg"
+		},
+		"night":{
+			"description":"Thunderstorm With Hail",
+			"image":"https://cdn.meteocons.com/3.0.0-next.10/svg/flat/thunderstorms-extreme-night-hail.svg"
+		}
+	}
+}

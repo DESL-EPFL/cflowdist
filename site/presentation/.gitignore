@@ -1,0 +1,4 @@
+.quarto
+**/SuisseIntl*
+/.quarto/
+**/*.quarto_ipynb

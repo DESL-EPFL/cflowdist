@@ -1,0 +1,40 @@
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+/* Styling for the MapLibre Popup */
+.maplibregl-popup-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    padding: 15px;
+}
+
+.popup-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.popup-table {
+    width: 100%;
+}
+
+.popup-table tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.popup-table tr:last-child {
+    border-bottom: none;
+}
+
+.popup-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #444;
+    padding: 4px 0;
+}
+
+.popup-table td {
+    font-size: 13px;
+    padding: 4px 0;
+    color: #444;
+    text-align: center;
+}

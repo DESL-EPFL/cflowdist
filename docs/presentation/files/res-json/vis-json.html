@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PSCC Final Result Visualization with maplibre GL js</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.21.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.21.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suncalc@1.9.0/suncalc.min.js"></script>
+
+
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+        /* Container styling to provide some padding */
+        .slider-container {
+        width: 100%;
+        padding: 10px 0;
+        }
+
+        #slider {
+        -webkit-appearance: none; /* Reset default styles */
+        appearance: none;
+        width: 100%;
+        height: 4px; /* Thin, elegant track */
+        background: #c6c9cb; /* Light gray track */
+        outline: none;
+        border-radius: 2px;
+        cursor: pointer;
+        }
+
+        /* Track styling for Chrome, Safari, and Edge */
+        #slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: #e6ebef;
+        border-radius: 2px;
+        }
+
+        /* Thumb styling for Chrome, Safari, and Edge */
+        #slider::-webkit-slider-thumb {
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background: #3887be; /* Mapbox Blue */
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -7px; /* Centers thumb on the track */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        transition: background 0.2s ease;
+        }
+
+        /* Track styling for Firefox */
+        #slider::-moz-range-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: #e6ebef;
+        border-radius: 2px;
+        }
+
+        /* Thumb styling for Firefox */
+        #slider::-moz-range-thumb {
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background: #3887be;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Hover and Active states */
+        #slider:hover::-webkit-slider-thumb {
+        background: #2b6c96; /* Darker blue on hover */
+        }
+
+        #slider:active::-webkit-slider-thumb {
+        transform: scale(1.1); /* Subtle feedback when clicking */
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            background: rgba(52, 50, 50, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10;
+            font-family: sans-serif;
+            color: #fff;
+        }
+
+        #control-label {
+            display: flex;
+            font-size: 1.5em;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .label-side {
+            flex: 1; /* Forces all three divs to take up equal width */
+        }
+
+        .label-side.left {
+            text-align: left;
+        }
+
+        .label-side.center {
+            text-align: center; /* Keeps the button exactly in the middle */
+        }
+
+        .label-side.right {
+            text-align: right; /* Pushes the changing data out of the way to the right */
+        }
+
+        .weather-icon {
+            height: 2em;
+            vertical-align: middle;
+        }
+
+
+        .switch {
+            display: block;
+            --width-of-switch: 6em;
+            --height-of-switch: 3em;
+            /* size of sliding icon -- sun and moon */
+            --size-of-icon: 2em;
+            /* it is like a inline-padding of switch */
+            --switch-slider-offset: 0.3em;
+            position: relative;
+            width: var(--width-of-switch);
+            height: var(--height-of-switch);
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The switch-slider */
+        .switch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f4f4f5;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .switch-slider:before {
+            position: absolute;
+            content: "";
+            height: var(--size-of-icon,1.4em);
+            width: var(--size-of-icon,1.4em);
+            /* 1. Added clip-path here so the transition animates smoothly */
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); 
+            border-radius: 20px;
+            left: var(--switch-slider-offset,0.3em);
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(40deg,#ff0055,#ff8c00 70%);
+            transition: .4s;
+        }
+
+        input:checked + .switch-slider {
+        background-color    : #f4f4f5;
+        }
+
+        input:checked + .switch-slider:before {
+            left: calc(100% - (var(--size-of-icon,1.4em) + var(--switch-slider-offset,0.3em)));
+            
+            background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+            
+            box-shadow: none; 
+            
+            /* 4. Apply the polygon shape (Example: A sharp Diamond/Rhombus) */
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+        }
+
+        #svg-colormap-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* modern button styling */
+        #play-button {
+            background-color: #3887be;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #play-button:hover {
+            background-color: #408ec2;
+        }
+
+        #play-button:active {
+            transform: scale(0.95);
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <script src="vis-json.js"></script>
+    <div id="map" style="width: 100%; height: 100vh;"></div>
+    <div id="controls">
+        <div id="control-label">
+            <div class="label-side left"><strong id="time-label">Loading time data...</strong></div>
+            <div class="label-side center"><button id="play-button">Play</button></div>
+            <div class="label-side right"><span id="weather-value">Some dynamic data here</span></div>
+        </div>
+
+        <div class="slider-container">
+            <input 
+                id="slider" 
+                type="range" 
+                min="0" 
+                max="0" 
+                step="1" 
+                value="0"
+            >
+        </div>
+    </div>
+
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 10;">
+        <label class="switch">
+        <input type="checkbox" id="toggle-networks">
+        <span class="switch-slider"></span>
+        </label>
+    </div>
+
+    <div id="svg-colormap-container">
+        <svg width="450" height="100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="priceGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="blue" />
+            <stop offset="20%" stop-color="green" />
+            <stop offset="40%" stop-color="yellow" />
+            <stop offset="60%" stop-color="orange" />
+            <stop offset="80%" stop-color="red" />
+            <stop offset="100%" stop-color="brown" />
+            </linearGradient>
+        </defs>
+
+        <text x="20" y="25" font-family="sans-serif" font-size="16" fill="#FFF">Carbon Intensity (gCO2eq/kWh)</text>
+
+        <rect x="20" y="35" width="360" height="20" fill="url(#priceGradient)" />
+
+        <g font-family="sans-serif" font-size="16" fill="#FFF" text-anchor="middle">
+            <line x1="20" y1="55" x2="20" y2="60" stroke="#FFF" />
+            <text x="20" y="75">10</text>
+            
+            <line x1="92" y1="55" x2="92" y2="60" stroke="#FFF" />
+            <text x="92" y="75">30</text>
+            
+            <line x1="164" y1="55" x2="164" y2="60" stroke="#FFF" />
+            <text x="164" y="75">50</text>
+            
+            <line x1="236" y1="55" x2="236" y2="60" stroke="#FFF" />
+            <text x="236" y="75">70</text>
+            
+            <line x1="308" y1="55" x2="308" y2="60" stroke="#FFF" />
+            <text x="308" y="75">90</text>
+            
+            <line x1="380" y1="55" x2="380" y2="60" stroke="#FFF" />
+            <text x="380" y="75">110</text>
+        </g>
+        </svg>
+    </div>
+</body>
+</html>

@@ -14,6 +14,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: presentation/index.qmd
+        text: Presentation
   page-footer:
     left: |
       <span class="faux-block"> <i class="bi bi-c-circle"></i>  2026 Distributed Electrical Systems Laboratory  </span>
