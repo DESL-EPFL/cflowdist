@@ -330,7 +330,7 @@ checkFullScreen();
 
 </script>
 <div id="live-link">
-    View online presentation: https://desl-epfl.github.io/cflowdist/presentation/
+    View presentation online: https://desl-epfl.github.io/cflowdist/presentation/
 </div>
 
 <style>
@@ -822,6 +822,73 @@ Figure&nbsp;5: Synthetic Swiss MV–LV distribution grid inferred from open geos
 </figure>
 </div>
 </section>
+<section id="case-study-synthetic-swiss-distribution-grid---generation-and-load-profiles" class="slide level2 smaller">
+<h2>Case Study: Synthetic Swiss Distribution Grid - Generation and Load Profiles</h2>
+<div class="columns">
+<div class="column" style="width:51%;">
+<h3 id="generation-profiles">Generation Profiles</h3>
+<h5 id="pv-generation-model-weather-data-roof-info">PV Generation Model: Weather Data + Roof Info</h5>
+<ul>
+<li>A high fidelity PV generation model that accounts for the inclination and orientation of the PV panels <span class="citation" data-cites="jensenPvlibIotoolsOpen2023">(<a href="#/references" role="doc-biblioref" onclick="">Jensen et al., 2023</a>)</span></li>
+<li>Irradiance data from <span class="citation" data-cites="zippenfenigOpenMeteocomWeatherAPI2024">(<a href="#/references" role="doc-biblioref" onclick="">Zippenfenig, 2024</a>)</span></li>
+</ul>
+<p><span class="math display">\[
+P_\text{dc} = \frac{I_\text{tilt}}{1000} P_\text{rated} ( 1 + \gamma_\text{pdc} (T_\text{cell} - T_\text{ref}))
+\]</span></p>
+<p><span class="math display">\[
+I_\text{tilt} = \mathrm{DNI} \cdot \cos\theta + \mathrm{DHI} \cdot \left(\frac{1 + \cos\beta}{2}\right) + \mathrm{GHI} \cdot \rho \cdot \left(\frac{1 - \cos\beta}{2}\right) \label{eq:tilt-irradiance}
+\]</span></p>
+<h5 id="other-generation-models">Other Generation Models</h5>
+<p>A simple flat generation profile for other types of generators due to the limited connection in the Swiss distribution grid</p>
+<div id="fig-sgen-line" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="sgen-line" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("sgen-line", "./files/sgen_line.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Output power of 9 selected PV plants over 4 days within the selected distribution network.
+</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:44%;">
+<h3 id="load-profiles">Load Profiles</h3>
+<p><br></p>
+<p>BDEW electricity demand profiles <span class="citation" data-cites="amedeoOemofDemandlibOemofdemandlib2017">(<a href="#/references" role="doc-biblioref" onclick="">Amedeo et al., 2017</a>)</span> + land use data <span class="citation" data-cites="SwissLandUse">(<a href="#/references" role="doc-biblioref" onclick=""><em>Swiss <span>Land Use Statistics</span></em>, 2024</a>)</span></p>
+<p>Match the load profiles to the load nodes based on the land use type of the node’s location</p>
+<p><br></p>
+<p>Examples:</p>
+<ul>
+<li><em>Residential areas (1 or 2-family houses)</em>: BDEW type H0 (Households)</li>
+<li><em>Agricultural buildings and surroundings</em>: BDEW type L0 (General farms)</li>
+<li><em>Public buildings and surroundings</em>: BDEW type G1 (Business on weekdays 8am - 6pm)</li>
+</ul>
+<p><br> <br></p>
+<div id="fig-load-line" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="load-line" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("load-line", "./files/load_line.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Normalized load factor generated for Dietlikon over a week.
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
 <section id="case-study-synthetic-swiss-distribution-grid---source-intensity" class="slide level2">
 <h2>Case Study: Synthetic Swiss Distribution Grid - Source Intensity</h2>
 <p><br></p>
@@ -933,74 +1000,7 @@ renderPlotly("canton-ci", "./files/canton_ci.json");
 </script>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-canton-ci-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Ticino over three days.
-</figcaption>
-</figure>
-</div>
-</div></div>
-</section>
-<section id="case-study-synthetic-swiss-distribution-grid---generation-and-load-profiles" class="slide level2 smaller">
-<h2>Case Study: Synthetic Swiss Distribution Grid - Generation and Load Profiles</h2>
-<div class="columns">
-<div class="column" style="width:51%;">
-<h3 id="generation-profiles">Generation Profiles</h3>
-<h5 id="pv-generation-model-weather-data-roof-info">PV Generation Model: Weather Data + Roof Info</h5>
-<ul>
-<li>A high fidelity PV generation model that accounts for the inclination and orientation of the PV panels <span class="citation" data-cites="jensenPvlibIotoolsOpen2023">(<a href="#/references" role="doc-biblioref" onclick="">Jensen et al., 2023</a>)</span></li>
-<li>Irradiance data from <span class="citation" data-cites="zippenfenigOpenMeteocomWeatherAPI2024">(<a href="#/references" role="doc-biblioref" onclick="">Zippenfenig, 2024</a>)</span></li>
-</ul>
-<p><span class="math display">\[
-P_\text{dc} = \frac{I_\text{tilt}}{1000} P_\text{rated} ( 1 + \gamma_\text{pdc} (T_\text{cell} - T_\text{ref}))
-\]</span></p>
-<p><span class="math display">\[
-I_\text{tilt} = \mathrm{DNI} \cdot \cos\theta + \mathrm{DHI} \cdot \left(\frac{1 + \cos\beta}{2}\right) + \mathrm{GHI} \cdot \rho \cdot \left(\frac{1 - \cos\beta}{2}\right) \label{eq:tilt-irradiance}
-\]</span></p>
-<h5 id="other-generation-models">Other Generation Models</h5>
-<p>A simple flat generation profile for other types of generators due to the limited connection in the Swiss distribution grid</p>
-<div id="fig-sgen-line" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
-    <div id="sgen-line" style="display: flex; justify-content: center; gap: 0px; "></div>
-</div>
-
-<script>
-renderPlotly("sgen-line", "./files/sgen_line.json");
-</script>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Output power of 9 selected PV plants over 4 days within the selected distribution network.
-</figcaption>
-</figure>
-</div>
-</div><div class="column" style="width:5%;">
-
-</div><div class="column" style="width:44%;">
-<h3 id="load-profiles">Load Profiles</h3>
-<p><br></p>
-<p>BDEW electricity demand profiles <span class="citation" data-cites="amedeoOemofDemandlibOemofdemandlib2017">(<a href="#/references" role="doc-biblioref" onclick="">Amedeo et al., 2017</a>)</span> + land use data <span class="citation" data-cites="SwissLandUse">(<a href="#/references" role="doc-biblioref" onclick=""><em>Swiss <span>Land Use Statistics</span></em>, 2024</a>)</span></p>
-<p>Match the load profiles to the load nodes based on the land use type of the node’s location</p>
-<p><br></p>
-<p>Examples:</p>
-<ul>
-<li><em>Residential areas (1 or 2-family houses)</em>: BDEW type H0 (Households)</li>
-<li><em>Agricultural buildings and surroundings</em>: BDEW type L0 (General farms)</li>
-<li><em>Public buildings and surroundings</em>: BDEW type G1 (Business on weekdays 8am - 6pm)</li>
-</ul>
-<p><br> <br></p>
-<div id="fig-load-line" class="quarto-float quarto-figure quarto-figure-center">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
-    <div id="load-line" style="display: flex; justify-content: center; gap: 0px; "></div>
-</div>
-
-<script>
-renderPlotly("load-line", "./files/load_line.json");
-</script>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Normalized load factor generated for Dietlikon over a week.
+Figure&nbsp;8: Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Ticino over three days.
 </figcaption>
 </figure>
 </div>
@@ -1016,7 +1016,7 @@ Figure&nbsp;8: Normalized load factor generated for Dietlikon over a week.
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-swiss-pdgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Visualization of the carbon tracing results of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks.
+Figure&nbsp;9: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks.
 </figcaption>
 </figure>
 </div>

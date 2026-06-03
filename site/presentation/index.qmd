@@ -526,77 +526,6 @@ Synthetic Swiss MV–LV distribution grid inferred from open geospatial and infr
 :::
 
 
-## Case Study: Synthetic Swiss Distribution Grid - Source Intensity
-
-
-<br>
-
-::: {.columns}
-
-::: {.column width="51%"}
-
-#### Generation Plants
-
-
-<br>
-
-
-| Category | Number | Total capacity [MW] | Carbon intensity [gCO<sub>2</sub>eq/kWh] |
-|:------:|:---:|:-------:|:---------:|
-| Photovoltaic | 226268 | 5391.0 | 30 |
-| Hydroelectric | 990 | 13979.1 | 24 |
-| Biomass | 327 | 151.1 | 230 |
-| Natural gas | 117 | 266.3 | 528 |
-| Wind | 43 | 77.47 | 11 |
-| Waste | 18 | 220.8 | 580 |
-| Nuclear | 4 | 3014.6 | 12 |
-| Crude oil | 1 | 0.0053 | 650 |
-| | | | |
-
-
-: The statistics of Swiss generation types [@ElectricityProductionPlants] and carbon intensities [@mapsSwitzerland2024Carbon2024] in 2023. {#tbl-gen-stats}
-
-:::
-
-::: {.column width="5%"}
-
-
-
-:::
-
-::: {.column width="44%"}
-
-#### Transmission-Level Carbon Signals
-
-<br>
-
-[Emissium](https://emissium.io/) provides the dynamic carbon intensity at the transmission level in Switzerland:
-
-- Cantonal-level geographical granularity
-- Hourly temporal resolution
-
-
-<br>
-
-::: {#fig-canton-ci}
-```{=html}
-<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
-    <div id="canton-ci" style="display: flex; justify-content: center; gap: 0px; "></div>
-</div>
-
-<script>
-renderPlotly("canton-ci", "./files/canton_ci.json");
-</script>
-```
-
-Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Ticino over three days.
-:::
-
-
-:::
-
-:::
-
 
 
 ## Case Study: Synthetic Swiss Distribution Grid - Generation and Load Profiles {.smaller}
@@ -692,6 +621,79 @@ Normalized load factor generated for Dietlikon over a week.
 :::
 
 
+
+## Case Study: Synthetic Swiss Distribution Grid - Source Intensity
+
+
+<br>
+
+::: {.columns}
+
+::: {.column width="51%"}
+
+#### Generation Plants
+
+
+<br>
+
+
+| Category | Number | Total capacity [MW] | Carbon intensity [gCO<sub>2</sub>eq/kWh] |
+|:------:|:---:|:-------:|:---------:|
+| Photovoltaic | 226268 | 5391.0 | 30 |
+| Hydroelectric | 990 | 13979.1 | 24 |
+| Biomass | 327 | 151.1 | 230 |
+| Natural gas | 117 | 266.3 | 528 |
+| Wind | 43 | 77.47 | 11 |
+| Waste | 18 | 220.8 | 580 |
+| Nuclear | 4 | 3014.6 | 12 |
+| Crude oil | 1 | 0.0053 | 650 |
+| | | | |
+
+
+: The statistics of Swiss generation types [@ElectricityProductionPlants] and carbon intensities [@mapsSwitzerland2024Carbon2024] in 2023. {#tbl-gen-stats}
+
+:::
+
+::: {.column width="5%"}
+
+
+
+:::
+
+::: {.column width="44%"}
+
+#### Transmission-Level Carbon Signals
+
+<br>
+
+[Emissium](https://emissium.io/) provides the dynamic carbon intensity at the transmission level in Switzerland:
+
+- Cantonal-level geographical granularity
+- Hourly temporal resolution
+
+
+<br>
+
+::: {#fig-canton-ci}
+```{=html}
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="canton-ci" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("canton-ci", "./files/canton_ci.json");
+</script>
+```
+
+Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Ticino over three days.
+:::
+
+
+:::
+
+:::
+
+
 ## Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results 
 
 
@@ -702,7 +704,7 @@ Normalized load factor generated for Dietlikon over a week.
 </div>
 ```
 
-Visualization of the carbon tracing results of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes,
+Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes,
 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks.
 :::
 
