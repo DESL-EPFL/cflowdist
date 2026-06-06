@@ -1,0 +1,24 @@
+# carbon.carbon_tracing_ap { #cflowdist.carbon.carbon_tracing_ap }
+
+```python
+carbon.carbon_tracing_ap(step_flow_data, self_consumption=True)
+```
+
+Perform carbon tracing (average participation) using an optimization approach to calculate the carbon intensity of the ejected flow and the node emission, with an option to consider self-consumption. (LL method and LL-P method)
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name             | Type            | Description                                                                                                                                                                                                                                                            | Default    |
+|------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| step_flow_data   | FlowDataWrapper | A FlowDataWrapper object containing all the necessary flow data for the specific time step.                                                                                                                                                                            | _required_ |
+| self_consumption | bool            | A boolean flag indicating whether to consider self-consumption in the carbon tracing calculation. If True, the method will prioritize the self-consumption for prosumer nodes (LL-P method), otherwise, the method will follow the perfect-mix assumption (LL method). | `True`     |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                            | Description                                                                                                                                                                                                                                                                                                |
+|--------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | tuple\[np.ndarray, np.ndarray\] | A tuple containing two numpy arrays:  - `eject_intensity`: The carbon intensity of the ejected flow at each node, i.e., $c_x$ for LL method and $c_o$ for LL-P method. - `node_emission`: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [carbon.carbon_tracing_ap_with_losses](/reference/carbon.carbon_tracing_ap_with_losses.qmd)

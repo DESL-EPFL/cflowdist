@@ -1,0 +1,24 @@
+# network.find_id { #cflowdist.network.find_id }
+
+```python
+network.find_id(tracer)
+```
+
+Find the identifiers of the best matching MV and LV network ID for the location of the tracer, based on the LV and MV hulls in the tracer's data.
+The function uses the `find_best_polygon` helper function to find the best matching polygon for the tracer's location in both the LV and MV hulls, and returns the corresponding identifiers for the MV and LV networks.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type         | Description                                                                                                                | Default    |
+|--------|--------------|----------------------------------------------------------------------------------------------------------------------------|------------|
+| tracer | CarbonTracer | An instance of the CarbonTracer class, which contains the location of the tracer and the LV and MV hulls as GeoDataFrames. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type              | Description                                                                                                                           |
+|--------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+|        | tuple\[str, str\] | A tuple containing the identifiers of the best matching MV and LV network ID for the tracer's location, in the format (MV_ID, LV_ID). |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [find_best_polygon](/reference/network.find_best_polygon.qmd)

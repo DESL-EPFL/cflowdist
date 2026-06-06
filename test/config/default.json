@@ -1,0 +1,15 @@
+{
+    "path": {
+        "mv_hulls": "./data/hulls/mv_hulls.geojson.zip",
+        "lv_hulls": "./data/hulls/lv_hulls.geojson.zip",
+        "plants": "./data/admin/plants_with_roof.parquet",
+        "lu": "./data/admin/lu.parquet",
+        "lu_46_category": "./data/admin/LU_46_category.csv",
+        "pp_grid_local": "./data/Swiss-PDGs-MV-LV/",
+        "pp_grid_remote": "https://raw.githubusercontent.com/DESL-EPFL/swiss-mv-lv-grids/main/",
+        "netid_ppid_dict": "./data/admin/netid_ppid_dict.json",
+        "ci_cantons": "./data/carbon/ci_cantons_2023.zip",
+        "lv_2_mv": "./data/hulls/lv_2_mv.json",
+        "pf_results": "./pf_res/"
+    }
+}

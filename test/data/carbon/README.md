@@ -1,0 +1,1 @@
+The carbon intensities dataset of the Swiss cantons in 2023 is provided by [Emissium](https://emissium.io/), we are grateful for their support in providing this data. The dataset is released under their authorization for testing purposes; please use it responsibly.

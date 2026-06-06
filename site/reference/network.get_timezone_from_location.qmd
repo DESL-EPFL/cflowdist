@@ -1,0 +1,19 @@
+# network.get_timezone_from_location { #cflowdist.network.get_timezone_from_location }
+
+```python
+network.get_timezone_from_location(location)
+```
+
+Get the timezone of a given Location object.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name     | Type     | Description                                            | Default    |
+|----------|----------|--------------------------------------------------------|------------|
+| location | Location | The location object containing latitude and longitude. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type   | Description                                   |
+|--------|--------|-----------------------------------------------|
+|        | str    | The timezone name (e.g., 'America/New_York'). |

@@ -1,0 +1,23 @@
+# carbon.calculate_Q { #cflowdist.carbon.calculate_Q }
+
+```python
+carbon.calculate_Q(G, L, I, X, FF)
+```
+
+Calculate the Q matrix based on the given formula.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type       | Description                   | Default    |
+|--------|------------|-------------------------------|------------|
+| G      | np.ndarray | Generation values (1D array). | _required_ |
+| L      | np.ndarray | Load values (1D array).       | _required_ |
+| I      | np.ndarray | Import values (1D array).     | _required_ |
+| X      | np.ndarray | Export values (1D array).     | _required_ |
+| FF     | np.ndarray | Flow values (2D array).       | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                                                    | Description                                                        |
+|--------|---------------------------------------------------------|--------------------------------------------------------------------|
+|        | tuple\[np.ndarray, np.ndarray, np.ndarray, np.ndarray\] | A tuple containing the following elements: - q - Fin - Fout - Pout |

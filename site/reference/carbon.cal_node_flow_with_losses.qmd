@@ -1,0 +1,12 @@
+# carbon.cal_node_flow_with_losses { #cflowdist.carbon.cal_node_flow_with_losses }
+
+```python
+carbon.cal_node_flow_with_losses(P_ij, P_gen, P_load, carriers)
+```
+
+A standard implementation of the carbon allocation with losses (LA method).
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [carbon.carbon_tracing_ap_with_losses](/reference/carbon.carbon_tracing_ap_with_losses.qmd)
+- [carbon.optimized_node_flow_with_losses](/reference/carbon.optimized_node_flow_with_losses.qmd)

@@ -1,0 +1,26 @@
+# plot.network_plot { #cflowdist.plot.network_plot }
+
+```python
+plot.network_plot(tracer, show_tools=True)
+```
+
+Plot network topology by folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type         | Description                                                                                                                                    | Default    |
+|------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| tracer     | CarbonTracer | The CarbonTracer object that contains the constructed network data.                                                                            | _required_ |
+| show_tools | bool         | A boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map. | `True`     |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                          |
+|--------|------------|------------------------------------------------------|
+|        | folium.Map | A pretty map visualization of the network `pp_grid`. |
+
+## Example {.doc-section .doc-section-example}
+
+```python
+tracer.network_plot()
+```

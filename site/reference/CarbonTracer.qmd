@@ -1,0 +1,242 @@
+# CarbonTracer { #cflowdist.CarbonTracer }
+
+```python
+CarbonTracer(address, dir_config='./config/default.json')
+```
+
+A class to trace carbon flows in the power grid.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type   | Description                                                      | Default                   |
+|------------|--------|------------------------------------------------------------------|---------------------------|
+| address    | str    | The address of the location to analyze.                          | _required_                |
+| dir_config | str    | Path to the configuration file, default "./config/default.json". | `'./config/default.json'` |
+
+## Attributes {.doc-section .doc-section-attributes}
+
+| Name           | Type                     | Description                                                                                     |
+|----------------|--------------------------|-------------------------------------------------------------------------------------------------|
+| config         | dict\[str, dict\]        | The loaded configuration from the JSON file.                                                    |
+| all_plant_df   | gpd.GeoDataFrame         | A GeoDataFrame containing all the power plants.                                                 |
+| mv_hulls       | dict\[str, list\]        | A dictionary containing the convex hulls of the MV grids.                                       |
+| lv_hulls       | dict\[str, list\]        | A dictionary containing the convex hulls of the LV grids.                                       |
+| all_lu         | gpd.GeoDataFrame         | A GeoDataFrame containing all the land use data.                                                |
+| lu_46_category | pd.DataFrame             | A DataFrame mapping land use categories to 46 categories.                                       |
+| pp_grid        | pp.pandapowerNet         | The pandapower network representing the power grid.                                             |
+| pf_calculator  | grid.PowerFlowCalculator | An instance of the PowerFlowCalculator class to perform power flow calculations.                |
+| loc_selected   | Location                 | The geocoded location based on the provided address.                                            |
+| node_ci_df     | pd.DataFrame             | A DataFrame containing the carbon intensity at the node level.                                  |
+| net_ci_df      | pd.DataFrame             | A DataFrame containing the carbon intensity aggregated to the network level (weighted average). |
+| node_ce_df     | pd.DataFrame             | A DataFrame containing the carbon emissions at the node level.                                  |
+| net_ce_df      | pd.DataFrame             | A DataFrame containing the carbon emissions aggregated to the network level.                    |
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [allocate_carbon](#cflowdist.CarbonTracer.allocate_carbon) | Allocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods).  |
+| [lv_grids_time_plot](#cflowdist.CarbonTracer.lv_grids_time_plot) | Plot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider. |
+| [network_carbon_plot](#cflowdist.CarbonTracer.network_carbon_plot) | Plot the calculated node-level carbon intensity using folium. |
+| [network_dual_plot](#cflowdist.CarbonTracer.network_dual_plot) | Plot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile. |
+| [network_plot](#cflowdist.CarbonTracer.network_plot) | Plot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines. |
+| [power_flow](#cflowdist.CarbonTracer.power_flow) | Run power flow (by pandapower time series simulation). |
+| [save_pickle](#cflowdist.CarbonTracer.save_pickle) | Save a CarbonTracer object to a pickle file. |
+| [set_snapshots](#cflowdist.CarbonTracer.set_snapshots) | Set snapshots for power flow and carbon allocation after. |
+
+### allocate_carbon { #cflowdist.CarbonTracer.allocate_carbon }
+
+```python
+CarbonTracer.allocate_carbon(
+    return_scale='node',
+    loss_allocation=False,
+    self_consumption=True,
+    use_numba=False,
+)
+```
+
+Allocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods). 
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name             | Type                            | Description                                                                                                                                                                                                                                                                                                                                                    | Default   |
+|------------------|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| return_scale     | Literal\[\'node\', \'lv_net\'\] | The scale to return the carbon intensity results, either at 'node' level or aggregated to 'lv_net' level.                                                                                                                                                                                                                                                      | `'node'`  |
+| loss_allocation  | bool                            | Whether to allocate losses to the nodes. If True, the carbon intensity will be allocated considering the losses, i.e. the LA method. If False, the carbon intensity will be allocated without considering losses.                                                                                                                                              | `False`   |
+| self_consumption | bool                            | Whether to prioritize self-consumption in the flow tracing algorithm. If True, the algorithm will prioritize self-consumption when allocating carbon intensity (LL-P method). If False, the algorithm will not prioritize self-consumption (LL method).                                                                                                        | `True`    |
+| use_numba        | bool                            | Whether to use numba JIT compiler for faster computation. If True, numba will be used to speed up the LA method, only valid when `loss_allocation` is True.  Note that for large networks with more than 500 nodes, it is recommended to set `use_numba` to True for faster computation, as the LA method can be computationally intensive for large networks. | `False`   |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                                                                                                           |
+|--------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the allocated carbon intensity, either at node level or aggregated to lv_net level, depending on the `return_scale` parameter. |
+
+### lv_grids_time_plot { #cflowdist.CarbonTracer.lv_grids_time_plot }
+
+```python
+CarbonTracer.lv_grids_time_plot(tile_name='white', show_tools=False)
+```
+
+Plot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type   | Description                                                                                                                                    | Default   |
+|------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| tile_name  | str    | A selected tile name for the basemap.                                                                                                          | `'white'` |
+| show_tools | bool   | A boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map. | `False`   |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                                                     |
+|--------|------------|---------------------------------------------------------------------------------|
+|        | folium.Map | A pretty map visualization of the carbon allocation results with a time slider. |
+
+#### Example {.doc-section .doc-section-example}
+
+```python
+tracer.lv_grids_time_plot()
+```
+
+### network_carbon_plot { #cflowdist.CarbonTracer.network_carbon_plot }
+
+```python
+CarbonTracer.network_carbon_plot(snapshot, show_colormap=True, show_tools=False)
+```
+
+Plot the calculated node-level carbon intensity using folium.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name          | Type         | Description                                                                                                                                    | Default    |
+|---------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| snapshot      | pd.Timestamp | A selected timestamp to plot.                                                                                                                  | _required_ |
+| show_colormap | bool         | A boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.                                 | `True`     |
+| show_tools    | bool         | A boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map. | `False`    |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                                  |
+|--------|------------|--------------------------------------------------------------|
+|        | folium.Map | A pretty map visualization of the carbon allocation results. |
+
+#### Example {.doc-section .doc-section-example}
+
+```python
+tracer.network_carbon_plot(snapshot = tracer.snapshots[0])
+```
+
+### network_dual_plot { #cflowdist.CarbonTracer.network_dual_plot }
+
+```python
+CarbonTracer.network_dual_plot(
+    snapshot_night,
+    snapshot_day,
+    show_colormap=False,
+)
+```
+
+Plot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name           | Type         | Description                                                                                                    | Default    |
+|----------------|--------------|----------------------------------------------------------------------------------------------------------------|------------|
+| snapshot_night | pd.Timestamp | A selected night timestamp to plot.                                                                            | _required_ |
+| snapshot_day   | pd.Timestamp | A selected day timestamp to plot.                                                                              | _required_ |
+| show_colormap  |              | A boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map. | `False`    |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                   | Description                                                       |
+|--------|------------------------|-------------------------------------------------------------------|
+|        | folium.plugins.DualMap | A pretty dual map visualization of the carbon allocation results. |
+
+#### Example {.doc-section .doc-section-example}
+
+```python
+tracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])
+```
+
+### network_plot { #cflowdist.CarbonTracer.network_plot }
+
+```python
+CarbonTracer.network_plot(show_tools=True)
+```
+
+Plot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type   | Description                                                                                                                                    | Default   |
+|------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| show_tools | bool   | A boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map. | `True`    |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                          |
+|--------|------------|------------------------------------------------------|
+|        | folium.Map | A pretty map visualization of the network `pp_grid`. |
+
+#### Example {.doc-section .doc-section-example}
+
+```python
+tracer.network_plot()
+```
+
+### power_flow { #cflowdist.CarbonTracer.power_flow }
+
+```python
+CarbonTracer.power_flow()
+```
+
+Run power flow (by pandapower time series simulation).
+
+#### See Also {.doc-section .doc-section-see-also}
+
+- [grid.PowerFlowCalculator](/reference/grid.PowerFlowCalculator.qmd)
+
+### save_pickle { #cflowdist.CarbonTracer.save_pickle }
+
+```python
+CarbonTracer.save_pickle(filename)
+```
+
+Save a CarbonTracer object to a pickle file.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name     | Type   | Description             | Default    |
+|----------|--------|-------------------------|------------|
+| filename | str    | Path to write the file. | _required_ |
+
+### set_snapshots { #cflowdist.CarbonTracer.set_snapshots }
+
+```python
+CarbonTracer.set_snapshots(t_start, t_end, freq='1h')
+```
+
+Set snapshots for power flow and carbon allocation after.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name    | Type   | Description                | Default    |
+|---------|--------|----------------------------|------------|
+| t_start | str    | Starting time.             | _required_ |
+| t_end   | str    | Ending time.               | _required_ |
+| freq    | str    | Frequency, default hourly. | `'1h'`     |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type             | Description   |
+|--------|------------------|---------------|
+|        | pd.DatetimeIndex |               |
+
+#### Example {.doc-section .doc-section-example}
+
+```python
+t_start = '2023-06-08 12:00:00'
+t_end = '2023-06-08 14:00:00'
+snapshots = tracer.set_snapshots(t_start=t_start, t_end=t_end)
+```

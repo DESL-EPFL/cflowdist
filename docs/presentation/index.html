@@ -120,7 +120,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-ac42eadcc597172c3ae89490ba7455fc.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8d6bf5e1aa6f36ccee2e989f98760edb.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -359,14 +359,18 @@ checkFullScreen();
     <div class="epfl-title-container">
         
         <div class="title-group" style="position: absolute; top: 42%; transform: translateY(-50%) translateX(-10%);">
-            <div class="event-name" style="color: #FFF; font-size: 2.2rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px;">
+            <div class="event-name" style="color: #FFF; font-size: 2.4rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 15px;">
                 PSCC 2026
             </div>
-            <h1 class="presentation-title" style="font-size: 4.5rem; color: #FFF; font-weight: 700; margin: 0; line-height: 1.1;  padding: 0 20px;">
-                Carbon Flow Tracing in Distribution Grids
+            <h1 class="presentation-title" style="font-size: 3.9rem; color: #FFF; font-weight: 700; margin: 0; line-height: 1.1;  padding: 0 20px;">
+                Carbon Flow Tracing in Distribution Grids:
             </h1>
-            <h2 class="presentation-subtitle" style="font-size: 2.5rem; color: #FFF; font-weight: 400; margin-top: 10px; letter-spacing: 0.5px;">
-            From Method to Application
+            <h1 class="presentation-title" style="font-size: 3.7rem; color: #FFF; font-weight: 700; margin: 0; line-height: 1.1;  padding: 0 20px;">
+                From Method to Application
+            </h1>
+
+            <h2 class="presentation-subtitle" style="font-size: 2.2rem; color: #FFF; font-weight: 400; margin-top: 80px; letter-spacing: 0.5px;">
+            Distributed Electrical Systems Laboratory
             </h2>
         </div>
 
@@ -374,7 +378,7 @@ checkFullScreen();
             <img src="./files/epfl-block.svg" alt="EPFL Logo" style="width: 220px; height: auto;">
         </div>
 
-        <div class="svg-container" style="display: flex; justify-content: center; gap: 80px; margin-top: 10px; position: absolute; bottom: 20px; left: 28%; transform: translateX(-50%);">
+        <!-- <div class="svg-container" style="display: flex; justify-content: center; gap: 80px; margin-top: 10px; position: absolute; bottom: 20px; left: 28%; transform: translateX(-50%);">
         <div class="svg-viewbox" id="svg-viewbox-cflowdist-presentation" style="width: 250px;">
             <div class="qrcode" id="qrcode-cflowdist-presentation"></div>
             <div class="qrcode-caption" style="color: #FFF;">
@@ -393,7 +397,7 @@ checkFullScreen();
         });
         var svg_qrcode_cflowdist_presentation = qrcode_cflowdist_presentation.svg();
         document.getElementById("qrcode-cflowdist-presentation").innerHTML = svg_qrcode_cflowdist_presentation;
-        </script>
+        </script> -->
 
         <div class="info-boxes">
             <div class="info-box-left red-box">
@@ -468,7 +472,7 @@ checkFullScreen();
 </div>
 <div class="callout-content">
 <ul>
-<li>Perfect mixing at each node</li>
+<li>Perfect mixing at each node (average participation)</li>
 <li>Carbon follows active power flows, intensity inherited from upstream sources</li>
 </ul>
 </div>
@@ -549,7 +553,7 @@ Figure&nbsp;1: An allocation example for a single node using the LL method.
 </div>
 <div class="callout-content">
 <ul>
-<li>Perfect mixing at each node</li>
+<li>Perfect mixing at each node (average participation)</li>
 <li>Carbon follows active power flows, intensity inherited from upstream sources</li>
 </ul>
 </div>
@@ -1016,7 +1020,7 @@ Figure&nbsp;8: Carbon intensity of the higher-level grid for the canton of Zuric
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-swiss-pdgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks.
+Figure&nbsp;9: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity across the network.
 </figcaption>
 </figure>
 </div>
@@ -1232,6 +1236,7 @@ document.getElementById("qrcode-cflowdist-repo").innerHTML = svg_qrcode_cflowdis
 <ul>
 <li>Incorporate:
 <ul>
+<li>time-varying non-PV generation profiles</li>
 <li>battery energy storage systems (ongoing work)</li>
 </ul></li>
 </ul>
@@ -1240,6 +1245,7 @@ document.getElementById("qrcode-cflowdist-repo").innerHTML = svg_qrcode_cflowdis
 <li>Extend the framework to:
 <ul>
 <li>losses due to reactive power flows</li>
+<li>other carbon allocation principles</li>
 <li>near real-time carbon signals</li>
 </ul></li>
 </ul>

@@ -1,0 +1,25 @@
+# carbon.carbon_tracing_ap_with_losses { #cflowdist.carbon.carbon_tracing_ap_with_losses }
+
+```python
+carbon.carbon_tracing_ap_with_losses(step_flow_data, use_numba=False)
+```
+
+Perform carbon tracing (average participation) with the losses allocation to users. (LA method)
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name           | Type            | Description                                                                                                                                                                                        | Default    |
+|----------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| step_flow_data | FlowDataWrapper | A FlowDataWrapper object containing all the necessary flow data for the specific time step.                                                                                                        | _required_ |
+| use_numba      | bool            | A boolean flag indicating whether to use the numba JIT acceleration. If True, the method will call `optimized_node_flow_with_losses`, otherwise, the method will call `cal_node_flow_with_losses`. | `False`    |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                            | Description                                                                                                                                                                                                                                                                       |
+|--------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | tuple\[np.ndarray, np.ndarray\] | A tuple containing two numpy arrays:  - `eject_intensity`: The carbon intensity of the ejected flow at each node (losses allocated to users). - `node_emission`: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [carbon.cal_node_flow_with_losses](/reference/carbon.cal_node_flow_with_losses.qmd)
+- [carbon.optimized_node_flow_with_losses](/reference/carbon.optimized_node_flow_with_losses.qmd)

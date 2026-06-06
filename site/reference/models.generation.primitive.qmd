@@ -1,0 +1,28 @@
+# models.generation.primitive { #cflowdist.models.generation.primitive }
+
+```python
+models.generation.primitive(df_p_mw_t, df_gen, snapshots)
+```
+
+Apply the primitive method to generation generator profiles. 
+The function iterates through each generator in the provided DataFrame and estimates the power output for photovoltaic (PV) generators using the `p_est_primitive` helper function, which is based on Global Horizontal Irradiance (GHI) data.
+For non-PV generators, the function assigns the rated power as the power output for all snapshots.
+The resulting DataFrame contains the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name      | Type             | Description                                                                                                                                                                                                        | Default    |
+|-----------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| df_p_mw_t | pd.DataFrame     | A DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.                                                                                       | _required_ |
+| df_gen    | pd.DataFrame     | A DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, `pp_grid.gen` or `pp_grid.sgen`), including the type of generator (e.g., 'Photovoltaic') and the rated power ('p_mw'). | _required_ |
+| snapshots | pd.DatetimeIndex | A DatetimeIndex representing the time snapshots for which the generation profiles should be generated.                                                                                                             | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                                                                                                                      |
+|--------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [models.generation.p_est_primitive](/reference/models.generation.p_est_primitive.qmd) : A helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.

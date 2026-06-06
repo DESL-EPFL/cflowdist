@@ -1,0 +1,19 @@
+# network.read_gpkg { #cflowdist.network.read_gpkg }
+
+```python
+network.read_gpkg(file)
+```
+
+Read a GeoPackage file and return a dictionary of GeoDataFrames.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type   | Description                      | Default    |
+|--------|--------|----------------------------------|------------|
+| file   | str    | The path to the GeoPackage file. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type   | Description                                                                                        |
+|--------|--------|----------------------------------------------------------------------------------------------------|
+|        | dict   | A dictionary where the keys are the layer names and the values are the corresponding GeoDataFrames |

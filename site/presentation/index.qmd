@@ -136,7 +136,7 @@ A practical framework is needed to integrate open distribution-grid data, alloca
 ::: {.callout-caution}
 ## Core Assumptions
 
-- Perfect mixing at each node
+- Perfect mixing at each node (average participation)
 - Carbon follows active power flows, intensity inherited from upstream sources
 
 
@@ -226,7 +226,7 @@ The carbon emission responsibility of load at node $i$: ${C\!F_x}_i = l_i{c_x}_i
 ::: {.callout-caution}
 ## Core Assumptions
 
-- Perfect mixing at each node
+- Perfect mixing at each node (average participation)
 - Carbon follows active power flows, intensity inherited from upstream sources
 
 :::
@@ -705,7 +705,7 @@ Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Tic
 ```
 
 Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes,
-33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks.
+33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity across the network.
 :::
 
 ## Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results (Cont'd)
@@ -941,12 +941,14 @@ document.getElementById("qrcode-cflowdist-repo").innerHTML = svg_qrcode_cflowdis
 ### Future Directions
 
 - Incorporate:
+  - time-varying non-PV generation profiles
   - battery energy storage systems (ongoing work)
 
 <br>
 
 - Extend the framework to:
   - losses due to reactive power flows
+  - other carbon allocation principles
   - near real-time carbon signals
 
 <br>

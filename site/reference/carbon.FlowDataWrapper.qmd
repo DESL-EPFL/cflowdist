@@ -1,0 +1,22 @@
+# carbon.FlowDataWrapper { #cflowdist.carbon.FlowDataWrapper }
+
+```python
+carbon.FlowDataWrapper(n, P_ij, G, L, I, X, carriers, Fin, Fout, Pin, Pout)
+```
+
+A dataclass to encapsulate all the flow data needed for carbon tracing in a single object, improving code readability and maintainability.
+
+## Attributes {.doc-section .doc-section-attributes}
+
+| Name   | Type       | Description                                     |
+|--------|------------|-------------------------------------------------|
+| n      | int        | The number of nodes in the power grid.          |
+| P_ij   | np.ndarray | The power flow matrix between nodes (2D array). |
+| G      | np.ndarray | The generation vector (1D array).               |
+| L      | np.ndarray | The load vector (1D array).                     |
+| I      | np.ndarray | The import vector (1D array).                   |
+| X      | np.ndarray | The export vector (1D array)                    |
+| Fin    | np.ndarray | The inflow matrix (2D array).                   |
+| Fout   | np.ndarray | The outflow matrix (2D array).                  |
+| Pin    | np.ndarray | The Pin vector (1D array).                      |
+| Pout   | np.ndarray | The Pout vector (1D array).                     |

@@ -1,0 +1,22 @@
+# carbon.create_array { #cflowdist.carbon.create_array }
+
+```python
+carbon.create_array(indices, values, shape=None)
+```
+
+Create a vector or matrix based on given indices and values,
+filling non-mentioned elements with 0.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name    | Type          | Description                                                                                                         | Default    |
+|---------|---------------|---------------------------------------------------------------------------------------------------------------------|------------|
+| indices | list or array | 1D (for a vector) or 2D (for a matrix) indices.  - Example (1D): [0, 2, 3] - Example (2D): [(0, 1), (1, 2), (2, 0)] | _required_ |
+| values  | list or array | Values corresponding to the indices.  - Example: [5, 10, 15]                                                        | _required_ |
+| shape   | tuple         | Shape of the resulting array. If not provided, the shape is inferred.                                               | `None`     |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                                                     |
+|--------|------------|---------------------------------------------------------------------------------|
+|        | np.ndarray | A numpy array (vector or matrix) with the specified values and zeros elsewhere. |

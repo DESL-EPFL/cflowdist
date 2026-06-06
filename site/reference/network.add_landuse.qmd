@@ -1,0 +1,21 @@
+# network.add_landuse { #cflowdist.network.add_landuse }
+
+```python
+network.add_landuse(bus_geodata, all_lu, lu_46_category)
+```
+
+Add land use category to the bus geodata based on the nearest land use polygon.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name           | Type             | Description                                                                                                                                                    | Default    |
+|----------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| bus_geodata    | gpd.GeoDataFrame | GeoDataFrame containing the bus geodata, must include 'x' and 'y' columns for the coordinates of the buses.                                                    | _required_ |
+| all_lu         | gpd.GeoDataFrame | GeoDataFrame containing the land use polygons, must include a 'geometry' column with Polygon geometries and a 'lu_46' column with the land use category codes. | _required_ |
+| lu_46_category | pd.DataFrame     | DataFrame containing the mapping of land use category codes to their names and BDEW load types defined.                                                        | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                            | Description                                                                                                                                                                                                                                                                                                                   |
+|--------|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | tuple\[np.ndarray, np.ndarray\] | A tuple containing two numpy arrays:  - The first array contains the land use category names corresponding to each bus, based on the nearest land use polygon. - The second array contains the BDEW load types corresponding to each bus, based on the nearest land use polygon and the mapping provided in `lu_46_category`. |

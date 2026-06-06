@@ -53,7 +53,7 @@ $presentation-font-size-root: 30px  !default;
 $presentation-h1-font-size: 1.8em !default;
 $presentation-h2-font-size: 1.3em !default;
 $presentation-h3-font-size: 1.05em !default;
-$presentation-font-smaller: 0.81 !default;
+$presentation-font-smaller: 0.85 !default;
 
 $code-block-font-size: 0.75em !default;
 
@@ -346,7 +346,7 @@ li::marker {
 .title-group {
     margin-top: auto; /* Pushes the title down */
     margin-bottom: auto; /* Centres it in the space */
-    max-width: 42%; /* Optional: limits the width of the title group for better readability */
+    max-width: 44%; /* Optional: limits the width of the title group for better readability */
 }
 
 .event-name {

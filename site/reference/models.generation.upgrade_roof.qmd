@@ -1,0 +1,29 @@
+# models.generation.upgrade_roof { #cflowdist.models.generation.upgrade_roof }
+
+```python
+models.generation.upgrade_roof(df_p_mw_t, df_gen, snapshots, tracer)
+```
+
+Apply the upgrade_roof method to compute generation patterns.
+The function estimates the power output for photovoltaic (PV) generators using the `p_est_upgrade_roof` helper function, which takes into account roof inclination, orientation, and local weather conditions to estimate the power output of the PV system.
+For non-PV generators, the function assigns the rated power as the power output for all snapshots.
+The resulting DataFrame contains the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name      | Type             | Description                                                                                                                                                                                                        | Default    |
+|-----------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| df_p_mw_t | pd.DataFrame     | A DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.                                                                                       | _required_ |
+| df_gen    | pd.DataFrame     | A DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, `pp_grid.gen` or `pp_grid.sgen`), including the type of generator (e.g., 'Photovoltaic') and the rated power ('p_mw'). | _required_ |
+| snapshots | pd.DatetimeIndex | A DatetimeIndex representing the time snapshots for which the generation profiles should be generated.                                                                                                             | _required_ |
+| tracer    | CarbonTracer     | A CarbonTracer object that contains location information and other relevant data for estimating PV power output.                                                                                                   | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                                                                                                                      |
+|--------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [models.generation.p_est_upgrade_roof](/reference/models.generation.p_est_upgrade_roof.qmd) : A helper function that estimates PV power output by taking into account roof inclination, orientation, and local weather conditions using the pvlib library.

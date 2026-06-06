@@ -1,0 +1,15 @@
+# grid.remove_future_plants { #cflowdist.grid.remove_future_plants }
+
+```python
+grid.remove_future_plants(tracer, start_time)
+```
+
+Remove future plants from the grid. This function is used to remove plants that are not yet in operation (according to their `BeginningOfOperation` date) at the start time of the simulation. 
+It removes the future plants from the `mv_plant_df` attribute of the tracer, and also removes the corresponding entries from the sgen and gen DataFrames in the `pandapower` grid.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type         | Description                                                                                    | Default    |
+|------------|--------------|------------------------------------------------------------------------------------------------|------------|
+| tracer     | CarbonTracer | The CarbonTracer object containing the grid and plant information.                             | _required_ |
+| start_time | pd.Timestamp | The start time of the simulation, used to determine which plants are considered future plants. | _required_ |

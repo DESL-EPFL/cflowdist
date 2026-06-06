@@ -1,0 +1,25 @@
+# network.find_best_polygon { #cflowdist.network.find_best_polygon }
+
+```python
+network.find_best_polygon(gdf, pt)
+```
+
+Find the polygon in gdf that best matches the point.
+
+Rule:
+
+  - If point is contained in one or more polygons -> choose polygon with closest centroid.
+  - Else -> choose polygon with closest centroid.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type             | Description                                                   | Default    |
+|--------|------------------|---------------------------------------------------------------|------------|
+| gdf    | gpd.GeoDataFrame | GeoDataFrame containing the polygons to be searched.          | _required_ |
+| pt     | Point            | Shapely Point object representing the location to be matched. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type   | Description                                                              |
+|--------|--------|--------------------------------------------------------------------------|
+|        | str    | The identifier of the best matching polygon (e.g., canton name or code). |

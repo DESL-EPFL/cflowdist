@@ -1,0 +1,27 @@
+# plot.lv_grids_time_plot { #cflowdist.plot.lv_grids_time_plot }
+
+```python
+plot.lv_grids_time_plot(tracer, tile_name='white', show_tools=False)
+```
+
+Plot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type         | Description                                                                                                                                    | Default    |
+|------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| tracer     | CarbonTracer | The CarbonTracer object that contains the constructed network data.                                                                            | _required_ |
+| tile_name  | str          | A selected tile name for the basemap.                                                                                                          | `'white'`  |
+| show_tools | bool         | A boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map. | `False`    |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type       | Description                                                                     |
+|--------|------------|---------------------------------------------------------------------------------|
+|        | folium.Map | A pretty map visualization of the carbon allocation results with a time slider. |
+
+## Example {.doc-section .doc-section-example}
+
+```python
+tracer.lv_grids_time_plot()
+```

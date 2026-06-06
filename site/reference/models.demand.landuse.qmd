@@ -1,0 +1,26 @@
+# models.demand.landuse { #cflowdist.models.demand.landuse }
+
+```python
+models.demand.landuse(snapshots, pp_grid, tracer)
+```
+
+Generate load profiles based on land use data and standard load profiles for different sectors. The function uses the BDEW standard load profiles for electricity demand, which are adjusted based on the annual electricity demand for each load in the pandapower grid. 
+The resulting DataFrame contains the power demand for each load node at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name      | Type             | Description                                                                                                                                                         | Default    |
+|-----------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| snapshots | pd.DatetimeIndex | A DatetimeIndex representing the time snapshots for which the load profiles should be generated.                                                                    | _required_ |
+| pp_grid   | pandapowerNet    | A pandapower network object containing the load information, including the rated power for each load and the load type (e.g., residential, commercial, industrial). | _required_ |
+| tracer    | CarbonTracer     | A CarbonTracer object.                                                                                                                                              | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                                                                                                                                    |
+|--------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the generated load profiles for each load at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [models.demand.naive](/reference/models.demand.naive.qmd) : A function that generates naive load profiles for all loads in the pandapower grid using the `p_est_naive` helper function.

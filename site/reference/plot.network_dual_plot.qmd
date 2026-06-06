@@ -1,0 +1,33 @@
+# plot.network_dual_plot { #cflowdist.plot.network_dual_plot }
+
+```python
+plot.network_dual_plot(
+    tracer,
+    snapshot_night,
+    snapshot_day,
+    show_colormap=False,
+)
+```
+
+Plot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name           | Type         | Description                                                                                                    | Default    |
+|----------------|--------------|----------------------------------------------------------------------------------------------------------------|------------|
+| tracer         | CarbonTracer | The CarbonTracer object that contains the constructed network data.                                            | _required_ |
+| snapshot_night | pd.Timestamp | A selected night timestamp to plot.                                                                            | _required_ |
+| snapshot_day   | pd.Timestamp | A selected day timestamp to plot.                                                                              | _required_ |
+| show_colormap  | bool         | A boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map. | `False`    |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type                   | Description                                                       |
+|--------|------------------------|-------------------------------------------------------------------|
+|        | folium.plugins.DualMap | A pretty dual map visualization of the carbon allocation results. |
+
+## Example {.doc-section .doc-section-example}
+
+```python
+tracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])
+```

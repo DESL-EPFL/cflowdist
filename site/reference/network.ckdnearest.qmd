@@ -1,0 +1,21 @@
+# network.ckdnearest { #cflowdist.network.ckdnearest }
+
+```python
+network.ckdnearest(gdA, gdB)
+```
+
+Finds the nearest node (bus) to which we can associate the power plant concerned,
+exploiting the geographical coordinates of the power plants and the network nodes.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type             | Description                                                                                        | Default    |
+|--------|------------------|----------------------------------------------------------------------------------------------------|------------|
+| gdA    | gpd.GeoDataFrame | GeoDataFrame of power plants, must contain a 'geometry' column with Point geometries.              | _required_ |
+| gdB    | gpd.GeoDataFrame | GeoDataFrame of network nodes, must contain 'x' and 'y' columns with the coordinates of the nodes. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                            |
+|--------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | gpd.GeoDataFrame | A modified version of gdA that includes three new columns:  - `'bus_name'`: The name of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - `'bus_id'`: The index of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - `'bus_max_power'`: The maximum power of the nearest node (bus) from gdB to which each power plant in gdA is assigned. |

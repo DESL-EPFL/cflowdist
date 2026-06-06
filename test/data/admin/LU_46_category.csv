@@ -1,0 +1,47 @@
+lu_46_index,lu_46_name,bdew_load_type
+101,Industrial and commercial areas > 1 ha,g0
+102,Industrial and commercial areas < 1 ha,g0
+103,Residential areas (one and two-family houses),h0
+104,Residential areas (terraced houses),h0
+105,Residential areas (blocks of flats),h0
+106,Public buildings and surroundings,g1
+107,Agricultural buildings and surroundings,l0
+108,Unspecified buildings and surroundings,g3
+121,Motorways,g0
+122,Roads,g0
+123,Parking areas,g2
+124,Railway surfaces,g0
+125,Airports and airfields,g0
+141,Energy supply plants,g3
+142,Waste water treatment plants,g3
+143,Other supply or waste treatment plants,g3
+144,Dumps,g3
+145,"Quarries, mines",g3
+146,Construction sites,g1
+147,Unexploited urban areas,g3
+161,Public parks,g6
+162,Sports facilities,g6
+163,Golf courses,g6
+164,Camping areas,g6
+165,Garden allotments,l0
+166,Cemeteries,g6
+201,Orchards,l0
+202,Vineyards,l0
+203,Horticulture,l0
+221,"Arable land, in general",l0
+222,"Semi-natural grassland, in general",l0
+223,"Farm pastures, in general",l0
+241,"Alpine meadows, in general",l0
+242,"Alpine pastures, in general",l0
+243,"Alpine sheep grazing pastures, in general",l0
+301,Forest,g3
+302,Afforestation,g3
+303,Lumbering areas,g3
+304,Damaged forest,g3
+401,Lakes,g3
+402,"Rivers, streams",g3
+403,Flood protection structures,g3
+421,Unused,g3
+422,Avalanche and rockfall protection structures,g3
+423,Alpine sports facilities,g6
+424,Landscape interventions,g3

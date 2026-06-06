@@ -1,0 +1,22 @@
+# carbon.organize_step_flow_data { #cflowdist.carbon.organize_step_flow_data }
+
+```python
+carbon.organize_step_flow_data(pf_calculator, ci_df, step)
+```
+
+Organize the power flow data for a specific time step into a structured format (FlowDataWrapper) that can be easily used for carbon tracing calculations.
+This function extracts the necessary data from the power flow results and prepares it for the carbon tracing algorithm.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name          | Type                | Description                                                                                                       | Default    |
+|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------|------------|
+| pf_calculator | PowerFlowCalculator | The power flow calculator object containing the power flow results and grid information.                          | _required_ |
+| ci_df         | pd.DataFrame        | The carbon intensity DataFrame containing the carbon intensity values for different generations / import sources. | _required_ |
+| step          | pd.Timestamp        | A timestamp. The specific time step for which the flow data is being organized.                                   | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type            | Description                                                                                                                                   |
+|--------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+|        | FlowDataWrapper | A FlowDataWrapper object containing all the organized flow data for the specified time step, ready to be used in carbon tracing calculations. |

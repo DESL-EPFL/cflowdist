@@ -1,5 +1,841 @@
 [
   {
+    "objectID": "reference/network.read_gpkg.html",
+    "href": "reference/network.read_gpkg.html",
+    "title": "network.read_gpkg",
+    "section": "",
+    "text": "network.read_gpkg(file)\nRead a GeoPackage file and return a dictionary of GeoDataFrames.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nfile\nstr\nThe path to the GeoPackage file.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ndict\nA dictionary where the keys are the layer names and the values are the corresponding GeoDataFrames",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.read_gpkg"
+    ]
+  },
+  {
+    "objectID": "reference/network.read_gpkg.html#parameters",
+    "href": "reference/network.read_gpkg.html#parameters",
+    "title": "network.read_gpkg",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nfile\nstr\nThe path to the GeoPackage file.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.read_gpkg"
+    ]
+  },
+  {
+    "objectID": "reference/network.read_gpkg.html#returns",
+    "href": "reference/network.read_gpkg.html#returns",
+    "title": "network.read_gpkg",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ndict\nA dictionary where the keys are the layer names and the values are the corresponding GeoDataFrames",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.read_gpkg"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap_with_losses.html",
+    "href": "reference/carbon.carbon_tracing_ap_with_losses.html",
+    "title": "carbon.carbon_tracing_ap_with_losses",
+    "section": "",
+    "text": "carbon.carbon_tracing_ap_with_losses(step_flow_data, use_numba=False)\nPerform carbon tracing (average participation) with the losses allocation to users. (LA method)\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired\n\n\nuse_numba\nbool\nA boolean flag indicating whether to use the numba JIT acceleration. If True, the method will call optimized_node_flow_with_losses, otherwise, the method will call cal_node_flow_with_losses.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - eject_intensity: The carbon intensity of the ejected flow at each node (losses allocated to users). - node_emission: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node.\n\n\n\n\n\n\n\ncarbon.cal_node_flow_with_losses\ncarbon.optimized_node_flow_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap_with_losses.html#parameters",
+    "href": "reference/carbon.carbon_tracing_ap_with_losses.html#parameters",
+    "title": "carbon.carbon_tracing_ap_with_losses",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired\n\n\nuse_numba\nbool\nA boolean flag indicating whether to use the numba JIT acceleration. If True, the method will call optimized_node_flow_with_losses, otherwise, the method will call cal_node_flow_with_losses.\nFalse",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap_with_losses.html#returns",
+    "href": "reference/carbon.carbon_tracing_ap_with_losses.html#returns",
+    "title": "carbon.carbon_tracing_ap_with_losses",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - eject_intensity: The carbon intensity of the ejected flow at each node (losses allocated to users). - node_emission: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap_with_losses.html#see-also",
+    "href": "reference/carbon.carbon_tracing_ap_with_losses.html#see-also",
+    "title": "carbon.carbon_tracing_ap_with_losses",
+    "section": "",
+    "text": "carbon.cal_node_flow_with_losses\ncarbon.optimized_node_flow_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.FlowDataWrapper.html",
+    "href": "reference/carbon.FlowDataWrapper.html",
+    "title": "carbon.FlowDataWrapper",
+    "section": "",
+    "text": "carbon.FlowDataWrapper(n, P_ij, G, L, I, X, carriers, Fin, Fout, Pin, Pout)\nA dataclass to encapsulate all the flow data needed for carbon tracing in a single object, improving code readability and maintainability.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nn\nint\nThe number of nodes in the power grid.\n\n\nP_ij\nnp.ndarray\nThe power flow matrix between nodes (2D array).\n\n\nG\nnp.ndarray\nThe generation vector (1D array).\n\n\nL\nnp.ndarray\nThe load vector (1D array).\n\n\nI\nnp.ndarray\nThe import vector (1D array).\n\n\nX\nnp.ndarray\nThe export vector (1D array)\n\n\nFin\nnp.ndarray\nThe inflow matrix (2D array).\n\n\nFout\nnp.ndarray\nThe outflow matrix (2D array).\n\n\nPin\nnp.ndarray\nThe Pin vector (1D array).\n\n\nPout\nnp.ndarray\nThe Pout vector (1D array).",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.FlowDataWrapper"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.FlowDataWrapper.html#attributes",
+    "href": "reference/carbon.FlowDataWrapper.html#attributes",
+    "title": "carbon.FlowDataWrapper",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nn\nint\nThe number of nodes in the power grid.\n\n\nP_ij\nnp.ndarray\nThe power flow matrix between nodes (2D array).\n\n\nG\nnp.ndarray\nThe generation vector (1D array).\n\n\nL\nnp.ndarray\nThe load vector (1D array).\n\n\nI\nnp.ndarray\nThe import vector (1D array).\n\n\nX\nnp.ndarray\nThe export vector (1D array)\n\n\nFin\nnp.ndarray\nThe inflow matrix (2D array).\n\n\nFout\nnp.ndarray\nThe outflow matrix (2D array).\n\n\nPin\nnp.ndarray\nThe Pin vector (1D array).\n\n\nPout\nnp.ndarray\nThe Pout vector (1D array).",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.FlowDataWrapper"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.primitive.html",
+    "href": "reference/models.generation.primitive.html",
+    "title": "models.generation.primitive",
+    "section": "",
+    "text": "models.generation.primitive(df_p_mw_t, df_gen, snapshots)\nApply the primitive method to generation generator profiles. The function iterates through each generator in the provided DataFrame and estimates the power output for photovoltaic (PV) generators using the p_est_primitive helper function, which is based on Global Horizontal Irradiance (GHI) data. For non-PV generators, the function assigns the rated power as the power output for all snapshots. The resulting DataFrame contains the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.\nrequired\n\n\ndf_gen\npd.DataFrame\nA DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, pp_grid.gen or pp_grid.sgen), including the type of generator (e.g., ‘Photovoltaic’) and the rated power (‘p_mw’).\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the generation profiles should be generated.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.\n\n\n\n\n\n\n\nmodels.generation.p_est_primitive : A helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.primitive.html#parameters",
+    "href": "reference/models.generation.primitive.html#parameters",
+    "title": "models.generation.primitive",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.\nrequired\n\n\ndf_gen\npd.DataFrame\nA DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, pp_grid.gen or pp_grid.sgen), including the type of generator (e.g., ‘Photovoltaic’) and the rated power (‘p_mw’).\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the generation profiles should be generated.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.primitive.html#returns",
+    "href": "reference/models.generation.primitive.html#returns",
+    "title": "models.generation.primitive",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.primitive.html#see-also",
+    "href": "reference/models.generation.primitive.html#see-also",
+    "title": "models.generation.primitive",
+    "section": "",
+    "text": "models.generation.p_est_primitive : A helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.primitive"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_carbon_plot.html",
+    "href": "reference/plot.network_carbon_plot.html",
+    "title": "plot.network_carbon_plot",
+    "section": "",
+    "text": "plot.network_carbon_plot(tracer, snapshot, show_colormap=True, show_tools=True)\nPlot the calculated node-level carbon intensity using folium.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nsnapshot\npd.Timestamp\nA selected timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nTrue\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_carbon_plot(snapshot = tracer.snapshots[0])",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_carbon_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_carbon_plot.html#parameters",
+    "href": "reference/plot.network_carbon_plot.html#parameters",
+    "title": "plot.network_carbon_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nsnapshot\npd.Timestamp\nA selected timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nTrue\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_carbon_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_carbon_plot.html#returns",
+    "href": "reference/plot.network_carbon_plot.html#returns",
+    "title": "plot.network_carbon_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results.",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_carbon_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_carbon_plot.html#example",
+    "href": "reference/plot.network_carbon_plot.html#example",
+    "title": "plot.network_carbon_plot",
+    "section": "",
+    "text": "tracer.network_carbon_plot(snapshot = tracer.snapshots[0])",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_carbon_plot"
+    ]
+  },
+  {
+    "objectID": "reference/network.get_timezone_from_location.html",
+    "href": "reference/network.get_timezone_from_location.html",
+    "title": "network.get_timezone_from_location",
+    "section": "",
+    "text": "network.get_timezone_from_location(location)\nGet the timezone of a given Location object.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlocation\nLocation\nThe location object containing latitude and longitude.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nstr\nThe timezone name (e.g., ‘America/New_York’).",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.get_timezone_from_location"
+    ]
+  },
+  {
+    "objectID": "reference/network.get_timezone_from_location.html#parameters",
+    "href": "reference/network.get_timezone_from_location.html#parameters",
+    "title": "network.get_timezone_from_location",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlocation\nLocation\nThe location object containing latitude and longitude.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.get_timezone_from_location"
+    ]
+  },
+  {
+    "objectID": "reference/network.get_timezone_from_location.html#returns",
+    "href": "reference/network.get_timezone_from_location.html#returns",
+    "title": "network.get_timezone_from_location",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nstr\nThe timezone name (e.g., ‘America/New_York’).",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.get_timezone_from_location"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.p_est_naive.html",
+    "href": "reference/models.demand.p_est_naive.html",
+    "title": "models.demand.p_est_naive",
+    "section": "",
+    "text": "models.demand.p_est_naive(snapshots, yearly_average_power)\nA helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined. The function creates a load profile by multiplying the yearly average power with the corresponding hourly load factor for each snapshot. The resulting Series contains the estimated power demand for the load at each snapshot, indexed by snapshots.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profile should be generated.\nrequired\n\n\nyearly_average_power\nfloat\nThe yearly average power demand for the load, which is used to scale the hourly load factors to generate the load profile.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power demand for the load at each snapshot, indexed by snapshots.\n\n\n\n\n\n\n\nmodels.demand.naive : A function that generates naive load profiles for all loads in the pandapower grid using the p_est_naive helper function.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.p_est_naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.p_est_naive.html#parameters",
+    "href": "reference/models.demand.p_est_naive.html#parameters",
+    "title": "models.demand.p_est_naive",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profile should be generated.\nrequired\n\n\nyearly_average_power\nfloat\nThe yearly average power demand for the load, which is used to scale the hourly load factors to generate the load profile.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.p_est_naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.p_est_naive.html#returns",
+    "href": "reference/models.demand.p_est_naive.html#returns",
+    "title": "models.demand.p_est_naive",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power demand for the load at each snapshot, indexed by snapshots.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.p_est_naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.p_est_naive.html#see-also",
+    "href": "reference/models.demand.p_est_naive.html#see-also",
+    "title": "models.demand.p_est_naive",
+    "section": "",
+    "text": "models.demand.naive : A function that generates naive load profiles for all loads in the pandapower grid using the p_est_naive helper function.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.p_est_naive"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.calculate_Q.html",
+    "href": "reference/carbon.calculate_Q.html",
+    "title": "carbon.calculate_Q",
+    "section": "",
+    "text": "carbon.calculate_Q(G, L, I, X, FF)\nCalculate the Q matrix based on the given formula.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nG\nnp.ndarray\nGeneration values (1D array).\nrequired\n\n\nL\nnp.ndarray\nLoad values (1D array).\nrequired\n\n\nI\nnp.ndarray\nImport values (1D array).\nrequired\n\n\nX\nnp.ndarray\nExport values (1D array).\nrequired\n\n\nFF\nnp.ndarray\nFlow values (2D array).\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]\nA tuple containing the following elements: - q - Fin - Fout - Pout",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.calculate_Q"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.calculate_Q.html#parameters",
+    "href": "reference/carbon.calculate_Q.html#parameters",
+    "title": "carbon.calculate_Q",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nG\nnp.ndarray\nGeneration values (1D array).\nrequired\n\n\nL\nnp.ndarray\nLoad values (1D array).\nrequired\n\n\nI\nnp.ndarray\nImport values (1D array).\nrequired\n\n\nX\nnp.ndarray\nExport values (1D array).\nrequired\n\n\nFF\nnp.ndarray\nFlow values (2D array).\nrequired",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.calculate_Q"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.calculate_Q.html#returns",
+    "href": "reference/carbon.calculate_Q.html#returns",
+    "title": "carbon.calculate_Q",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]\nA tuple containing the following elements: - q - Fin - Fout - Pout",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.calculate_Q"
+    ]
+  },
+  {
+    "objectID": "reference/network.add_landuse.html",
+    "href": "reference/network.add_landuse.html",
+    "title": "network.add_landuse",
+    "section": "",
+    "text": "network.add_landuse(bus_geodata, all_lu, lu_46_category)\nAdd land use category to the bus geodata based on the nearest land use polygon.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nbus_geodata\ngpd.GeoDataFrame\nGeoDataFrame containing the bus geodata, must include ‘x’ and ‘y’ columns for the coordinates of the buses.\nrequired\n\n\nall_lu\ngpd.GeoDataFrame\nGeoDataFrame containing the land use polygons, must include a ‘geometry’ column with Polygon geometries and a ‘lu_46’ column with the land use category codes.\nrequired\n\n\nlu_46_category\npd.DataFrame\nDataFrame containing the mapping of land use category codes to their names and BDEW load types defined.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - The first array contains the land use category names corresponding to each bus, based on the nearest land use polygon. - The second array contains the BDEW load types corresponding to each bus, based on the nearest land use polygon and the mapping provided in lu_46_category.",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.add_landuse"
+    ]
+  },
+  {
+    "objectID": "reference/network.add_landuse.html#parameters",
+    "href": "reference/network.add_landuse.html#parameters",
+    "title": "network.add_landuse",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nbus_geodata\ngpd.GeoDataFrame\nGeoDataFrame containing the bus geodata, must include ‘x’ and ‘y’ columns for the coordinates of the buses.\nrequired\n\n\nall_lu\ngpd.GeoDataFrame\nGeoDataFrame containing the land use polygons, must include a ‘geometry’ column with Polygon geometries and a ‘lu_46’ column with the land use category codes.\nrequired\n\n\nlu_46_category\npd.DataFrame\nDataFrame containing the mapping of land use category codes to their names and BDEW load types defined.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.add_landuse"
+    ]
+  },
+  {
+    "objectID": "reference/network.add_landuse.html#returns",
+    "href": "reference/network.add_landuse.html#returns",
+    "title": "network.add_landuse",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - The first array contains the land use category names corresponding to each bus, based on the nearest land use polygon. - The second array contains the BDEW load types corresponding to each bus, based on the nearest land use polygon and the mapping provided in lu_46_category.",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.add_landuse"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_id.html",
+    "href": "reference/network.find_id.html",
+    "title": "network.find_id",
+    "section": "",
+    "text": "network.find_id(tracer)\nFind the identifiers of the best matching MV and LV network ID for the location of the tracer, based on the LV and MV hulls in the tracer’s data. The function uses the find_best_polygon helper function to find the best matching polygon for the tracer’s location in both the LV and MV hulls, and returns the corresponding identifiers for the MV and LV networks.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nAn instance of the CarbonTracer class, which contains the location of the tracer and the LV and MV hulls as GeoDataFrames.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[str, str]\nA tuple containing the identifiers of the best matching MV and LV network ID for the tracer’s location, in the format (MV_ID, LV_ID).\n\n\n\n\n\n\n\nfind_best_polygon",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_id"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_id.html#parameters",
+    "href": "reference/network.find_id.html#parameters",
+    "title": "network.find_id",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nAn instance of the CarbonTracer class, which contains the location of the tracer and the LV and MV hulls as GeoDataFrames.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_id"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_id.html#returns",
+    "href": "reference/network.find_id.html#returns",
+    "title": "network.find_id",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[str, str]\nA tuple containing the identifiers of the best matching MV and LV network ID for the tracer’s location, in the format (MV_ID, LV_ID).",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_id"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_id.html#see-also",
+    "href": "reference/network.find_id.html#see-also",
+    "title": "network.find_id",
+    "section": "",
+    "text": "find_best_polygon",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_id"
+    ]
+  },
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "CarbonTracer\nA class to trace carbon flows in the power grid.\n\n\nread_pickle\nRead a CarbonTracer object from a pickle file.\n\n\n\n\n\n\n\n\n\n\n\nmodels.demand.naive\nGenerate naive load profiles based on the rated power of each load in the pandapower grid. The load profile is generated using a simple hourly load factor that varies throughout the day.\n\n\nmodels.demand.p_est_naive\nA helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined.\n\n\nmodels.demand.landuse\nGenerate load profiles based on land use data and standard load profiles for different sectors. The function uses the BDEW standard load profiles for electricity demand, which are adjusted based on the annual electricity demand for each load in the pandapower grid.\n\n\n\n\n\n\n\n\n\nmodels.generation.primitive\nApply the primitive method to generation generator profiles.\n\n\nmodels.generation.p_est_primitive\nA helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.\n\n\nmodels.generation.upgrade_roof\nApply the upgrade_roof method to compute generation patterns.\n\n\nmodels.generation.p_est_upgrade_roof\nA helper function that estimates photovoltaic (PV) power output by taking into account roof inclination, orientation, and local weather conditions (GHI, DNI, DHI, temperature, and wind speed) using the pvlib library.\n\n\n\n\n\n\n\n\n\n\nroof.get_open_meteo\nThis function is originally provided by Open-Meteo and adapted for our use case.\n\n\nroof.find_roof\nFind the nearest roof(s) and building (by SB_UUID) to which we can associate the pv plant concerned.\n\n\n\n\n\n\n\n\n\ngrid.PowerFlowResults\nA dataclass to wrap and store the power flow results as pandas DataFrames.\n\n\ngrid.PowerFlowCalculator\nA dataclass to run power flow calculations using pandapower and store the results in a PowerFlowResults object.\n\n\ngrid.read_pf_results\nRead power flow results from csv files generated by pandapower and return them as pandas DataFrames.\n\n\ngrid.remove_future_plants\nRemove future plants from the grid. This function is used to remove plants that are not yet in operation (according to their BeginningOfOperation date) at the start time of the simulation.\n\n\n\n\n\n\n\n\n\nnetwork.ckdnearest\nFinds the nearest node (bus) to which we can associate the power plant concerned,\n\n\nnetwork.read_gpkg\nRead a GeoPackage file and return a dictionary of GeoDataFrames.\n\n\nnetwork.get_timezone_from_location\nGet the timezone of a given Location object.\n\n\nnetwork.find_best_polygon\nFind the polygon in gdf that best matches the point.\n\n\nnetwork.find_id\nFind the identifiers of the best matching MV and LV network ID for the location of the tracer, based on the LV and MV hulls in the tracer’s data.\n\n\nnetwork.add_landuse\nAdd land use category to the bus geodata based on the nearest land use polygon.\n\n\nnetwork.find_canton\nFind the canton name and code for the location of the tracer using the swisstopo Web API.\n\n\n\n\n\n\n\n\n\ncarbon.FlowDataWrapper\nA dataclass to encapsulate all the flow data needed for carbon tracing in a single object, improving code readability and maintainability.\n\n\ncarbon.carrierinit\nInitialize the carbon carrier intensity data for the given tracer.\n\n\ncarbon.create_array\nCreate a vector or matrix based on given indices and values,\n\n\ncarbon.calculate_Q\nCalculate the Q matrix based on the given formula.\n\n\ncarbon.organize_step_flow_data\nOrganize the power flow data for a specific time step into a structured format (FlowDataWrapper) that can be easily used for carbon tracing calculations.\n\n\ncarbon.post_process_carbon\nPost-process the carbon intensity and carbon emissions data after allocation, including calculating net carbon intensity, weighted net carbon intensity, and local PV generation aggregated to a LV-net level.\n\n\ncarbon.carbon_tracing_ap\nPerform carbon tracing (average participation) using an optimization approach to calculate the carbon intensity of the ejected flow and the node emission, with an option to consider self-consumption. (LL method and LL-P method)\n\n\ncarbon.compare_opt_closed_formulation\nCompare the result and runtime of the optimization-based formulation and the closed-form by directly solving the linear system for the LL method.\n\n\ncarbon.carbon_tracing_ap_with_losses\nPerform carbon tracing (average participation) with the losses allocation to users. (LA method)\n\n\ncarbon.cal_node_flow_with_losses\nA standard implementation of the carbon allocation with losses (LA method).\n\n\ncarbon.optimized_node_flow_with_losses\nOptimized version of cal_node_flow_with_losses using sparse matrices and Numba for performance.\n\n\n\n\n\n\n\n\n\nplot.network_plot\nPlot network topology by folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\nplot.network_carbon_plot\nPlot the calculated node-level carbon intensity using folium.\n\n\nplot.lv_grids_time_plot\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\nplot.network_dual_plot\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#cflowdist",
+    "href": "reference/index.html#cflowdist",
+    "title": "Function reference",
+    "section": "",
+    "text": "CarbonTracer\nA class to trace carbon flows in the power grid.\n\n\nread_pickle\nRead a CarbonTracer object from a pickle file.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#models",
+    "href": "reference/index.html#models",
+    "title": "Function reference",
+    "section": "",
+    "text": "models.demand.naive\nGenerate naive load profiles based on the rated power of each load in the pandapower grid. The load profile is generated using a simple hourly load factor that varies throughout the day.\n\n\nmodels.demand.p_est_naive\nA helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined.\n\n\nmodels.demand.landuse\nGenerate load profiles based on land use data and standard load profiles for different sectors. The function uses the BDEW standard load profiles for electricity demand, which are adjusted based on the annual electricity demand for each load in the pandapower grid.\n\n\n\n\n\n\n\n\n\nmodels.generation.primitive\nApply the primitive method to generation generator profiles.\n\n\nmodels.generation.p_est_primitive\nA helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.\n\n\nmodels.generation.upgrade_roof\nApply the upgrade_roof method to compute generation patterns.\n\n\nmodels.generation.p_est_upgrade_roof\nA helper function that estimates photovoltaic (PV) power output by taking into account roof inclination, orientation, and local weather conditions (GHI, DNI, DHI, temperature, and wind speed) using the pvlib library.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#roof",
+    "href": "reference/index.html#roof",
+    "title": "Function reference",
+    "section": "",
+    "text": "roof.get_open_meteo\nThis function is originally provided by Open-Meteo and adapted for our use case.\n\n\nroof.find_roof\nFind the nearest roof(s) and building (by SB_UUID) to which we can associate the pv plant concerned.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#grid",
+    "href": "reference/index.html#grid",
+    "title": "Function reference",
+    "section": "",
+    "text": "grid.PowerFlowResults\nA dataclass to wrap and store the power flow results as pandas DataFrames.\n\n\ngrid.PowerFlowCalculator\nA dataclass to run power flow calculations using pandapower and store the results in a PowerFlowResults object.\n\n\ngrid.read_pf_results\nRead power flow results from csv files generated by pandapower and return them as pandas DataFrames.\n\n\ngrid.remove_future_plants\nRemove future plants from the grid. This function is used to remove plants that are not yet in operation (according to their BeginningOfOperation date) at the start time of the simulation.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#network",
+    "href": "reference/index.html#network",
+    "title": "Function reference",
+    "section": "",
+    "text": "network.ckdnearest\nFinds the nearest node (bus) to which we can associate the power plant concerned,\n\n\nnetwork.read_gpkg\nRead a GeoPackage file and return a dictionary of GeoDataFrames.\n\n\nnetwork.get_timezone_from_location\nGet the timezone of a given Location object.\n\n\nnetwork.find_best_polygon\nFind the polygon in gdf that best matches the point.\n\n\nnetwork.find_id\nFind the identifiers of the best matching MV and LV network ID for the location of the tracer, based on the LV and MV hulls in the tracer’s data.\n\n\nnetwork.add_landuse\nAdd land use category to the bus geodata based on the nearest land use polygon.\n\n\nnetwork.find_canton\nFind the canton name and code for the location of the tracer using the swisstopo Web API.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#carbon",
+    "href": "reference/index.html#carbon",
+    "title": "Function reference",
+    "section": "",
+    "text": "carbon.FlowDataWrapper\nA dataclass to encapsulate all the flow data needed for carbon tracing in a single object, improving code readability and maintainability.\n\n\ncarbon.carrierinit\nInitialize the carbon carrier intensity data for the given tracer.\n\n\ncarbon.create_array\nCreate a vector or matrix based on given indices and values,\n\n\ncarbon.calculate_Q\nCalculate the Q matrix based on the given formula.\n\n\ncarbon.organize_step_flow_data\nOrganize the power flow data for a specific time step into a structured format (FlowDataWrapper) that can be easily used for carbon tracing calculations.\n\n\ncarbon.post_process_carbon\nPost-process the carbon intensity and carbon emissions data after allocation, including calculating net carbon intensity, weighted net carbon intensity, and local PV generation aggregated to a LV-net level.\n\n\ncarbon.carbon_tracing_ap\nPerform carbon tracing (average participation) using an optimization approach to calculate the carbon intensity of the ejected flow and the node emission, with an option to consider self-consumption. (LL method and LL-P method)\n\n\ncarbon.compare_opt_closed_formulation\nCompare the result and runtime of the optimization-based formulation and the closed-form by directly solving the linear system for the LL method.\n\n\ncarbon.carbon_tracing_ap_with_losses\nPerform carbon tracing (average participation) with the losses allocation to users. (LA method)\n\n\ncarbon.cal_node_flow_with_losses\nA standard implementation of the carbon allocation with losses (LA method).\n\n\ncarbon.optimized_node_flow_with_losses\nOptimized version of cal_node_flow_with_losses using sparse matrices and Numba for performance.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#plot",
+    "href": "reference/index.html#plot",
+    "title": "Function reference",
+    "section": "",
+    "text": "plot.network_plot\nPlot network topology by folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\nplot.network_carbon_plot\nPlot the calculated node-level carbon intensity using folium.\n\n\nplot.lv_grids_time_plot\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\nplot.network_dual_plot\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.",
+    "crumbs": [
+      "Reference",
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.upgrade_roof.html",
+    "href": "reference/models.generation.upgrade_roof.html",
+    "title": "models.generation.upgrade_roof",
+    "section": "",
+    "text": "models.generation.upgrade_roof(df_p_mw_t, df_gen, snapshots, tracer)\nApply the upgrade_roof method to compute generation patterns. The function estimates the power output for photovoltaic (PV) generators using the p_est_upgrade_roof helper function, which takes into account roof inclination, orientation, and local weather conditions to estimate the power output of the PV system. For non-PV generators, the function assigns the rated power as the power output for all snapshots. The resulting DataFrame contains the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.\nrequired\n\n\ndf_gen\npd.DataFrame\nA DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, pp_grid.gen or pp_grid.sgen), including the type of generator (e.g., ‘Photovoltaic’) and the rated power (‘p_mw’).\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the generation profiles should be generated.\nrequired\n\n\ntracer\nCarbonTracer\nA CarbonTracer object that contains location information and other relevant data for estimating PV power output.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.\n\n\n\n\n\n\n\nmodels.generation.p_est_upgrade_roof : A helper function that estimates PV power output by taking into account roof inclination, orientation, and local weather conditions using the pvlib library.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.upgrade_roof.html#parameters",
+    "href": "reference/models.generation.upgrade_roof.html#parameters",
+    "title": "models.generation.upgrade_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated power profiles, indexed by snapshots and with columns corresponding to generator indices.\nrequired\n\n\ndf_gen\npd.DataFrame\nA DataFrame containing generator information (an attribute of the pandapower.pandapowerNet, pp_grid.gen or pp_grid.sgen), including the type of generator (e.g., ‘Photovoltaic’) and the rated power (‘p_mw’).\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the generation profiles should be generated.\nrequired\n\n\ntracer\nCarbonTracer\nA CarbonTracer object that contains location information and other relevant data for estimating PV power output.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.upgrade_roof.html#returns",
+    "href": "reference/models.generation.upgrade_roof.html#returns",
+    "title": "models.generation.upgrade_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the estimated power output for each generator at each snapshot, indexed by snapshots and with columns corresponding to generator indices.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.upgrade_roof.html#see-also",
+    "href": "reference/models.generation.upgrade_roof.html#see-also",
+    "title": "models.generation.upgrade_roof",
+    "section": "",
+    "text": "models.generation.p_est_upgrade_roof : A helper function that estimates PV power output by taking into account roof inclination, orientation, and local weather conditions using the pvlib library.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/CarbonTracer.html",
+    "href": "reference/CarbonTracer.html",
+    "title": "CarbonTracer",
+    "section": "",
+    "text": "CarbonTracer(address, dir_config='./config/default.json')\nA class to trace carbon flows in the power grid.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\naddress\nstr\nThe address of the location to analyze.\nrequired\n\n\ndir_config\nstr\nPath to the configuration file, default “./config/default.json”.\n'./config/default.json'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nconfig\ndict[str, dict]\nThe loaded configuration from the JSON file.\n\n\nall_plant_df\ngpd.GeoDataFrame\nA GeoDataFrame containing all the power plants.\n\n\nmv_hulls\ndict[str, list]\nA dictionary containing the convex hulls of the MV grids.\n\n\nlv_hulls\ndict[str, list]\nA dictionary containing the convex hulls of the LV grids.\n\n\nall_lu\ngpd.GeoDataFrame\nA GeoDataFrame containing all the land use data.\n\n\nlu_46_category\npd.DataFrame\nA DataFrame mapping land use categories to 46 categories.\n\n\npp_grid\npp.pandapowerNet\nThe pandapower network representing the power grid.\n\n\npf_calculator\ngrid.PowerFlowCalculator\nAn instance of the PowerFlowCalculator class to perform power flow calculations.\n\n\nloc_selected\nLocation\nThe geocoded location based on the provided address.\n\n\nnode_ci_df\npd.DataFrame\nA DataFrame containing the carbon intensity at the node level.\n\n\nnet_ci_df\npd.DataFrame\nA DataFrame containing the carbon intensity aggregated to the network level (weighted average).\n\n\nnode_ce_df\npd.DataFrame\nA DataFrame containing the carbon emissions at the node level.\n\n\nnet_ce_df\npd.DataFrame\nA DataFrame containing the carbon emissions aggregated to the network level.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nallocate_carbon\nAllocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods).\n\n\nlv_grids_time_plot\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\nnetwork_carbon_plot\nPlot the calculated node-level carbon intensity using folium.\n\n\nnetwork_dual_plot\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.\n\n\nnetwork_plot\nPlot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\npower_flow\nRun power flow (by pandapower time series simulation).\n\n\nsave_pickle\nSave a CarbonTracer object to a pickle file.\n\n\nset_snapshots\nSet snapshots for power flow and carbon allocation after.\n\n\n\n\n\nCarbonTracer.allocate_carbon(\n    return_scale='node',\n    loss_allocation=False,\n    self_consumption=True,\n    use_numba=False,\n)\nAllocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nreturn_scale\nLiteral['node', 'lv_net']\nThe scale to return the carbon intensity results, either at ‘node’ level or aggregated to ‘lv_net’ level.\n'node'\n\n\nloss_allocation\nbool\nWhether to allocate losses to the nodes. If True, the carbon intensity will be allocated considering the losses, i.e. the LA method. If False, the carbon intensity will be allocated without considering losses.\nFalse\n\n\nself_consumption\nbool\nWhether to prioritize self-consumption in the flow tracing algorithm. If True, the algorithm will prioritize self-consumption when allocating carbon intensity (LL-P method). If False, the algorithm will not prioritize self-consumption (LL method).\nTrue\n\n\nuse_numba\nbool\nWhether to use numba JIT compiler for faster computation. If True, numba will be used to speed up the LA method, only valid when loss_allocation is True. Note that for large networks with more than 500 nodes, it is recommended to set use_numba to True for faster computation, as the LA method can be computationally intensive for large networks.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the allocated carbon intensity, either at node level or aggregated to lv_net level, depending on the return_scale parameter.\n\n\n\n\n\n\n\nCarbonTracer.lv_grids_time_plot(tile_name='white', show_tools=False)\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntile_name\nstr\nA selected tile name for the basemap.\n'white'\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results with a time slider.\n\n\n\n\n\n\ntracer.lv_grids_time_plot()\n\n\n\n\nCarbonTracer.network_carbon_plot(snapshot, show_colormap=True, show_tools=False)\nPlot the calculated node-level carbon intensity using folium.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshot\npd.Timestamp\nA selected timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nTrue\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_carbon_plot(snapshot = tracer.snapshots[0])\n\n\n\n\nCarbonTracer.network_dual_plot(\n    snapshot_night,\n    snapshot_day,\n    show_colormap=False,\n)\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshot_night\npd.Timestamp\nA selected night timestamp to plot.\nrequired\n\n\nsnapshot_day\npd.Timestamp\nA selected day timestamp to plot.\nrequired\n\n\nshow_colormap\n\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.plugins.DualMap\nA pretty dual map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])\n\n\n\n\nCarbonTracer.network_plot(show_tools=True)\nPlot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the network pp_grid.\n\n\n\n\n\n\ntracer.network_plot()\n\n\n\n\nCarbonTracer.power_flow()\nRun power flow (by pandapower time series simulation).\n\n\n\ngrid.PowerFlowCalculator\n\n\n\n\n\nCarbonTracer.save_pickle(filename)\nSave a CarbonTracer object to a pickle file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nfilename\nstr\nPath to write the file.\nrequired\n\n\n\n\n\n\n\nCarbonTracer.set_snapshots(t_start, t_end, freq='1h')\nSet snapshots for power flow and carbon allocation after.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nt_start\nstr\nStarting time.\nrequired\n\n\nt_end\nstr\nEnding time.\nrequired\n\n\nfreq\nstr\nFrequency, default hourly.\n'1h'\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DatetimeIndex\n\n\n\n\n\n\n\nt_start = '2023-06-08 12:00:00'\nt_end = '2023-06-08 14:00:00'\nsnapshots = tracer.set_snapshots(t_start=t_start, t_end=t_end)",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "CarbonTracer"
+    ]
+  },
+  {
+    "objectID": "reference/CarbonTracer.html#parameters",
+    "href": "reference/CarbonTracer.html#parameters",
+    "title": "CarbonTracer",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\naddress\nstr\nThe address of the location to analyze.\nrequired\n\n\ndir_config\nstr\nPath to the configuration file, default “./config/default.json”.\n'./config/default.json'",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "CarbonTracer"
+    ]
+  },
+  {
+    "objectID": "reference/CarbonTracer.html#attributes",
+    "href": "reference/CarbonTracer.html#attributes",
+    "title": "CarbonTracer",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nconfig\ndict[str, dict]\nThe loaded configuration from the JSON file.\n\n\nall_plant_df\ngpd.GeoDataFrame\nA GeoDataFrame containing all the power plants.\n\n\nmv_hulls\ndict[str, list]\nA dictionary containing the convex hulls of the MV grids.\n\n\nlv_hulls\ndict[str, list]\nA dictionary containing the convex hulls of the LV grids.\n\n\nall_lu\ngpd.GeoDataFrame\nA GeoDataFrame containing all the land use data.\n\n\nlu_46_category\npd.DataFrame\nA DataFrame mapping land use categories to 46 categories.\n\n\npp_grid\npp.pandapowerNet\nThe pandapower network representing the power grid.\n\n\npf_calculator\ngrid.PowerFlowCalculator\nAn instance of the PowerFlowCalculator class to perform power flow calculations.\n\n\nloc_selected\nLocation\nThe geocoded location based on the provided address.\n\n\nnode_ci_df\npd.DataFrame\nA DataFrame containing the carbon intensity at the node level.\n\n\nnet_ci_df\npd.DataFrame\nA DataFrame containing the carbon intensity aggregated to the network level (weighted average).\n\n\nnode_ce_df\npd.DataFrame\nA DataFrame containing the carbon emissions at the node level.\n\n\nnet_ce_df\npd.DataFrame\nA DataFrame containing the carbon emissions aggregated to the network level.",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "CarbonTracer"
+    ]
+  },
+  {
+    "objectID": "reference/CarbonTracer.html#methods",
+    "href": "reference/CarbonTracer.html#methods",
+    "title": "CarbonTracer",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nallocate_carbon\nAllocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods).\n\n\nlv_grids_time_plot\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\nnetwork_carbon_plot\nPlot the calculated node-level carbon intensity using folium.\n\n\nnetwork_dual_plot\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.\n\n\nnetwork_plot\nPlot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\npower_flow\nRun power flow (by pandapower time series simulation).\n\n\nsave_pickle\nSave a CarbonTracer object to a pickle file.\n\n\nset_snapshots\nSet snapshots for power flow and carbon allocation after.\n\n\n\n\n\nCarbonTracer.allocate_carbon(\n    return_scale='node',\n    loss_allocation=False,\n    self_consumption=True,\n    use_numba=False,\n)\nAllocate carbon emissions to the nodes using the flow tracing algorithms developed (LL, LL-P and LA methods).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nreturn_scale\nLiteral['node', 'lv_net']\nThe scale to return the carbon intensity results, either at ‘node’ level or aggregated to ‘lv_net’ level.\n'node'\n\n\nloss_allocation\nbool\nWhether to allocate losses to the nodes. If True, the carbon intensity will be allocated considering the losses, i.e. the LA method. If False, the carbon intensity will be allocated without considering losses.\nFalse\n\n\nself_consumption\nbool\nWhether to prioritize self-consumption in the flow tracing algorithm. If True, the algorithm will prioritize self-consumption when allocating carbon intensity (LL-P method). If False, the algorithm will not prioritize self-consumption (LL method).\nTrue\n\n\nuse_numba\nbool\nWhether to use numba JIT compiler for faster computation. If True, numba will be used to speed up the LA method, only valid when loss_allocation is True. Note that for large networks with more than 500 nodes, it is recommended to set use_numba to True for faster computation, as the LA method can be computationally intensive for large networks.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the allocated carbon intensity, either at node level or aggregated to lv_net level, depending on the return_scale parameter.\n\n\n\n\n\n\n\nCarbonTracer.lv_grids_time_plot(tile_name='white', show_tools=False)\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntile_name\nstr\nA selected tile name for the basemap.\n'white'\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results with a time slider.\n\n\n\n\n\n\ntracer.lv_grids_time_plot()\n\n\n\n\nCarbonTracer.network_carbon_plot(snapshot, show_colormap=True, show_tools=False)\nPlot the calculated node-level carbon intensity using folium.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshot\npd.Timestamp\nA selected timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nTrue\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_carbon_plot(snapshot = tracer.snapshots[0])\n\n\n\n\nCarbonTracer.network_dual_plot(\n    snapshot_night,\n    snapshot_day,\n    show_colormap=False,\n)\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshot_night\npd.Timestamp\nA selected night timestamp to plot.\nrequired\n\n\nsnapshot_day\npd.Timestamp\nA selected day timestamp to plot.\nrequired\n\n\nshow_colormap\n\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.plugins.DualMap\nA pretty dual map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])\n\n\n\n\nCarbonTracer.network_plot(show_tools=True)\nPlot network topology using folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the network pp_grid.\n\n\n\n\n\n\ntracer.network_plot()\n\n\n\n\nCarbonTracer.power_flow()\nRun power flow (by pandapower time series simulation).\n\n\n\ngrid.PowerFlowCalculator\n\n\n\n\n\nCarbonTracer.save_pickle(filename)\nSave a CarbonTracer object to a pickle file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nfilename\nstr\nPath to write the file.\nrequired\n\n\n\n\n\n\n\nCarbonTracer.set_snapshots(t_start, t_end, freq='1h')\nSet snapshots for power flow and carbon allocation after.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nt_start\nstr\nStarting time.\nrequired\n\n\nt_end\nstr\nEnding time.\nrequired\n\n\nfreq\nstr\nFrequency, default hourly.\n'1h'\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DatetimeIndex\n\n\n\n\n\n\n\nt_start = '2023-06-08 12:00:00'\nt_end = '2023-06-08 14:00:00'\nsnapshots = tracer.set_snapshots(t_start=t_start, t_end=t_end)",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "CarbonTracer"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_dual_plot.html",
+    "href": "reference/plot.network_dual_plot.html",
+    "title": "plot.network_dual_plot",
+    "section": "",
+    "text": "plot.network_dual_plot(\n    tracer,\n    snapshot_night,\n    snapshot_day,\n    show_colormap=False,\n)\nPlot the calculated node-level carbon intensity using folium dual map, comparing two snapshots horizontally, one with light style tile and one with dark style tile.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nsnapshot_night\npd.Timestamp\nA selected night timestamp to plot.\nrequired\n\n\nsnapshot_day\npd.Timestamp\nA selected day timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.plugins.DualMap\nA pretty dual map visualization of the carbon allocation results.\n\n\n\n\n\n\ntracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_dual_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_dual_plot.html#parameters",
+    "href": "reference/plot.network_dual_plot.html#parameters",
+    "title": "plot.network_dual_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nsnapshot_night\npd.Timestamp\nA selected night timestamp to plot.\nrequired\n\n\nsnapshot_day\npd.Timestamp\nA selected day timestamp to plot.\nrequired\n\n\nshow_colormap\nbool\nA boolean flag indicating whether to show a colormap in the map. If True, a colormap will be added to the map.\nFalse",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_dual_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_dual_plot.html#returns",
+    "href": "reference/plot.network_dual_plot.html#returns",
+    "title": "plot.network_dual_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nfolium.plugins.DualMap\nA pretty dual map visualization of the carbon allocation results.",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_dual_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_dual_plot.html#example",
+    "href": "reference/plot.network_dual_plot.html#example",
+    "title": "plot.network_dual_plot",
+    "section": "",
+    "text": "tracer.network_dual_plot(snapshot_day = tracer.snapshots[12], snapshot_night= tracer.snapshots[0])",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_dual_plot"
+    ]
+  },
+  {
+    "objectID": "reference/grid.remove_future_plants.html",
+    "href": "reference/grid.remove_future_plants.html",
+    "title": "grid.remove_future_plants",
+    "section": "",
+    "text": "grid.remove_future_plants(tracer, start_time)\nRemove future plants from the grid. This function is used to remove plants that are not yet in operation (according to their BeginningOfOperation date) at the start time of the simulation. It removes the future plants from the mv_plant_df attribute of the tracer, and also removes the corresponding entries from the sgen and gen DataFrames in the pandapower grid.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object containing the grid and plant information.\nrequired\n\n\nstart_time\npd.Timestamp\nThe start time of the simulation, used to determine which plants are considered future plants.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.remove_future_plants"
+    ]
+  },
+  {
+    "objectID": "reference/grid.remove_future_plants.html#parameters",
+    "href": "reference/grid.remove_future_plants.html#parameters",
+    "title": "grid.remove_future_plants",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object containing the grid and plant information.\nrequired\n\n\nstart_time\npd.Timestamp\nThe start time of the simulation, used to determine which plants are considered future plants.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.remove_future_plants"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowCalculator.html",
+    "href": "reference/grid.PowerFlowCalculator.html",
+    "title": "grid.PowerFlowCalculator",
+    "section": "",
+    "text": "grid.PowerFlowCalculator(tracer)\nA dataclass to run power flow calculations using pandapower and store the results in a PowerFlowResults object. The PowerFlowCalculator takes a CarbonTracer object as input, which contains the pandapower grid and the snapshots to be used for the power flow calculations. The PowerFlowCalculator runs the power flow calculations for each snapshot using pandapower’s time series simulation capabilities, and stores the results in a PowerFlowResults object. The power flow results are saved to CSV files in the pf_res directory, and can be read back into pandas DataFrames using the read_pf_results function.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object containing the pandapower grid and the snapshots to be used for the power flow calculations.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\npp_grid\npandapowerNet\nThe pandapower grid extracted from the CarbonTracer object, which is used for the power flow calculations.\n\n\nsnapshots\npd.DatetimeIndex\nThe snapshots extracted from the CarbonTracer object, which are used as time steps for the power flow calculations.\n\n\npf_results\nPowerFlowResults\nThe power flow results stored in a PowerFlowResults object, which contains the active power (in MW) for static generators, generators, external grid, loads, lines (from and to), and transformers (HV and LV) as pandas DataFrames indexed by snapshots and with columns corresponding to the indices of the corresponding elements in the pandapower grid.\n\n\n\n\n\n\n\ngrid.PowerFlowResults : A dataclass to wrap and store the power flow results as pandas DataFrames.\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nmodel_demand\nSet demand patterns for each node in the network (by pandapower’s const controller).\n\n\nmodel_gen\nSet generators’ (PV controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\nmodel_sgen\nSet static generators’ (PQ controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\nrun_power_flow\nRun power flow (by pandapower time series simulation).\n\n\n\n\n\ngrid.PowerFlowCalculator.model_demand(method='landuse')\nSet demand patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['naive', 'landuse']\nThe method to be used to model the demand. Currently support 'naive' and 'landuse' demand models. - 'naive': assign the same demand pattern (load factor) to all nodes - 'landuse': assign different demand patterns to nodes based on their landuse type\n'landuse'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nloads_p_mw_t\npd.DataFrame\nA dataframe with the active power demand (in MW) for each node (bus) and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.model_gen(method='upgrade_roof')\nSet generators’ (PV controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['upgrade_roof', 'primitive']\nThe method to be used to model the generators. Currently support 'primitive' and 'upgrade_roof' generation models. - 'primitive': assign the same generation pattern (generation factor) to all generators - 'upgrade_roof': assign different generation patterns to generators based on the roof area of the buildings at the location of the generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland.\n'upgrade_roof'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ngen_p_mw_t\npd.DataFrame\nA dataframe with the active power generation (in MW) for each generator and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.model_sgen(method='upgrade_roof')\nSet static generators’ (PQ controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['upgrade_roof', 'primitive']\nThe method to be used to model the static generators. Currently support 'primitive' and 'upgrade_roof' generation models. - 'primitive': assign the same generation pattern (generation factor) to all static generators - 'upgrade_roof': assign different generation patterns to static generators based on the roof area of the buildings at the location of the static generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland.\n'upgrade_roof'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nsgen_p_mw_t\npd.DataFrame\nA dataframe with the active power generation (in MW) for each static generator and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.run_power_flow()\nRun power flow (by pandapower time series simulation).",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowCalculator"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowCalculator.html#parameters",
+    "href": "reference/grid.PowerFlowCalculator.html#parameters",
+    "title": "grid.PowerFlowCalculator",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object containing the pandapower grid and the snapshots to be used for the power flow calculations.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowCalculator"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowCalculator.html#attributes",
+    "href": "reference/grid.PowerFlowCalculator.html#attributes",
+    "title": "grid.PowerFlowCalculator",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\npp_grid\npandapowerNet\nThe pandapower grid extracted from the CarbonTracer object, which is used for the power flow calculations.\n\n\nsnapshots\npd.DatetimeIndex\nThe snapshots extracted from the CarbonTracer object, which are used as time steps for the power flow calculations.\n\n\npf_results\nPowerFlowResults\nThe power flow results stored in a PowerFlowResults object, which contains the active power (in MW) for static generators, generators, external grid, loads, lines (from and to), and transformers (HV and LV) as pandas DataFrames indexed by snapshots and with columns corresponding to the indices of the corresponding elements in the pandapower grid.",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowCalculator"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowCalculator.html#see-also",
+    "href": "reference/grid.PowerFlowCalculator.html#see-also",
+    "title": "grid.PowerFlowCalculator",
+    "section": "",
+    "text": "grid.PowerFlowResults : A dataclass to wrap and store the power flow results as pandas DataFrames.",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowCalculator"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowCalculator.html#methods",
+    "href": "reference/grid.PowerFlowCalculator.html#methods",
+    "title": "grid.PowerFlowCalculator",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nmodel_demand\nSet demand patterns for each node in the network (by pandapower’s const controller).\n\n\nmodel_gen\nSet generators’ (PV controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\nmodel_sgen\nSet static generators’ (PQ controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\nrun_power_flow\nRun power flow (by pandapower time series simulation).\n\n\n\n\n\ngrid.PowerFlowCalculator.model_demand(method='landuse')\nSet demand patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['naive', 'landuse']\nThe method to be used to model the demand. Currently support 'naive' and 'landuse' demand models. - 'naive': assign the same demand pattern (load factor) to all nodes - 'landuse': assign different demand patterns to nodes based on their landuse type\n'landuse'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nloads_p_mw_t\npd.DataFrame\nA dataframe with the active power demand (in MW) for each node (bus) and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.model_gen(method='upgrade_roof')\nSet generators’ (PV controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['upgrade_roof', 'primitive']\nThe method to be used to model the generators. Currently support 'primitive' and 'upgrade_roof' generation models. - 'primitive': assign the same generation pattern (generation factor) to all generators - 'upgrade_roof': assign different generation patterns to generators based on the roof area of the buildings at the location of the generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland.\n'upgrade_roof'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ngen_p_mw_t\npd.DataFrame\nA dataframe with the active power generation (in MW) for each generator and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.model_sgen(method='upgrade_roof')\nSet static generators’ (PQ controlled nodes) patterns for each node in the network (by pandapower’s const controller).\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmethod\nLiteral['upgrade_roof', 'primitive']\nThe method to be used to model the static generators. Currently support 'primitive' and 'upgrade_roof' generation models. - 'primitive': assign the same generation pattern (generation factor) to all static generators - 'upgrade_roof': assign different generation patterns to static generators based on the roof area of the buildings at the location of the static generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland.\n'upgrade_roof'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nsgen_p_mw_t\npd.DataFrame\nA dataframe with the active power generation (in MW) for each static generator and each time step (snapshot).\n\n\n\n\n\n\n\ngrid.PowerFlowCalculator.run_power_flow()\nRun power flow (by pandapower time series simulation).",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowCalculator"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.compare_opt_closed_formulation.html",
+    "href": "reference/carbon.compare_opt_closed_formulation.html",
+    "title": "carbon.compare_opt_closed_formulation",
+    "section": "",
+    "text": "carbon.compare_opt_closed_formulation(step_flow_data)\nCompare the result and runtime of the optimization-based formulation and the closed-form by directly solving the linear system for the LL method.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray, float, float]\nA tuple contains: the intensity of ejected flow calculated by the optimization approach, the intensity of ejected flow calculated by the closed-form approach, the runtime of the optimization approach, and the runtime of the closed-form approach.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.compare_opt_closed_formulation"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.compare_opt_closed_formulation.html#parameters",
+    "href": "reference/carbon.compare_opt_closed_formulation.html#parameters",
+    "title": "carbon.compare_opt_closed_formulation",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.compare_opt_closed_formulation"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.compare_opt_closed_formulation.html#returns",
+    "href": "reference/carbon.compare_opt_closed_formulation.html#returns",
+    "title": "carbon.compare_opt_closed_formulation",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray, float, float]\nA tuple contains: the intensity of ejected flow calculated by the optimization approach, the intensity of ejected flow calculated by the closed-form approach, the runtime of the optimization approach, and the runtime of the closed-form approach.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.compare_opt_closed_formulation"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.post_process_carbon.html",
+    "href": "reference/carbon.post_process_carbon.html",
+    "title": "carbon.post_process_carbon",
+    "section": "",
+    "text": "carbon.post_process_carbon\ncarbon.post_process_carbon(tracer)\nPost-process the carbon intensity and carbon emissions data after allocation, including calculating net carbon intensity, weighted net carbon intensity, and local PV generation aggregated to a LV-net level.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.post_process_carbon"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.landuse.html",
+    "href": "reference/models.demand.landuse.html",
+    "title": "models.demand.landuse",
+    "section": "",
+    "text": "models.demand.landuse(snapshots, pp_grid, tracer)\nGenerate load profiles based on land use data and standard load profiles for different sectors. The function uses the BDEW standard load profiles for electricity demand, which are adjusted based on the annual electricity demand for each load in the pandapower grid. The resulting DataFrame contains the power demand for each load node at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\npp_grid\npandapowerNet\nA pandapower network object containing the load information, including the rated power for each load and the load type (e.g., residential, commercial, industrial).\nrequired\n\n\ntracer\nCarbonTracer\nA CarbonTracer object.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the generated load profiles for each load at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.\n\n\n\n\n\n\n\nmodels.demand.naive : A function that generates naive load profiles for all loads in the pandapower grid using the p_est_naive helper function.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.landuse"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.landuse.html#parameters",
+    "href": "reference/models.demand.landuse.html#parameters",
+    "title": "models.demand.landuse",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\npp_grid\npandapowerNet\nA pandapower network object containing the load information, including the rated power for each load and the load type (e.g., residential, commercial, industrial).\nrequired\n\n\ntracer\nCarbonTracer\nA CarbonTracer object.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.landuse"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.landuse.html#returns",
+    "href": "reference/models.demand.landuse.html#returns",
+    "title": "models.demand.landuse",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the generated load profiles for each load at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.landuse"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.landuse.html#see-also",
+    "href": "reference/models.demand.landuse.html#see-also",
+    "title": "models.demand.landuse",
+    "section": "",
+    "text": "models.demand.naive : A function that generates naive load profiles for all loads in the pandapower grid using the p_est_naive helper function.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.landuse"
+    ]
+  },
+  {
     "objectID": "presentation/index.html#background-and-motivation",
     "href": "presentation/index.html#background-and-motivation",
     "title": "CFlowDist Documentation",
@@ -11,14 +847,14 @@
     "href": "presentation/index.html#methodology-lossless-carbon-allocation-without-prosumer-priority-ll-method",
     "title": "CFlowDist Documentation",
     "section": "Methodology: Lossless Carbon Allocation without prosumer priority (LL method)",
-    "text": "Methodology: Lossless Carbon Allocation without prosumer priority (LL method)\n\n\n\n\n\n\n\n\nNomenclature\n\n\n\nInputs\n\nnode set and branch set: \\(\\mathcal{N}, \\mathcal{L}\\)\ngeneration, load, import, and export power at node \\(i\\): \\(g_i, l_i, m_i, x_i\\)\npower inflow to node \\(j\\) from \\(i\\): \\(F_{i\\rightarrow j}^\\text{in}\\)\npower outflow from node \\(i\\) in direction of \\(j\\): \\(F_{i\\rightarrow j}^\\text{out}\\)\ninjected and imported (from higher-level grids) carbon intensity: \\({c_g}_i, {c_m}_i\\)\n\nOutputs: nodal carbon intensity: \\({c_x}_i\\)\n\n\n\n\n\n\n\n\n\n\nCore Assumptions\n\n\n\nPerfect mixing at each node\nCarbon follows active power flows, intensity inherited from upstream sources\n\n\n\n\n\nNet power injection and extraction: \\[\n\\begin{cases}\n    p_i^\\text{in} &= \\max{ \\{(g_i - l_i),0 \\}} + m_i\\\\\n     p_i^\\text{out} &= \\max{ \\{-(g_i - l_i),0 \\}} + x_i\n\\end{cases}\n\\]\nNodal power balance (Hörsch et al., 2018): \\[\np_i^\\text{in} + \\sum_{(i,j)\\in\\mathcal{L}} F_{j\\rightarrow i}^\\text{in}  = p_i^\\text{out} +  \\sum_{(i,j)\\in\\mathcal{L}} F_{i\\rightarrow j}^\\text{out}\n\\]\n\n\n\n\n\n\n\n\n\nFigure 1: An allocation example for a single node using the LL method.\n\n\n\nNodal carbon balance (average participation assumption): \\[\n    g_i {c_g}_i + m_i {c_m}_i + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j = (l_i +x_i){c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n    \\label{eq:nodal-carbon-balance}\n\\]\nThe \\(\\bf{c_x}\\) values are given the following linear program: \\[\n\\begin{aligned}\n    \\min_{\\rm{\\bf{c_x}}\\in\\mathbb{R}_+^n}\\quad  & \\rm{\\bf{g}}^\\top \\rm{\\bf{c_g}}+ \\rm{\\bf{m}}^\\top \\rm{\\bf{c_m}}  -(\\rm{\\bf{l}}+\\rm{\\bf{x}})^\\top \\rm{\\bf{c_x}}\\\\\n    \\text{s.t.}\\quad &\\forall\\ i\\in \\mathcal{N}\\\\\n    &0 \\leq {c_x}_i\\leq\\max\\{{c_g}_i, {c_m}_i\\}\\\\\n    & g_i {c_g}_i + m_i {c_m}_i + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j  \\geq (l_i +x_i){c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n\\end{aligned}\\label{eq:LP}\n\\]\nThe carbon emission responsibility of load at node \\(i\\): \\({C\\!F_x}_i = l_i{c_x}_i  \\label{eq:carbon-emission-LL}\\)"
+    "text": "Methodology: Lossless Carbon Allocation without prosumer priority (LL method)\n\n\n\n\n\n\n\n\nNomenclature\n\n\n\nInputs\n\nnode set and branch set: \\(\\mathcal{N}, \\mathcal{L}\\)\ngeneration, load, import, and export power at node \\(i\\): \\(g_i, l_i, m_i, x_i\\)\npower inflow to node \\(j\\) from \\(i\\): \\(F_{i\\rightarrow j}^\\text{in}\\)\npower outflow from node \\(i\\) in direction of \\(j\\): \\(F_{i\\rightarrow j}^\\text{out}\\)\ninjected and imported (from higher-level grids) carbon intensity: \\({c_g}_i, {c_m}_i\\)\n\nOutputs: nodal carbon intensity: \\({c_x}_i\\)\n\n\n\n\n\n\n\n\n\n\nCore Assumptions\n\n\n\nPerfect mixing at each node (average participation)\nCarbon follows active power flows, intensity inherited from upstream sources\n\n\n\n\n\nNet power injection and extraction: \\[\n\\begin{cases}\n    p_i^\\text{in} &= \\max{ \\{(g_i - l_i),0 \\}} + m_i\\\\\n     p_i^\\text{out} &= \\max{ \\{-(g_i - l_i),0 \\}} + x_i\n\\end{cases}\n\\]\nNodal power balance (Hörsch et al., 2018): \\[\np_i^\\text{in} + \\sum_{(i,j)\\in\\mathcal{L}} F_{j\\rightarrow i}^\\text{in}  = p_i^\\text{out} +  \\sum_{(i,j)\\in\\mathcal{L}} F_{i\\rightarrow j}^\\text{out}\n\\]\n\n\n\n\n\n\n\n\n\nFigure 1: An allocation example for a single node using the LL method.\n\n\n\nNodal carbon balance (average participation assumption): \\[\n    g_i {c_g}_i + m_i {c_m}_i + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j = (l_i +x_i){c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n    \\label{eq:nodal-carbon-balance}\n\\]\nThe \\(\\bf{c_x}\\) values are given the following linear program: \\[\n\\begin{aligned}\n    \\min_{\\rm{\\bf{c_x}}\\in\\mathbb{R}_+^n}\\quad  & \\rm{\\bf{g}}^\\top \\rm{\\bf{c_g}}+ \\rm{\\bf{m}}^\\top \\rm{\\bf{c_m}}  -(\\rm{\\bf{l}}+\\rm{\\bf{x}})^\\top \\rm{\\bf{c_x}}\\\\\n    \\text{s.t.}\\quad &\\forall\\ i\\in \\mathcal{N}\\\\\n    &0 \\leq {c_x}_i\\leq\\max\\{{c_g}_i, {c_m}_i\\}\\\\\n    & g_i {c_g}_i + m_i {c_m}_i + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j  \\geq (l_i +x_i){c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n\\end{aligned}\\label{eq:LP}\n\\]\nThe carbon emission responsibility of load at node \\(i\\): \\({C\\!F_x}_i = l_i{c_x}_i  \\label{eq:carbon-emission-LL}\\)"
   },
   {
     "objectID": "presentation/index.html#methodology-lossless-carbon-allocation-with-prosumer-priority-ll-p-method",
     "href": "presentation/index.html#methodology-lossless-carbon-allocation-with-prosumer-priority-ll-p-method",
     "title": "CFlowDist Documentation",
     "section": "Methodology: Lossless Carbon Allocation with prosumer priority (LL-P method)",
-    "text": "Methodology: Lossless Carbon Allocation with prosumer priority (LL-P method)\n\n\n\n\n\n\n\n\nNomenclature\n\n\n\nInputs\n\nnode set and branch set: \\(\\mathcal{N}, \\mathcal{L}\\)\ngeneration, load, import, and export power at node \\(i\\): \\(g_i, l_i, m_i, x_i\\)\npower inflow to node \\(j\\) from \\(i\\): \\(F_{i\\rightarrow j}^\\text{in}\\)\npower outflow from node \\(i\\) in direction of \\(j\\): \\(F_{i\\rightarrow j}^\\text{out}\\)\ninjected and imported (from higher-level grids) carbon intensity: \\({c_g}_i, {c_m}_i\\)\n\nOutputs: nodal carbon intensity: \\({c_x}_i\\), ejected carbon intensity: \\({c_o}_i\\) (by LL-P)\n\n\n\n\n\n\n\n\n\n\nCore Assumptions\n\n\n\nPerfect mixing at each node\nCarbon follows active power flows, intensity inherited from upstream sources\n\n\n\n\n\nNet power injection and extraction: \\[\n\\begin{cases}\n    p_i^\\text{in} &= \\max{ \\{(g_i - l_i),0 \\}} + m_i\\\\\n     p_i^\\text{out} &= \\max{ \\{-(g_i - l_i),0 \\}} + x_i\n\\end{cases}\n\\]\nNodal power balance (Hörsch et al., 2018): \\[\np_i^\\text{in} + \\sum_{(i,j)\\in\\mathcal{L}} F_{j\\rightarrow i}^\\text{in}  = p_i^\\text{out} +  \\sum_{(i,j)\\in\\mathcal{L}} F_{i\\rightarrow j}^\\text{out}\n\\]\n\n\n\n\n\n\n\n\n\nFigure 2: An allocation example for a single node using the LL-P method.\n\n\n\nIntroduce ejected carbon intensity \\({c_o}_i\\) to isolate the responsibility of prosumers:\n\nLocal RES generation is prioritized for local consumption before exports\n\n\\[\n\\begin{aligned}\n    \\min_{\\rm{\\bf{c_x,c_o}}\\in\\mathbb{R}_+^n}\\quad  & \\rm{\\bf{g^\\top c_g+ m^\\top c_m  -(l+x)^\\top c_o}}\\\\\n    \\text{s.t.}\\quad &\\forall\\ i\\in \\mathcal{N}, \\quad 0 \\leq {c_x}_i\\leq\\max\\{{c_g}_i, {c_m}_i\\}\\\\\n    & \\begin{cases}\n        (l_i+x_i)\\cdot {c_o}_i= p_i^\\text{out}{c_x}_i + \\min\\{g_i,l_i \\}\\cdot {c_g}_i \\quad &\\text{if}~l_i+x_i&gt;0,\\\\\n        {c_o}_i = {c_x}_i  \\quad &\\text{else}.\n    \\end{cases}\\\\\n    &  \\max\\{{(g_i-l_i),0}\\}\\cdot{c_g}_i + m_i {c_m}_i  + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j \\\\\n    & \\qquad \\geq p_i^\\text{out}{c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n\\end{aligned}\n\\]\nThe carbon flow extracted from the network at node \\(i\\): \\({C\\!F_x}_i = p_i^\\text{out}{c_x}_i\\)\nThe carbon emission responsibility of load at node \\(i\\): \\({C\\!F_o}_i = l_i{c_o}_i\\)"
+    "text": "Methodology: Lossless Carbon Allocation with prosumer priority (LL-P method)\n\n\n\n\n\n\n\n\nNomenclature\n\n\n\nInputs\n\nnode set and branch set: \\(\\mathcal{N}, \\mathcal{L}\\)\ngeneration, load, import, and export power at node \\(i\\): \\(g_i, l_i, m_i, x_i\\)\npower inflow to node \\(j\\) from \\(i\\): \\(F_{i\\rightarrow j}^\\text{in}\\)\npower outflow from node \\(i\\) in direction of \\(j\\): \\(F_{i\\rightarrow j}^\\text{out}\\)\ninjected and imported (from higher-level grids) carbon intensity: \\({c_g}_i, {c_m}_i\\)\n\nOutputs: nodal carbon intensity: \\({c_x}_i\\), ejected carbon intensity: \\({c_o}_i\\) (by LL-P)\n\n\n\n\n\n\n\n\n\n\nCore Assumptions\n\n\n\nPerfect mixing at each node (average participation)\nCarbon follows active power flows, intensity inherited from upstream sources\n\n\n\n\n\nNet power injection and extraction: \\[\n\\begin{cases}\n    p_i^\\text{in} &= \\max{ \\{(g_i - l_i),0 \\}} + m_i\\\\\n     p_i^\\text{out} &= \\max{ \\{-(g_i - l_i),0 \\}} + x_i\n\\end{cases}\n\\]\nNodal power balance (Hörsch et al., 2018): \\[\np_i^\\text{in} + \\sum_{(i,j)\\in\\mathcal{L}} F_{j\\rightarrow i}^\\text{in}  = p_i^\\text{out} +  \\sum_{(i,j)\\in\\mathcal{L}} F_{i\\rightarrow j}^\\text{out}\n\\]\n\n\n\n\n\n\n\n\n\nFigure 2: An allocation example for a single node using the LL-P method.\n\n\n\nIntroduce ejected carbon intensity \\({c_o}_i\\) to isolate the responsibility of prosumers:\n\nLocal RES generation is prioritized for local consumption before exports\n\n\\[\n\\begin{aligned}\n    \\min_{\\rm{\\bf{c_x,c_o}}\\in\\mathbb{R}_+^n}\\quad  & \\rm{\\bf{g^\\top c_g+ m^\\top c_m  -(l+x)^\\top c_o}}\\\\\n    \\text{s.t.}\\quad &\\forall\\ i\\in \\mathcal{N}, \\quad 0 \\leq {c_x}_i\\leq\\max\\{{c_g}_i, {c_m}_i\\}\\\\\n    & \\begin{cases}\n        (l_i+x_i)\\cdot {c_o}_i= p_i^\\text{out}{c_x}_i + \\min\\{g_i,l_i \\}\\cdot {c_g}_i \\quad &\\text{if}~l_i+x_i&gt;0,\\\\\n        {c_o}_i = {c_x}_i  \\quad &\\text{else}.\n    \\end{cases}\\\\\n    &  \\max\\{{(g_i-l_i),0}\\}\\cdot{c_g}_i + m_i {c_m}_i  + \\sum_{j} F_{j\\rightarrow i}^\\text{in}{c_x}_j \\\\\n    & \\qquad \\geq p_i^\\text{out}{c_x}_i + \\sum_{j} F_{i\\rightarrow j}^\\text{out}{c_x}_i\n\\end{aligned}\n\\]\nThe carbon flow extracted from the network at node \\(i\\): \\({C\\!F_x}_i = p_i^\\text{out}{c_x}_i\\)\nThe carbon emission responsibility of load at node \\(i\\): \\({C\\!F_o}_i = l_i{c_o}_i\\)"
   },
   {
     "objectID": "presentation/index.html#methodology-carbon-allocation-with-losses-la-method",
@@ -67,7 +903,7 @@
     "href": "presentation/index.html#case-study-synthetic-swiss-distribution-grid---carbon-flow-tracing-results",
     "title": "CFlowDist Documentation",
     "section": "Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results",
-    "text": "Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results\n\n\n\n\n  \n\n\n\nFigure 9: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity in carbon intensity across LV networks."
+    "text": "Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results\n\n\n\n\n  \n\n\n\nFigure 9: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity across the network."
   },
   {
     "objectID": "presentation/index.html#case-study-synthetic-swiss-distribution-grid---carbon-flow-tracing-results-contd",
@@ -88,7 +924,7 @@
     "href": "presentation/index.html#conclusion-and-future-work",
     "title": "CFlowDist Documentation",
     "section": "Conclusion and Future Work",
-    "text": "Conclusion and Future Work\n\n\n\nKey Takeaways\n\nDeveloped a unified framework for carbon flow tracing in MV–LV distribution grids, including:\n\nlossless allocation (LL),\nlossless prosumer-priority allocation (LL-P),\nand losses-inclusive allocation (LA).\n\n\n\n\nApplied the framework to a synthetic Swiss distribution grid, revealing significant spatial and temporal variations in carbon intensity at the LV level that cannot be captured using conventional regional-average approaches.\n\n\n\nReleased the framework as the open-source Python package cflowdist, supporting reproducible research and practical applications in distribution-level carbon accounting.\n\n\n\n\nFuture Directions\n\nIncorporate:\n\nbattery energy storage systems (ongoing work)\n\n\n\n\nExtend the framework to:\n\nlosses due to reactive power flows\nnear real-time carbon signals\n\n\n\n\nExplore applications in:\n\ncarbon-aware energy management\nlocal energy community operations\ndistribution-system planning"
+    "text": "Conclusion and Future Work\n\n\n\nKey Takeaways\n\nDeveloped a unified framework for carbon flow tracing in MV–LV distribution grids, including:\n\nlossless allocation (LL),\nlossless prosumer-priority allocation (LL-P),\nand losses-inclusive allocation (LA).\n\n\n\n\nApplied the framework to a synthetic Swiss distribution grid, revealing significant spatial and temporal variations in carbon intensity at the LV level that cannot be captured using conventional regional-average approaches.\n\n\n\nReleased the framework as the open-source Python package cflowdist, supporting reproducible research and practical applications in distribution-level carbon accounting.\n\n\n\n\nFuture Directions\n\nIncorporate:\n\ntime-varying non-PV generation profiles\nbattery energy storage systems (ongoing work)\n\n\n\n\nExtend the framework to:\n\nlosses due to reactive power flows\nother carbon allocation principles\nnear real-time carbon signals\n\n\n\n\nExplore applications in:\n\ncarbon-aware energy management\nlocal energy community operations\ndistribution-system planning"
   },
   {
     "objectID": "presentation/index.html#references",
@@ -109,13 +945,764 @@
     "href": "index.html",
     "title": "CFlowDist documentation",
     "section": "",
-    "text": "The source code will be available on GitHub soon."
+    "text": "A Python toolkit for tracing carbon flows and allocating carbon intensity in Swiss distribution grids. Models and data sources are described in our paper titled: Carbon Flow Tracing in Distribution Grids: From Method to Application.\n\n\nClone the repository via:\ngit clone https://github.com/DESL-EPFL/cflowdist.git carbonflow\nThen switch to the directory:\ncd carbonflow\nA virtual environment is suggested:\n\nWindowsLinux / MacOS\n\n\npython -m venv .venv\n.venv\\Scripts\\activate\n\n\npython -m venv .venv\nsource .venv/bin/activate\n\n\n\nInstall the package:\npip install -e .\n\n\n\n\n\n\n\nimport cflowdist as cfd\n\n\n\n\nInitiate a CarbonTracer object by passing the address, it will be parsed into a geo-coordinate (longitude, latitude). Note that only locations in Switzerland are supported. Then the data of the grid that the coordinate is located in will be loaded.\n\n# init\ntracer = cfd.CarbonTracer(address = '8305 Dietlikon')\n\nGeocoding...Location coordinates: lon:8.624574661254883, lat:47.4146842956543 !\n\nLoading configuration... Loaded!\n\nLoading plants... Loaded!\n\nLoading hulls... Loaded!\n\nLoading landuse... Loaded!\n\nLooking for the ids of the MV and LV grids...Found MV grid id: 504_0!\n\nConstructing pandapower network...Constructed !\nAdding landuse data...Done!\n\nAdding generators...Done!\n\n\n\n\n\n\n# visualize\ntracer.network_plot()\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n\n\nThe pandapower grid object can be accessed via:\n\ntracer.pp_grid\n\nThis pandapower network includes the following parameter tables:\n   - bus (3109 elements)\n   - load (2074 elements)\n   - sgen (154 elements)\n   - ext_grid (1 element)\n   - line (3075 elements)\n   - trafo (33 elements)\n   - bus_geodata (3109 elements)\n   - line_geodata (3075 elements)\n and the following results tables:\n   - res_bus (123 elements)\n   - res_line (121 elements)\n   - res_trafo (1 element)\n   - res_ext_grid (1 element)\n   - res_load (58 elements)\n\n\n\n\n\nThe hourly snapshots to analyze need to be set. Note that only year 2023 is supported.\n\n# init snapshots\nt_start = '2023-06-08 12:00:00'\nt_end = '2023-06-08 14:00:00'\nsnapshots = tracer.set_snapshots(t_start=t_start, t_end=t_end)\n\n\n\n\nThe load and generation profiles are generated before exectution of the AC power flow calculation.\n\n# power flow\ntracer.power_flow()\n\nDemand model: landuse model\nGeneration model: upgrade roof\nCoordinates: 47.41651916503906°N 8.557376861572266°E\nElevation: 435.0 m asl\n\n\n\n  0%|          | 0/3 [00:00&lt;?, ?it/s]\n 67%|██████▋   | 2/3 [00:00&lt;00:00,  2.78it/s]\n100%|██████████| 3/3 [00:00&lt;00:00,  3.92it/s]\n\n\n\n\n\nAllocate the carbon intensity using the dedicated method. You can choose which allocation method to use via the parameters loss_allocation and self_consumption.\n\n# carbon allocation\nnode_ci_df_no_loss = tracer.allocate_carbon(\n    loss_allocation=False,\n    self_consumption=True\n    )\n\nHV carbon intensity data for canton ZH loaded.\n2023-06-08 12:00:00+02:00\n2023-06-08 13:00:00+02:00\n2023-06-08 14:00:00+02:00\n\n\nCheck the carbon intensity results aggregated at network level:\n\ntracer.net_ci_df.round(2)\n\n\n\n\n\n\n\n\nHV_504_0\nLV_200-10_0_3\nLV_200-10_1_3\nLV_200-11_0_3\nLV_200-12_0_4\nLV_200-13_0_2\nLV_200-14_0_6\nLV_200-15_0_3\nLV_200-16_0_6\nLV_200-2_0_6\n...\nLV_54-14_0_7\nLV_54-15_0_5\nLV_54-1_0_4\nLV_54-2_0_4\nLV_54-5_0_4\nLV_54-6_0_5\nLV_54-7_0_4\nLV_54-8_0_5\nLV_54-9_0_5\nMV_504_0\n\n\n\n\n2023-06-08 12:00:00+02:00\n86.21\n56.88\n47.46\n73.40\n70.29\n86.20\n81.28\n86.21\n79.35\n79.94\n...\n81.63\n84.28\n77.83\n85.34\n82.86\n71.91\n82.65\n86.20\n68.52\n82.27\n\n\n2023-06-08 13:00:00+02:00\n82.93\n49.93\n39.80\n68.41\n65.51\n82.93\n77.67\n82.93\n75.10\n75.50\n...\n77.85\n80.85\n73.80\n81.98\n79.34\n66.69\n79.18\n82.93\n63.27\n78.59\n\n\n2023-06-08 14:00:00+02:00\n88.13\n46.93\n33.67\n68.76\n64.65\n88.12\n81.50\n88.13\n76.80\n78.36\n...\n81.83\n85.29\n76.00\n86.92\n83.35\n68.42\n83.03\n88.14\n62.77\n82.61\n\n\n\n\n3 rows × 34 columns\n\n\n\n\n\n\n\ntracer.network_carbon_plot(snapshot=snapshots[1], show_tools=True)\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n\n\nExport an object using pickle — Python object serialization.\ntracer.save_pickle('./result/docs-example/Dietlikon20230608.pkl')"
   },
   {
-    "objectID": "index.html#welcome-to-the-cflowdist-public-preview",
-    "href": "index.html#welcome-to-the-cflowdist-public-preview",
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
     "title": "CFlowDist documentation",
     "section": "",
-    "text": "The source code will be available on GitHub soon."
+    "text": "Clone the repository via:\ngit clone https://github.com/DESL-EPFL/cflowdist.git carbonflow\nThen switch to the directory:\ncd carbonflow\nA virtual environment is suggested:\n\nWindowsLinux / MacOS\n\n\npython -m venv .venv\n.venv\\Scripts\\activate\n\n\npython -m venv .venv\nsource .venv/bin/activate\n\n\n\nInstall the package:\npip install -e ."
+  },
+  {
+    "objectID": "index.html#using-package",
+    "href": "index.html#using-package",
+    "title": "CFlowDist documentation",
+    "section": "",
+    "text": "import cflowdist as cfd\n\n\n\n\nInitiate a CarbonTracer object by passing the address, it will be parsed into a geo-coordinate (longitude, latitude). Note that only locations in Switzerland are supported. Then the data of the grid that the coordinate is located in will be loaded.\n\n# init\ntracer = cfd.CarbonTracer(address = '8305 Dietlikon')\n\nGeocoding...Location coordinates: lon:8.624574661254883, lat:47.4146842956543 !\n\nLoading configuration... Loaded!\n\nLoading plants... Loaded!\n\nLoading hulls... Loaded!\n\nLoading landuse... Loaded!\n\nLooking for the ids of the MV and LV grids...Found MV grid id: 504_0!\n\nConstructing pandapower network...Constructed !\nAdding landuse data...Done!\n\nAdding generators...Done!\n\n\n\n\n\n\n# visualize\ntracer.network_plot()\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n\n\nThe pandapower grid object can be accessed via:\n\ntracer.pp_grid\n\nThis pandapower network includes the following parameter tables:\n   - bus (3109 elements)\n   - load (2074 elements)\n   - sgen (154 elements)\n   - ext_grid (1 element)\n   - line (3075 elements)\n   - trafo (33 elements)\n   - bus_geodata (3109 elements)\n   - line_geodata (3075 elements)\n and the following results tables:\n   - res_bus (123 elements)\n   - res_line (121 elements)\n   - res_trafo (1 element)\n   - res_ext_grid (1 element)\n   - res_load (58 elements)\n\n\n\n\n\nThe hourly snapshots to analyze need to be set. Note that only year 2023 is supported.\n\n# init snapshots\nt_start = '2023-06-08 12:00:00'\nt_end = '2023-06-08 14:00:00'\nsnapshots = tracer.set_snapshots(t_start=t_start, t_end=t_end)\n\n\n\n\nThe load and generation profiles are generated before exectution of the AC power flow calculation.\n\n# power flow\ntracer.power_flow()\n\nDemand model: landuse model\nGeneration model: upgrade roof\nCoordinates: 47.41651916503906°N 8.557376861572266°E\nElevation: 435.0 m asl\n\n\n\n  0%|          | 0/3 [00:00&lt;?, ?it/s]\n 67%|██████▋   | 2/3 [00:00&lt;00:00,  2.78it/s]\n100%|██████████| 3/3 [00:00&lt;00:00,  3.92it/s]\n\n\n\n\n\nAllocate the carbon intensity using the dedicated method. You can choose which allocation method to use via the parameters loss_allocation and self_consumption.\n\n# carbon allocation\nnode_ci_df_no_loss = tracer.allocate_carbon(\n    loss_allocation=False,\n    self_consumption=True\n    )\n\nHV carbon intensity data for canton ZH loaded.\n2023-06-08 12:00:00+02:00\n2023-06-08 13:00:00+02:00\n2023-06-08 14:00:00+02:00\n\n\nCheck the carbon intensity results aggregated at network level:\n\ntracer.net_ci_df.round(2)\n\n\n\n\n\n\n\n\nHV_504_0\nLV_200-10_0_3\nLV_200-10_1_3\nLV_200-11_0_3\nLV_200-12_0_4\nLV_200-13_0_2\nLV_200-14_0_6\nLV_200-15_0_3\nLV_200-16_0_6\nLV_200-2_0_6\n...\nLV_54-14_0_7\nLV_54-15_0_5\nLV_54-1_0_4\nLV_54-2_0_4\nLV_54-5_0_4\nLV_54-6_0_5\nLV_54-7_0_4\nLV_54-8_0_5\nLV_54-9_0_5\nMV_504_0\n\n\n\n\n2023-06-08 12:00:00+02:00\n86.21\n56.88\n47.46\n73.40\n70.29\n86.20\n81.28\n86.21\n79.35\n79.94\n...\n81.63\n84.28\n77.83\n85.34\n82.86\n71.91\n82.65\n86.20\n68.52\n82.27\n\n\n2023-06-08 13:00:00+02:00\n82.93\n49.93\n39.80\n68.41\n65.51\n82.93\n77.67\n82.93\n75.10\n75.50\n...\n77.85\n80.85\n73.80\n81.98\n79.34\n66.69\n79.18\n82.93\n63.27\n78.59\n\n\n2023-06-08 14:00:00+02:00\n88.13\n46.93\n33.67\n68.76\n64.65\n88.12\n81.50\n88.13\n76.80\n78.36\n...\n81.83\n85.29\n76.00\n86.92\n83.35\n68.42\n83.03\n88.14\n62.77\n82.61\n\n\n\n\n3 rows × 34 columns\n\n\n\n\n\n\n\ntracer.network_carbon_plot(snapshot=snapshots[1], show_tools=True)\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\n\n\n\nExport an object using pickle — Python object serialization.\ntracer.save_pickle('./result/docs-example/Dietlikon20230608.pkl')"
+  },
+  {
+    "objectID": "reference/models.generation.p_est_upgrade_roof.html",
+    "href": "reference/models.generation.p_est_upgrade_roof.html",
+    "title": "models.generation.p_est_upgrade_roof",
+    "section": "",
+    "text": "models.generation.p_est_upgrade_roof(\n    openmeteo_df,\n    loc_selected,\n    roof_selected,\n    tz,\n)\nA helper function that estimates photovoltaic (PV) power output by taking into account roof inclination, orientation, and local weather conditions (GHI, DNI, DHI, temperature, and wind speed) using the pvlib library. The function calculates the solar position, plane of array irradiance, cell temperature, and finally the AC power output of the PV system based on the provided weather data and roof characteristics. The resulting Series contains the estimated power output for each snapshot, indexed by snapshots.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nopenmeteo_df\npd.DataFrame\nA DataFrame containing local weather data (GHI, DNI, DHI, temperature, and wind speed) indexed by snapshots, generated by roof.get_open_meteo function.\nrequired\n\n\nloc_selected\nLocation\nThe location for which to estimate PV power output.\nrequired\n\n\nroof_selected\npd.Series\nA Series containing the roof characteristics for the PV system.\nrequired\n\n\ntz\nstr\nThe timezone of the location, used for time localization of the resulting Series.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power output for each snapshot, indexed by snapshots.\n\n\n\n\n\n\n\nmodels.generation.primitive\nmodels.generation.upgrade_roof\nroof.get_open_meteo : A function that retrieves local weather data (GHI, DNI, DHI, temperature, and wind speed) for a given location and date range using the Open-Meteo API.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_upgrade_roof.html#parameters",
+    "href": "reference/models.generation.p_est_upgrade_roof.html#parameters",
+    "title": "models.generation.p_est_upgrade_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nopenmeteo_df\npd.DataFrame\nA DataFrame containing local weather data (GHI, DNI, DHI, temperature, and wind speed) indexed by snapshots, generated by roof.get_open_meteo function.\nrequired\n\n\nloc_selected\nLocation\nThe location for which to estimate PV power output.\nrequired\n\n\nroof_selected\npd.Series\nA Series containing the roof characteristics for the PV system.\nrequired\n\n\ntz\nstr\nThe timezone of the location, used for time localization of the resulting Series.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_upgrade_roof.html#returns",
+    "href": "reference/models.generation.p_est_upgrade_roof.html#returns",
+    "title": "models.generation.p_est_upgrade_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power output for each snapshot, indexed by snapshots.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_upgrade_roof.html#see-also",
+    "href": "reference/models.generation.p_est_upgrade_roof.html#see-also",
+    "title": "models.generation.p_est_upgrade_roof",
+    "section": "",
+    "text": "models.generation.primitive\nmodels.generation.upgrade_roof\nroof.get_open_meteo : A function that retrieves local weather data (GHI, DNI, DHI, temperature, and wind speed) for a given location and date range using the Open-Meteo API.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_upgrade_roof"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.organize_step_flow_data.html",
+    "href": "reference/carbon.organize_step_flow_data.html",
+    "title": "carbon.organize_step_flow_data",
+    "section": "",
+    "text": "carbon.organize_step_flow_data(pf_calculator, ci_df, step)\nOrganize the power flow data for a specific time step into a structured format (FlowDataWrapper) that can be easily used for carbon tracing calculations. This function extracts the necessary data from the power flow results and prepares it for the carbon tracing algorithm.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npf_calculator\nPowerFlowCalculator\nThe power flow calculator object containing the power flow results and grid information.\nrequired\n\n\nci_df\npd.DataFrame\nThe carbon intensity DataFrame containing the carbon intensity values for different generations / import sources.\nrequired\n\n\nstep\npd.Timestamp\nA timestamp. The specific time step for which the flow data is being organized.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nFlowDataWrapper\nA FlowDataWrapper object containing all the organized flow data for the specified time step, ready to be used in carbon tracing calculations.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.organize_step_flow_data"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.organize_step_flow_data.html#parameters",
+    "href": "reference/carbon.organize_step_flow_data.html#parameters",
+    "title": "carbon.organize_step_flow_data",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npf_calculator\nPowerFlowCalculator\nThe power flow calculator object containing the power flow results and grid information.\nrequired\n\n\nci_df\npd.DataFrame\nThe carbon intensity DataFrame containing the carbon intensity values for different generations / import sources.\nrequired\n\n\nstep\npd.Timestamp\nA timestamp. The specific time step for which the flow data is being organized.\nrequired",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.organize_step_flow_data"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.organize_step_flow_data.html#returns",
+    "href": "reference/carbon.organize_step_flow_data.html#returns",
+    "title": "carbon.organize_step_flow_data",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nFlowDataWrapper\nA FlowDataWrapper object containing all the organized flow data for the specified time step, ready to be used in carbon tracing calculations.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.organize_step_flow_data"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_best_polygon.html",
+    "href": "reference/network.find_best_polygon.html",
+    "title": "network.find_best_polygon",
+    "section": "",
+    "text": "network.find_best_polygon(gdf, pt)\nFind the polygon in gdf that best matches the point.\nRule:\n\nIf point is contained in one or more polygons -&gt; choose polygon with closest centroid.\nElse -&gt; choose polygon with closest centroid.\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ngdf\ngpd.GeoDataFrame\nGeoDataFrame containing the polygons to be searched.\nrequired\n\n\npt\nPoint\nShapely Point object representing the location to be matched.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nstr\nThe identifier of the best matching polygon (e.g., canton name or code).",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_best_polygon"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_best_polygon.html#parameters",
+    "href": "reference/network.find_best_polygon.html#parameters",
+    "title": "network.find_best_polygon",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ngdf\ngpd.GeoDataFrame\nGeoDataFrame containing the polygons to be searched.\nrequired\n\n\npt\nPoint\nShapely Point object representing the location to be matched.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_best_polygon"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_best_polygon.html#returns",
+    "href": "reference/network.find_best_polygon.html#returns",
+    "title": "network.find_best_polygon",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nstr\nThe identifier of the best matching polygon (e.g., canton name or code).",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_best_polygon"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_primitive.html",
+    "href": "reference/models.generation.p_est_primitive.html",
+    "title": "models.generation.p_est_primitive",
+    "section": "",
+    "text": "models.generation.p_est_primitive(\n    snapshots,\n    rated_power,\n    datafile='../data/GHI/GHI_Swiss_Solcast.csv',\n)\nA helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data. The function reads GHI data from a CSV file, filters it for the specified snapshots, and calculates the power output as a fraction of the rated power based on the GHI values. The resulting Series contains the estimated power output for each snapshot.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\nrated_power\nfloat\nThe rated power of the PV system, which is used to scale the estimated power output.\nrequired\n\n\ndatafile\nstr\nThe path to the CSV file containing the GHI data, by default ‘../data/GHI/GHI_Swiss_Solcast.csv’.\n'../data/GHI/GHI_Swiss_Solcast.csv'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power output for each snapshot, indexed by snapshots.\n\n\n\n\n\n\n\nmodels.generation.primitive\nmodels.generation.upgrade_roof",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_primitive.html#parameters",
+    "href": "reference/models.generation.p_est_primitive.html#parameters",
+    "title": "models.generation.p_est_primitive",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\nrated_power\nfloat\nThe rated power of the PV system, which is used to scale the estimated power output.\nrequired\n\n\ndatafile\nstr\nThe path to the CSV file containing the GHI data, by default ‘../data/GHI/GHI_Swiss_Solcast.csv’.\n'../data/GHI/GHI_Swiss_Solcast.csv'",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_primitive.html#returns",
+    "href": "reference/models.generation.p_est_primitive.html#returns",
+    "title": "models.generation.p_est_primitive",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.Series\nA Series containing the estimated power output for each snapshot, indexed by snapshots.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_primitive"
+    ]
+  },
+  {
+    "objectID": "reference/models.generation.p_est_primitive.html#see-also",
+    "href": "reference/models.generation.p_est_primitive.html#see-also",
+    "title": "models.generation.p_est_primitive",
+    "section": "",
+    "text": "models.generation.primitive\nmodels.generation.upgrade_roof",
+    "crumbs": [
+      "Reference",
+      "models",
+      "generation",
+      "models.generation.p_est_primitive"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.create_array.html",
+    "href": "reference/carbon.create_array.html",
+    "title": "carbon.create_array",
+    "section": "",
+    "text": "carbon.create_array(indices, values, shape=None)\nCreate a vector or matrix based on given indices and values, filling non-mentioned elements with 0.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nindices\nlist or array\n1D (for a vector) or 2D (for a matrix) indices. - Example (1D): [0, 2, 3] - Example (2D): [(0, 1), (1, 2), (2, 0)]\nrequired\n\n\nvalues\nlist or array\nValues corresponding to the indices. - Example: [5, 10, 15]\nrequired\n\n\nshape\ntuple\nShape of the resulting array. If not provided, the shape is inferred.\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nnp.ndarray\nA numpy array (vector or matrix) with the specified values and zeros elsewhere.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.create_array"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.create_array.html#parameters",
+    "href": "reference/carbon.create_array.html#parameters",
+    "title": "carbon.create_array",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nindices\nlist or array\n1D (for a vector) or 2D (for a matrix) indices. - Example (1D): [0, 2, 3] - Example (2D): [(0, 1), (1, 2), (2, 0)]\nrequired\n\n\nvalues\nlist or array\nValues corresponding to the indices. - Example: [5, 10, 15]\nrequired\n\n\nshape\ntuple\nShape of the resulting array. If not provided, the shape is inferred.\nNone",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.create_array"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.create_array.html#returns",
+    "href": "reference/carbon.create_array.html#returns",
+    "title": "carbon.create_array",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nnp.ndarray\nA numpy array (vector or matrix) with the specified values and zeros elsewhere.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.create_array"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.naive.html",
+    "href": "reference/models.demand.naive.html",
+    "title": "models.demand.naive",
+    "section": "",
+    "text": "models.demand.naive(df_p_mw_t, snapshots, pp_grid)\nGenerate naive load profiles based on the rated power of each load in the pandapower grid. The load profile is generated using a simple hourly load factor that varies throughout the day. The function iterates through each load in the pandapower grid and applies the naive load profile to generate the power demand for each snapshot. The resulting DataFrame contains the power demand for each load at each snapshot.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated load profiles, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\npp_grid\npandapowerNet\nA pandapower network object containing the load information, including the rated power for each load.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the generated load profiles for each load at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.\n\n\n\n\n\n\n\nmodels.demand.p_est_naive : A helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined.\nmodels.demand.landuse : A function that generates load profiles based on land use data and standard load profiles for different sectors.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.naive.html#parameters",
+    "href": "reference/models.demand.naive.html#parameters",
+    "title": "models.demand.naive",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ndf_p_mw_t\npd.DataFrame\nA DataFrame to store the generated load profiles, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.\nrequired\n\n\nsnapshots\npd.DatetimeIndex\nA DatetimeIndex representing the time snapshots for which the load profiles should be generated.\nrequired\n\n\npp_grid\npandapowerNet\nA pandapower network object containing the load information, including the rated power for each load.\nrequired",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.naive.html#returns",
+    "href": "reference/models.demand.naive.html#returns",
+    "title": "models.demand.naive",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the generated load profiles for each load at each snapshot, indexed by snapshots and with columns corresponding to load indices in the pandapower grid.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.naive"
+    ]
+  },
+  {
+    "objectID": "reference/models.demand.naive.html#see-also",
+    "href": "reference/models.demand.naive.html#see-also",
+    "title": "models.demand.naive",
+    "section": "",
+    "text": "models.demand.p_est_naive : A helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined.\nmodels.demand.landuse : A function that generates load profiles based on land use data and standard load profiles for different sectors.",
+    "crumbs": [
+      "Reference",
+      "models",
+      "demand",
+      "models.demand.naive"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowResults.html",
+    "href": "reference/grid.PowerFlowResults.html",
+    "title": "grid.PowerFlowResults",
+    "section": "",
+    "text": "grid.PowerFlowResults(tz)\nA dataclass to wrap and store the power flow results as pandas DataFrames. The power flow results include the active power (in MW) for static generators, generators, external grid, loads, lines (from and to), and transformers (HV and LV). The DataFrames are indexed by snapshots (with timezone information) and have columns corresponding to the indices of the corresponding elements in the pandapower grid (e.g., static generator indices for p_mw_sgen_df, generator indices for p_mw_gen_df, etc.). The power flow results are read from CSV files generated by pandapower and stored in the pf_res directory. The read_pf_results function is used to read the CSV files and convert them into pandas DataFrames with the appropriate index and column types.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntz\nstr | tzinfo\nThe timezone to be used for the datetime index of the DataFrames. This should match the timezone of the snapshots used in the power flow calculations.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\np_mw_sgen_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for static generators, indexed by snapshots and with columns corresponding to static generator indices.\n\n\np_mw_gen_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for generators, indexed by snapshots and with columns corresponding to generator indices.\n\n\np_mw_ext_grid_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for the external grid, indexed by snapshots and with columns corresponding to external grid indices.\n\n\np_mw_load_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for loads, indexed by snapshots and with columns corresponding to load indices.\n\n\np_from_mw_line_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the “from” side of lines, indexed by snapshots and with columns corresponding to line indices.\n\n\np_to_mw_line_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the “to” side of lines, indexed by snapshots and with columns corresponding to line indices.\n\n\np_hv_mw_trafo_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the high voltage side of transformers, indexed by snapshots and with columns corresponding to transformer indices.\n\n\np_lv_mw_trafo_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the low voltage side of transformers, indexed by snapshots and with columns corresponding to transformer indices.\n\n\n\n\n\n\n\ngrid.read_pf_results : A function that reads power flow results from CSV files generated by pandapower and returns them as pandas DataFrames with the appropriate index and column types.",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowResults"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowResults.html#parameters",
+    "href": "reference/grid.PowerFlowResults.html#parameters",
+    "title": "grid.PowerFlowResults",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntz\nstr | tzinfo\nThe timezone to be used for the datetime index of the DataFrames. This should match the timezone of the snapshots used in the power flow calculations.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowResults"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowResults.html#attributes",
+    "href": "reference/grid.PowerFlowResults.html#attributes",
+    "title": "grid.PowerFlowResults",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\np_mw_sgen_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for static generators, indexed by snapshots and with columns corresponding to static generator indices.\n\n\np_mw_gen_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for generators, indexed by snapshots and with columns corresponding to generator indices.\n\n\np_mw_ext_grid_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for the external grid, indexed by snapshots and with columns corresponding to external grid indices.\n\n\np_mw_load_df\npd.DataFrame\nA DataFrame containing the active power (in MW) for loads, indexed by snapshots and with columns corresponding to load indices.\n\n\np_from_mw_line_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the “from” side of lines, indexed by snapshots and with columns corresponding to line indices.\n\n\np_to_mw_line_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the “to” side of lines, indexed by snapshots and with columns corresponding to line indices.\n\n\np_hv_mw_trafo_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the high voltage side of transformers, indexed by snapshots and with columns corresponding to transformer indices.\n\n\np_lv_mw_trafo_df\npd.DataFrame\nA DataFrame containing the active power (in MW) flowing from the low voltage side of transformers, indexed by snapshots and with columns corresponding to transformer indices.",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowResults"
+    ]
+  },
+  {
+    "objectID": "reference/grid.PowerFlowResults.html#see-also",
+    "href": "reference/grid.PowerFlowResults.html#see-also",
+    "title": "grid.PowerFlowResults",
+    "section": "",
+    "text": "grid.read_pf_results : A function that reads power flow results from CSV files generated by pandapower and returns them as pandas DataFrames with the appropriate index and column types.",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.PowerFlowResults"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_canton.html",
+    "href": "reference/network.find_canton.html",
+    "title": "network.find_canton",
+    "section": "",
+    "text": "network.find_canton(tracer)\nFind the canton name and code for the location of the tracer using the swisstopo Web API. Raises a ValueError if the location falls outside Switzerland.\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[str, str]\n(canton_name_for_calendar, canton_code), e.g. ('Vaud', 'VD'), Zurich', 'ZH')",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_canton"
+    ]
+  },
+  {
+    "objectID": "reference/network.find_canton.html#returns",
+    "href": "reference/network.find_canton.html#returns",
+    "title": "network.find_canton",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[str, str]\n(canton_name_for_calendar, canton_code), e.g. ('Vaud', 'VD'), Zurich', 'ZH')",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.find_canton"
+    ]
+  },
+  {
+    "objectID": "reference/network.ckdnearest.html",
+    "href": "reference/network.ckdnearest.html",
+    "title": "network.ckdnearest",
+    "section": "",
+    "text": "network.ckdnearest(gdA, gdB)\nFinds the nearest node (bus) to which we can associate the power plant concerned, exploiting the geographical coordinates of the power plants and the network nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ngdA\ngpd.GeoDataFrame\nGeoDataFrame of power plants, must contain a ‘geometry’ column with Point geometries.\nrequired\n\n\ngdB\ngpd.GeoDataFrame\nGeoDataFrame of network nodes, must contain ‘x’ and ‘y’ columns with the coordinates of the nodes.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ngpd.GeoDataFrame\nA modified version of gdA that includes three new columns: - 'bus_name': The name of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - 'bus_id': The index of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - 'bus_max_power': The maximum power of the nearest node (bus) from gdB to which each power plant in gdA is assigned.",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.ckdnearest"
+    ]
+  },
+  {
+    "objectID": "reference/network.ckdnearest.html#parameters",
+    "href": "reference/network.ckdnearest.html#parameters",
+    "title": "network.ckdnearest",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ngdA\ngpd.GeoDataFrame\nGeoDataFrame of power plants, must contain a ‘geometry’ column with Point geometries.\nrequired\n\n\ngdB\ngpd.GeoDataFrame\nGeoDataFrame of network nodes, must contain ‘x’ and ‘y’ columns with the coordinates of the nodes.\nrequired",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.ckdnearest"
+    ]
+  },
+  {
+    "objectID": "reference/network.ckdnearest.html#returns",
+    "href": "reference/network.ckdnearest.html#returns",
+    "title": "network.ckdnearest",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ngpd.GeoDataFrame\nA modified version of gdA that includes three new columns: - 'bus_name': The name of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - 'bus_id': The index of the nearest node (bus) from gdB to which each power plant in gdA is assigned. - 'bus_max_power': The maximum power of the nearest node (bus) from gdB to which each power plant in gdA is assigned.",
+    "crumbs": [
+      "Reference",
+      "network",
+      "network.ckdnearest"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.cal_node_flow_with_losses.html",
+    "href": "reference/carbon.cal_node_flow_with_losses.html",
+    "title": "carbon.cal_node_flow_with_losses",
+    "section": "",
+    "text": "carbon.cal_node_flow_with_losses(P_ij, P_gen, P_load, carriers)\nA standard implementation of the carbon allocation with losses (LA method).\n\n\n\ncarbon.carbon_tracing_ap_with_losses\ncarbon.optimized_node_flow_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.cal_node_flow_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.cal_node_flow_with_losses.html#see-also",
+    "href": "reference/carbon.cal_node_flow_with_losses.html#see-also",
+    "title": "carbon.cal_node_flow_with_losses",
+    "section": "",
+    "text": "carbon.carbon_tracing_ap_with_losses\ncarbon.optimized_node_flow_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.cal_node_flow_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/plot.lv_grids_time_plot.html",
+    "href": "reference/plot.lv_grids_time_plot.html",
+    "title": "plot.lv_grids_time_plot",
+    "section": "",
+    "text": "plot.lv_grids_time_plot(tracer, tile_name='white', show_tools=False)\nPlot the calculated carbon intensity aggegated to a LV-net level using folium TimeSliderChoropleth, with a time slider.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\ntile_name\nstr\nA selected tile name for the basemap.\n'white'\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results with a time slider.\n\n\n\n\n\n\ntracer.lv_grids_time_plot()",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.lv_grids_time_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.lv_grids_time_plot.html#parameters",
+    "href": "reference/plot.lv_grids_time_plot.html#parameters",
+    "title": "plot.lv_grids_time_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\ntile_name\nstr\nA selected tile name for the basemap.\n'white'\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nFalse",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.lv_grids_time_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.lv_grids_time_plot.html#returns",
+    "href": "reference/plot.lv_grids_time_plot.html#returns",
+    "title": "plot.lv_grids_time_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the carbon allocation results with a time slider.",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.lv_grids_time_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.lv_grids_time_plot.html#example",
+    "href": "reference/plot.lv_grids_time_plot.html#example",
+    "title": "plot.lv_grids_time_plot",
+    "section": "",
+    "text": "tracer.lv_grids_time_plot()",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.lv_grids_time_plot"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap.html",
+    "href": "reference/carbon.carbon_tracing_ap.html",
+    "title": "carbon.carbon_tracing_ap",
+    "section": "",
+    "text": "carbon.carbon_tracing_ap(step_flow_data, self_consumption=True)\nPerform carbon tracing (average participation) using an optimization approach to calculate the carbon intensity of the ejected flow and the node emission, with an option to consider self-consumption. (LL method and LL-P method)\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired\n\n\nself_consumption\nbool\nA boolean flag indicating whether to consider self-consumption in the carbon tracing calculation. If True, the method will prioritize the self-consumption for prosumer nodes (LL-P method), otherwise, the method will follow the perfect-mix assumption (LL method).\nTrue\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - eject_intensity: The carbon intensity of the ejected flow at each node, i.e., \\(c_x\\) for LL method and \\(c_o\\) for LL-P method. - node_emission: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node.\n\n\n\n\n\n\n\ncarbon.carbon_tracing_ap_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap.html#parameters",
+    "href": "reference/carbon.carbon_tracing_ap.html#parameters",
+    "title": "carbon.carbon_tracing_ap",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstep_flow_data\nFlowDataWrapper\nA FlowDataWrapper object containing all the necessary flow data for the specific time step.\nrequired\n\n\nself_consumption\nbool\nA boolean flag indicating whether to consider self-consumption in the carbon tracing calculation. If True, the method will prioritize the self-consumption for prosumer nodes (LL-P method), otherwise, the method will follow the perfect-mix assumption (LL method).\nTrue",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap.html#returns",
+    "href": "reference/carbon.carbon_tracing_ap.html#returns",
+    "title": "carbon.carbon_tracing_ap",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\ntuple[np.ndarray, np.ndarray]\nA tuple containing two numpy arrays: - eject_intensity: The carbon intensity of the ejected flow at each node, i.e., \\(c_x\\) for LL method and \\(c_o\\) for LL-P method. - node_emission: The total emission at each node, calculated as the product of the eject intensity and the load (L) at each node.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carbon_tracing_ap.html#see-also",
+    "href": "reference/carbon.carbon_tracing_ap.html#see-also",
+    "title": "carbon.carbon_tracing_ap",
+    "section": "",
+    "text": "carbon.carbon_tracing_ap_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carbon_tracing_ap"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.optimized_node_flow_with_losses.html",
+    "href": "reference/carbon.optimized_node_flow_with_losses.html",
+    "title": "carbon.optimized_node_flow_with_losses",
+    "section": "",
+    "text": "carbon.optimized_node_flow_with_losses(P_ij, P_gen, P_load, carriers)\nOptimized version of cal_node_flow_with_losses using sparse matrices and Numba for performance. To accelerate the computation, you must have scipy and numba installed.\n\n\n\ncarbon.cal_node_flow_with_losses\ncarbon.carbon_tracing_ap_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.optimized_node_flow_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.optimized_node_flow_with_losses.html#see-also",
+    "href": "reference/carbon.optimized_node_flow_with_losses.html#see-also",
+    "title": "carbon.optimized_node_flow_with_losses",
+    "section": "",
+    "text": "carbon.cal_node_flow_with_losses\ncarbon.carbon_tracing_ap_with_losses",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.optimized_node_flow_with_losses"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carrierinit.html",
+    "href": "reference/carbon.carrierinit.html",
+    "title": "carbon.carrierinit",
+    "section": "",
+    "text": "carbon.carrierinit(tracer)\nInitialize the carbon carrier intensity data for the given tracer.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe carbon tracer object.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the initialized carbon carrier intensity data.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carrierinit"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carrierinit.html#parameters",
+    "href": "reference/carbon.carrierinit.html#parameters",
+    "title": "carbon.carrierinit",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe carbon tracer object.\nrequired",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carrierinit"
+    ]
+  },
+  {
+    "objectID": "reference/carbon.carrierinit.html#returns",
+    "href": "reference/carbon.carrierinit.html#returns",
+    "title": "carbon.carrierinit",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the initialized carbon carrier intensity data.",
+    "crumbs": [
+      "Reference",
+      "carbon",
+      "carbon.carrierinit"
+    ]
+  },
+  {
+    "objectID": "reference/grid.read_pf_results.html",
+    "href": "reference/grid.read_pf_results.html",
+    "title": "grid.read_pf_results",
+    "section": "",
+    "text": "grid.read_pf_results(tz)\nRead power flow results from csv files generated by pandapower and return them as pandas DataFrames. The function reads the active power (in MW) for static generators, generators, external grid, loads, lines (from and to), and transformers (HV and LV) from the corresponding CSV files in the pf_res directory. The function also converts the index of each DataFrame to datetime format with timezone information.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntz\nstr | tzinfo\nThe timezone to be used for the datetime index of the DataFrames. This should match the timezone of the snapshots used in the power flow calculations.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.read_pf_results"
+    ]
+  },
+  {
+    "objectID": "reference/grid.read_pf_results.html#parameters",
+    "href": "reference/grid.read_pf_results.html#parameters",
+    "title": "grid.read_pf_results",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntz\nstr | tzinfo\nThe timezone to be used for the datetime index of the DataFrames. This should match the timezone of the snapshots used in the power flow calculations.\nrequired",
+    "crumbs": [
+      "Reference",
+      "grid",
+      "grid.read_pf_results"
+    ]
+  },
+  {
+    "objectID": "reference/roof.get_open_meteo.html",
+    "href": "reference/roof.get_open_meteo.html",
+    "title": "roof.get_open_meteo",
+    "section": "",
+    "text": "roof.get_open_meteo(location, date_start, date_end)\nThis function is originally provided by Open-Meteo and adapted for our use case. Retrieve local weather data (GHI, DNI, DHI, temperature, and wind speed) for a given location and date range using the Open-Meteo API. The function sends a request to the Open-Meteo API with the specified parameters and processes the response to extract the relevant weather data. The resulting DataFrame contains the hourly weather data indexed by date and time.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlocation\nLocation\nA Location object containing the latitude and longitude of the location for which weather data is to be retrieved.\nrequired\n\n\ndate_start\nstr\nA string representing the start date for the weather data retrieval in the format ‘YYYY-MM-DD’.\nrequired\n\n\ndate_end\nstr\nA string representing the end date for the weather data retrieval in the format ‘YYYY-MM-DD’.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the hourly weather data indexed by date and time.",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.get_open_meteo"
+    ]
+  },
+  {
+    "objectID": "reference/roof.get_open_meteo.html#parameters",
+    "href": "reference/roof.get_open_meteo.html#parameters",
+    "title": "roof.get_open_meteo",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlocation\nLocation\nA Location object containing the latitude and longitude of the location for which weather data is to be retrieved.\nrequired\n\n\ndate_start\nstr\nA string representing the start date for the weather data retrieval in the format ‘YYYY-MM-DD’.\nrequired\n\n\ndate_end\nstr\nA string representing the end date for the weather data retrieval in the format ‘YYYY-MM-DD’.\nrequired",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.get_open_meteo"
+    ]
+  },
+  {
+    "objectID": "reference/roof.get_open_meteo.html#returns",
+    "href": "reference/roof.get_open_meteo.html#returns",
+    "title": "roof.get_open_meteo",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\npd.DataFrame\nA DataFrame containing the hourly weather data indexed by date and time.",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.get_open_meteo"
+    ]
+  },
+  {
+    "objectID": "reference/roof.find_roof.html",
+    "href": "reference/roof.find_roof.html",
+    "title": "roof.find_roof",
+    "section": "",
+    "text": "roof.find_roof(pv_plant_df, roof_df)\nFind the nearest roof(s) and building (by SB_UUID) to which we can associate the pv plant concerned. The function uses a KDTree to efficiently find the nearest roof for each PV plant based on their geographic coordinates. The resulting DataFrame contains the PV plant information along with the associated roof information, indexed by the original index of the PV plant DataFrame.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npv_plant_df\nGeoDataFrame\nA GeoDataFrame containing the geographic information of PV plants, including their coordinates (geometry) and other relevant attributes.\nrequired\n\n\nroof_df\nGeoDataFrame\nA GeoDataFrame containing the geographic information of roofs, including their coordinates (geometry) and other relevant attributes such as SB_UUID.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nGeoDataFrame\nA GeoDataFrame containing the PV plant information along with the associated roof information, indexed by the original index of the PV plant DataFrame. The resulting DataFrame includes a new column ‘SB_UUID’ that indicates the associated roof’s SB_UUID for each PV plant.",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.find_roof"
+    ]
+  },
+  {
+    "objectID": "reference/roof.find_roof.html#parameters",
+    "href": "reference/roof.find_roof.html#parameters",
+    "title": "roof.find_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npv_plant_df\nGeoDataFrame\nA GeoDataFrame containing the geographic information of PV plants, including their coordinates (geometry) and other relevant attributes.\nrequired\n\n\nroof_df\nGeoDataFrame\nA GeoDataFrame containing the geographic information of roofs, including their coordinates (geometry) and other relevant attributes such as SB_UUID.\nrequired",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.find_roof"
+    ]
+  },
+  {
+    "objectID": "reference/roof.find_roof.html#returns",
+    "href": "reference/roof.find_roof.html#returns",
+    "title": "roof.find_roof",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nGeoDataFrame\nA GeoDataFrame containing the PV plant information along with the associated roof information, indexed by the original index of the PV plant DataFrame. The resulting DataFrame includes a new column ‘SB_UUID’ that indicates the associated roof’s SB_UUID for each PV plant.",
+    "crumbs": [
+      "Reference",
+      "roof",
+      "roof.find_roof"
+    ]
+  },
+  {
+    "objectID": "reference/read_pickle.html",
+    "href": "reference/read_pickle.html",
+    "title": "read_pickle",
+    "section": "",
+    "text": "read_pickle(filename, dir_config='./config/default.json')\nRead a CarbonTracer object from a pickle file.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nfilename\nstr\nPath to the pickle file.\nrequired\n\n\ndir_config\nstr\nPath to the configuration file, default “./config/default.json”.\n'./config/default.json'\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nCarbonTracer\nThe loaded CarbonTracer object.\n\n\n\n\n\n\ntracer = read_pickle('tracer.pkl', dir_config=\"./config/default.json\")",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "read_pickle"
+    ]
+  },
+  {
+    "objectID": "reference/read_pickle.html#parameters",
+    "href": "reference/read_pickle.html#parameters",
+    "title": "read_pickle",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nfilename\nstr\nPath to the pickle file.\nrequired\n\n\ndir_config\nstr\nPath to the configuration file, default “./config/default.json”.\n'./config/default.json'",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "read_pickle"
+    ]
+  },
+  {
+    "objectID": "reference/read_pickle.html#returns",
+    "href": "reference/read_pickle.html#returns",
+    "title": "read_pickle",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nCarbonTracer\nThe loaded CarbonTracer object.",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "read_pickle"
+    ]
+  },
+  {
+    "objectID": "reference/read_pickle.html#example",
+    "href": "reference/read_pickle.html#example",
+    "title": "read_pickle",
+    "section": "",
+    "text": "tracer = read_pickle('tracer.pkl', dir_config=\"./config/default.json\")",
+    "crumbs": [
+      "Reference",
+      "cflowdist",
+      "read_pickle"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_plot.html",
+    "href": "reference/plot.network_plot.html",
+    "title": "plot.network_plot",
+    "section": "",
+    "text": "plot.network_plot(tracer, show_tools=True)\nPlot network topology by folium, including HV, MV and LV buses, generation plants, as well as MV and LV lines.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the network pp_grid.\n\n\n\n\n\n\ntracer.network_plot()",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_plot.html#parameters",
+    "href": "reference/plot.network_plot.html#parameters",
+    "title": "plot.network_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntracer\nCarbonTracer\nThe CarbonTracer object that contains the constructed network data.\nrequired\n\n\nshow_tools\nbool\nA boolean flag indicating whether to show the tools in the map. If True, a fullscreen button and a geocoder inputbox will be added to the map.\nTrue",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_plot.html#returns",
+    "href": "reference/plot.network_plot.html#returns",
+    "title": "plot.network_plot",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\n\nfolium.Map\nA pretty map visualization of the network pp_grid.",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_plot"
+    ]
+  },
+  {
+    "objectID": "reference/plot.network_plot.html#example",
+    "href": "reference/plot.network_plot.html#example",
+    "title": "plot.network_plot",
+    "section": "",
+    "text": "tracer.network_plot()",
+    "crumbs": [
+      "Reference",
+      "plot",
+      "plot.network_plot"
+    ]
   }
 ]

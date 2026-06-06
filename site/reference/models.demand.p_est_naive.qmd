@@ -1,0 +1,26 @@
+# models.demand.p_est_naive { #cflowdist.models.demand.p_est_naive }
+
+```python
+models.demand.p_est_naive(snapshots, yearly_average_power)
+```
+
+A helper function that generates a naive load profile for a single load based on its yearly average power and the hourly load factors defined. 
+The function creates a load profile by multiplying the yearly average power with the corresponding hourly load factor for each snapshot.
+The resulting Series contains the estimated power demand for the load at each snapshot, indexed by snapshots.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name                 | Type             | Description                                                                                                                | Default    |
+|----------------------|------------------|----------------------------------------------------------------------------------------------------------------------------|------------|
+| snapshots            | pd.DatetimeIndex | A DatetimeIndex representing the time snapshots for which the load profile should be generated.                            | _required_ |
+| yearly_average_power | float            | The yearly average power demand for the load, which is used to scale the hourly load factors to generate the load profile. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type      | Description                                                                                         |
+|--------|-----------|-----------------------------------------------------------------------------------------------------|
+|        | pd.Series | A Series containing the estimated power demand for the load at each snapshot, indexed by snapshots. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [models.demand.naive](/reference/models.demand.naive.qmd) : A function that generates naive load profiles for all loads in the pandapower grid using the `p_est_naive` helper function.

@@ -13,7 +13,7 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const map = new maplibregl.Map({
     container: 'map',
-    style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+    style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
     bounds: initialBbox,
     fitBoundsOptions: {
         padding: Padding
@@ -32,7 +32,7 @@ map.on('load', () => {
         source: 'data',
         'source-layer': 'mv_lines',
         paint: {
-            'line-color': 'black',
+            'line-color': 'white',
             'line-width': 2,
             'line-opacity': 0.7
         }
@@ -44,7 +44,7 @@ map.on('load', () => {
         source: 'data',
         'source-layer': 'lv_lines',
         paint: {
-            'line-color': 'dimgray',
+            'line-color': 'gainsboro',
             'line-width': 1.5,
             'line-opacity': 1
         }
@@ -57,9 +57,9 @@ map.on('load', () => {
         'source-layer': 'mv_nodes',
         paint: {
             "circle-radius": 4,
-            "circle-color": "dimgray",
+            "circle-color": "whitesmoke",
             "circle-opacity": 0.5,
-            "circle-stroke-color": "black",
+            "circle-stroke-color": "white",
             "circle-stroke-width": 0.5
         }
     });
@@ -72,9 +72,9 @@ map.on('load', () => {
         'source-layer': 'lv_nodes',
         paint: {
             "circle-radius": 2.5,
-            "circle-color": "dimgray",
+            "circle-color": "whitesmoke",
             "circle-opacity": 0.5,
-            "circle-stroke-color": "black",
+            "circle-stroke-color": "white",
             "circle-stroke-width": 0.5
         }
     });

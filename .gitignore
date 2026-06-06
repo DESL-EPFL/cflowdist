@@ -2,3 +2,9 @@
 **/SuisseIntl*
 /.quarto/
 **/*.quarto_ipynb
+**__pycache__
+*.venv
+*.egg-info
+**pf_res
+_freeze/
+Swiss-PDGs-MV-LV/

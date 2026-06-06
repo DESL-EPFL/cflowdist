@@ -14,12 +14,14 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: reference/index.qmd
+        text: Reference
       - href: presentation/index.qmd
         text: Presentation
   page-footer:
     left: |
       <span class="faux-block"> <i class="bi bi-c-circle"></i>  2026 Distributed Electrical Systems Laboratory  </span>
-      <span class="faux-block">All rights reserved.</span>
+      <span class="faux-block">Licensed under GNU General Public License v3.0</span>
     
     right: |
       <span class="faux-block">  Made at 
@@ -34,7 +36,7 @@ website:
           <rect x="108.85" y="21.6" width="24.61" height="9.8"/>
         </svg>
       </span>
-      <span class="faux-block">Built with Quarto: [Source <i class="bi bi-github"></i>]({{< var github-url >}})</span>
+      <span class="faux-block">Built with [Quarto](https://quarto.org/) & [Quartodoc](https://machow.github.io/quartodoc)</span>
 
 
 format:
@@ -42,5 +44,70 @@ format:
     theme: 
       - style.scss
     toc: true
+    toc-depth: 3
     highlight-style: github
     email-obfuscation: javascript
+
+  
+metadata-files:
+  - _sidebar.yml
+
+quartodoc:
+  package: cflowdist
+  dir: reference        # Where .qmd files for functions/classes will go
+  sidebar: "_sidebar.yml"  # Custom sidebar file for the reference section
+  sections:
+    - title: cflowdist
+      contents:
+        - CarbonTracer
+        - read_pickle
+    - title: models
+    - subtitle: demand
+      contents:
+        - models.demand.naive
+        - models.demand.p_est_naive
+        - models.demand.landuse
+    - subtitle: generation
+      contents:
+        - models.generation.primitive
+        - models.generation.p_est_primitive
+        - models.generation.upgrade_roof
+        - models.generation.p_est_upgrade_roof
+    - title: roof
+      contents:
+        - roof.get_open_meteo
+        - roof.find_roof
+    - title: grid
+      contents:
+        - grid.PowerFlowResults
+        - grid.PowerFlowCalculator
+        - grid.read_pf_results
+        - grid.remove_future_plants
+    - title: network
+      contents:
+        - network.ckdnearest
+        - network.read_gpkg
+        - network.get_timezone_from_location
+        - network.find_best_polygon
+        - network.find_id
+        - network.add_landuse
+        - network.find_canton
+    - title: carbon
+      contents:
+        - carbon.FlowDataWrapper
+        - carbon.carrierinit
+        - carbon.create_array
+        - carbon.calculate_Q
+        - carbon.organize_step_flow_data
+        - carbon.post_process_carbon
+        - carbon.carbon_tracing_ap
+        - carbon.compare_opt_closed_formulation
+        - carbon.carbon_tracing_ap_with_losses
+        - carbon.cal_node_flow_with_losses
+        - carbon.optimized_node_flow_with_losses
+    - title: plot
+      contents:
+        - plot.network_plot
+        - plot.network_carbon_plot
+        - plot.lv_grids_time_plot
+        - plot.network_dual_plot

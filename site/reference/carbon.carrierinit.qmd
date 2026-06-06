@@ -1,0 +1,19 @@
+# carbon.carrierinit { #cflowdist.carbon.carrierinit }
+
+```python
+carbon.carrierinit(tracer)
+```
+
+Initialize the carbon carrier intensity data for the given tracer.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type         | Description               | Default    |
+|--------|--------------|---------------------------|------------|
+| tracer | CarbonTracer | The carbon tracer object. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                           |
+|--------|--------------|-----------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the initialized carbon carrier intensity data. |

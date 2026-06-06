@@ -1,0 +1,26 @@
+# read_pickle { #cflowdist.read_pickle }
+
+```python
+read_pickle(filename, dir_config='./config/default.json')
+```
+
+Read a CarbonTracer object from a pickle file.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type   | Description                                                      | Default                   |
+|------------|--------|------------------------------------------------------------------|---------------------------|
+| filename   | str    | Path to the pickle file.                                         | _required_                |
+| dir_config | str    | Path to the configuration file, default "./config/default.json". | `'./config/default.json'` |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                     |
+|--------|--------------|---------------------------------|
+|        | CarbonTracer | The loaded CarbonTracer object. |
+
+## Example {.doc-section .doc-section-example}
+
+```python
+tracer = read_pickle('tracer.pkl', dir_config="./config/default.json")
+```

@@ -1,0 +1,105 @@
+# grid.PowerFlowCalculator { #cflowdist.grid.PowerFlowCalculator }
+
+```python
+grid.PowerFlowCalculator(tracer)
+```
+
+A dataclass to run power flow calculations using `pandapower` and store the results in a `PowerFlowResults` object. 
+The `PowerFlowCalculator` takes a `CarbonTracer` object as input, which contains the `pandapower` grid and the snapshots to be used for the power flow calculations.
+The `PowerFlowCalculator` runs the power flow calculations for each snapshot using `pandapower`'s time series simulation capabilities, and stores the results in a `PowerFlowResults` object.
+The power flow results are saved to CSV files in the `pf_res` directory, and can be read back into pandas DataFrames using the `read_pf_results` function.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type         | Description                                                                                                            | Default    |
+|--------|--------------|------------------------------------------------------------------------------------------------------------------------|------------|
+| tracer | CarbonTracer | The CarbonTracer object containing the `pandapower` grid and the snapshots to be used for the power flow calculations. | _required_ |
+
+## Attributes {.doc-section .doc-section-attributes}
+
+| Name       | Type             | Description                                                                                                                                                                                                                                                                                                                                                      |
+|------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pp_grid    | pandapowerNet    | The `pandapower` grid extracted from the `CarbonTracer` object, which is used for the power flow calculations.                                                                                                                                                                                                                                                   |
+| snapshots  | pd.DatetimeIndex | The snapshots extracted from the `CarbonTracer` object, which are used as time steps for the power flow calculations.                                                                                                                                                                                                                                            |
+| pf_results | PowerFlowResults | The power flow results stored in a `PowerFlowResults` object, which contains the active power (in MW) for static generators, generators, external grid, loads, lines (from and to), and transformers (HV and LV) as pandas DataFrames indexed by snapshots and with columns corresponding to the indices of the corresponding elements in the `pandapower` grid. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [grid.PowerFlowResults](/reference/grid.PowerFlowResults.qmd) : A dataclass to wrap and store the power flow results as pandas DataFrames.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [model_demand](#cflowdist.grid.PowerFlowCalculator.model_demand) | Set demand patterns for each node in the network (by pandapower's const controller). |
+| [model_gen](#cflowdist.grid.PowerFlowCalculator.model_gen) | Set generators' (PV controlled nodes) patterns for each node in the network (by pandapower's const controller). |
+| [model_sgen](#cflowdist.grid.PowerFlowCalculator.model_sgen) | Set static generators' (PQ controlled nodes) patterns for each node in the network (by pandapower's const controller). |
+| [run_power_flow](#cflowdist.grid.PowerFlowCalculator.run_power_flow) | Run power flow (by pandapower time series simulation). |
+
+### model_demand { #cflowdist.grid.PowerFlowCalculator.model_demand }
+
+```python
+grid.PowerFlowCalculator.model_demand(method='landuse')
+```
+
+Set demand patterns for each node in the network (by pandapower's const controller).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type                              | Description                                                                                                                                                                                                                                                          | Default     |
+|--------|-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| method | Literal\[\'naive\', \'landuse\'\] | The method to be used to model the demand. Currently support `'naive'` and `'landuse'` demand models.   - `'naive'`: assign the same demand pattern (load factor) to all nodes  - `'landuse'`: assign different demand patterns to nodes based on their landuse type | `'landuse'` |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name         | Type         | Description                                                                                         |
+|--------------|--------------|-----------------------------------------------------------------------------------------------------|
+| loads_p_mw_t | pd.DataFrame | A dataframe with the active power demand (in MW) for each node (bus) and each time step (snapshot). |
+
+### model_gen { #cflowdist.grid.PowerFlowCalculator.model_gen }
+
+```python
+grid.PowerFlowCalculator.model_gen(method='upgrade_roof')
+```
+
+Set generators' (PV controlled nodes) patterns for each node in the network (by pandapower's const controller).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Default          |
+|--------|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| method | Literal\[\'upgrade_roof\', \'primitive\'\] | The method to be used to model the generators. Currently support `'primitive'` and `'upgrade_roof'` generation models.   - `'primitive'`: assign the same generation pattern (generation factor) to all generators  - `'upgrade_roof'`: assign different generation patterns to generators based on the roof area of the buildings at the location of the generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland. | `'upgrade_roof'` |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name       | Type         | Description                                                                                            |
+|------------|--------------|--------------------------------------------------------------------------------------------------------|
+| gen_p_mw_t | pd.DataFrame | A dataframe with the active power generation (in MW) for each generator and each time step (snapshot). |
+
+### model_sgen { #cflowdist.grid.PowerFlowCalculator.model_sgen }
+
+```python
+grid.PowerFlowCalculator.model_sgen(method='upgrade_roof')
+```
+
+Set static generators' (PQ controlled nodes) patterns for each node in the network (by pandapower's const controller).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name   | Type                                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Default          |
+|--------|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| method | Literal\[\'upgrade_roof\', \'primitive\'\] | The method to be used to model the static generators. Currently support `'primitive'` and `'upgrade_roof'` generation models.   - `'primitive'`: assign the same generation pattern (generation factor) to all static generators  - `'upgrade_roof'`: assign different generation patterns to static generators based on the roof area of the buildings at the location of the static generator. This model is only applicable for grids in Switzerland, as it relies on a dataset of roof areas in Switzerland. | `'upgrade_roof'` |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name        | Type         | Description                                                                                                   |
+|-------------|--------------|---------------------------------------------------------------------------------------------------------------|
+| sgen_p_mw_t | pd.DataFrame | A dataframe with the active power generation (in MW) for each static generator and each time step (snapshot). |
+
+### run_power_flow { #cflowdist.grid.PowerFlowCalculator.run_power_flow }
+
+```python
+grid.PowerFlowCalculator.run_power_flow()
+```
+
+Run power flow (by pandapower time series simulation).

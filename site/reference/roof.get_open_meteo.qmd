@@ -1,0 +1,24 @@
+# roof.get_open_meteo { #cflowdist.roof.get_open_meteo }
+
+```python
+roof.get_open_meteo(location, date_start, date_end)
+```
+
+This function is originally provided by [Open-Meteo](https://open-meteo.com/en/docs#historical-weather-api) and adapted for our use case.
+Retrieve local weather data (GHI, DNI, DHI, temperature, and wind speed) for a given location and date range using the Open-Meteo API.
+The function sends a request to the Open-Meteo API with the specified parameters and processes the response to extract the relevant weather data.
+The resulting DataFrame contains the hourly weather data indexed by date and time.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name       | Type     | Description                                                                                                        | Default    |
+|------------|----------|--------------------------------------------------------------------------------------------------------------------|------------|
+| location   | Location | A Location object containing the latitude and longitude of the location for which weather data is to be retrieved. | _required_ |
+| date_start | str      | A string representing the start date for the weather data retrieval in the format 'YYYY-MM-DD'.                    | _required_ |
+| date_end   | str      | A string representing the end date for the weather data retrieval in the format 'YYYY-MM-DD'.                      | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                              |
+|--------|--------------|--------------------------------------------------------------------------|
+|        | pd.DataFrame | A DataFrame containing the hourly weather data indexed by date and time. |

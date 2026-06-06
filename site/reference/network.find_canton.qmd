@@ -1,0 +1,14 @@
+# network.find_canton { #cflowdist.network.find_canton }
+
+```python
+network.find_canton(tracer)
+```
+
+Find the canton name and code for the location of the tracer using the swisstopo Web API.
+Raises a ValueError if the location falls outside Switzerland.
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type              | Description                                                                      |
+|--------|-------------------|----------------------------------------------------------------------------------|
+|        | tuple\[str, str\] | (canton_name_for_calendar, canton_code), e.g. `('Vaud', 'VD')`, `Zurich', 'ZH')` |

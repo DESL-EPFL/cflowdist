@@ -1,0 +1,32 @@
+# models.generation.p_est_primitive { #cflowdist.models.generation.p_est_primitive }
+
+```python
+models.generation.p_est_primitive(
+    snapshots,
+    rated_power,
+    datafile='../data/GHI/GHI_Swiss_Solcast.csv',
+)
+```
+
+A helper function that estimates photovoltaic (PV) power output using a primitive method based on Global Horizontal Irradiance (GHI) data.
+The function reads GHI data from a CSV file, filters it for the specified snapshots, and calculates the power output as a fraction of the rated power based on the GHI values.
+The resulting Series contains the estimated power output for each snapshot.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type             | Description                                                                                       | Default                               |
+|-------------|------------------|---------------------------------------------------------------------------------------------------|---------------------------------------|
+| snapshots   | pd.DatetimeIndex | A DatetimeIndex representing the time snapshots for which the load profiles should be generated.  | _required_                            |
+| rated_power | float            | The rated power of the PV system, which is used to scale the estimated power output.              | _required_                            |
+| datafile    | str              | The path to the CSV file containing the GHI data, by default '../data/GHI/GHI_Swiss_Solcast.csv'. | `'../data/GHI/GHI_Swiss_Solcast.csv'` |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type      | Description                                                                             |
+|--------|-----------|-----------------------------------------------------------------------------------------|
+|        | pd.Series | A Series containing the estimated power output for each snapshot, indexed by snapshots. |
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [models.generation.primitive](/reference/models.generation.primitive.qmd) 
+- [models.generation.upgrade_roof](/reference/models.generation.upgrade_roof.qmd)

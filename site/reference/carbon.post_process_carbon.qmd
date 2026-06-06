@@ -1,0 +1,7 @@
+# carbon.post_process_carbon { #cflowdist.carbon.post_process_carbon }
+
+```python
+carbon.post_process_carbon(tracer)
+```
+
+Post-process the carbon intensity and carbon emissions data after allocation, including calculating net carbon intensity, weighted net carbon intensity, and local PV generation aggregated to a LV-net level.

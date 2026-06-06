@@ -1,0 +1,13 @@
+# carbon.optimized_node_flow_with_losses { #cflowdist.carbon.optimized_node_flow_with_losses }
+
+```python
+carbon.optimized_node_flow_with_losses(P_ij, P_gen, P_load, carriers)
+```
+
+Optimized version of `cal_node_flow_with_losses` using sparse matrices and Numba for performance.
+To accelerate the computation, you must have `scipy` and `numba` installed.
+
+## See Also {.doc-section .doc-section-see-also}
+
+- [carbon.cal_node_flow_with_losses](/reference/carbon.cal_node_flow_with_losses.qmd)
+- [carbon.carbon_tracing_ap_with_losses](/reference/carbon.carbon_tracing_ap_with_losses.qmd)

@@ -1,0 +1,22 @@
+# roof.find_roof { #cflowdist.roof.find_roof }
+
+```python
+roof.find_roof(pv_plant_df, roof_df)
+```
+
+Find the nearest roof(s) and building (by SB_UUID) to which we can associate the pv plant concerned.
+The function uses a KDTree to efficiently find the nearest roof for each PV plant based on their geographic coordinates.
+The resulting DataFrame contains the PV plant information along with the associated roof information, indexed by the original index of the PV plant DataFrame.
+
+## Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type         | Description                                                                                                                                          | Default    |
+|-------------|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| pv_plant_df | GeoDataFrame | A GeoDataFrame containing the geographic information of PV plants, including their coordinates (geometry) and other relevant attributes.             | _required_ |
+| roof_df     | GeoDataFrame | A GeoDataFrame containing the geographic information of roofs, including their coordinates (geometry) and other relevant attributes such as SB_UUID. | _required_ |
+
+## Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                                                                                                                                                                                                                                     |
+|--------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        | GeoDataFrame | A GeoDataFrame containing the PV plant information along with the associated roof information, indexed by the original index of the PV plant DataFrame. The resulting DataFrame includes a new column 'SB_UUID' that indicates the associated roof's SB_UUID for each PV plant. |
