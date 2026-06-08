@@ -113,7 +113,7 @@ A practical framework is needed to integrate open distribution-grid data, alloca
 
 ::: {.columns}
 
-::: {.column width = "47%"}
+::: {.column width = "48%"}
 
 
 
@@ -163,7 +163,7 @@ $$
 
 :::
 
-::: {.column width = "4%"}
+::: {.column width = "3%"}
 
 
 
@@ -205,7 +205,7 @@ The carbon emission responsibility of load at node $i$: ${C\!F_x}_i = l_i{c_x}_i
 
 ::: {.columns}
 
-::: {.column width = "47%"}
+::: {.column width = "48%"}
 
 
 
@@ -250,7 +250,7 @@ $$
 :::
 
 
-::: {.column width = "4%"}
+::: {.column width = "3%"}
 :::
 
 ::: {.column width = "49%"}
@@ -259,9 +259,7 @@ $$
 
 
 
-Introduce ejected carbon intensity ${c_o}_i$ to isolate the responsibility of prosumers:
-
-- Local RES generation is prioritized for local consumption before exports
+Introduce ejected intensity ${c_o}_i$ to isolate the responsibility of prosumers: **Prioritize local generation for local demand before export**
 
 
 $$
@@ -294,14 +292,13 @@ The carbon emission responsibility of load at node $i$: ${C\!F_o}_i = l_i{c_o}_i
 
 ::: {.columns}
 
-::: {.column width = "49%"}
+::: {.column width = "50%"}
 
 
 Key Idea: **Network active power losses also carry carbon responsibility.**
 
-Principle: Branch losses inherit the carbon intensity of transmitted electricity.
+Principle: Branch losses inherit the carbon intensity of transmitted power.
 
-<br>
 
 
 ::: {.callout-note}
@@ -318,9 +315,9 @@ Principle: Branch losses inherit the carbon intensity of transmitted electricity
 ::: {.callout-caution}
 ## Core Assumptions
 
-- Perfect mixing at each node
+- Perfect mixing at each node (average participation)
 - Carbon follows active power flows, intensity inherited from upstream sources
-- Losses along a branch have the same carbon intensity as the electricity it carries
+- Losses along a branch have the same carbon intensity as the power it carries
 - Carbon responsibility of losses is allocated to loads based on their contribution to the branch flow
 
 
@@ -328,7 +325,7 @@ Principle: Branch losses inherit the carbon intensity of transmitted electricity
 
 
 ::: {.callout-tip}
-## Upstream and Downstream Looking approaches for allocating losses [@bialekTopologicalGenerationLoad1997] 
+## Upstream and Downstream looking for allocating losses [@bialekTopologicalGenerationLoad1997] 
 
 - $\mathbf{D}^\mathrm{\scriptscriptstyle G}_{ij,k}$: the share of power from generator $k$ to branch flow from node $i$ to node $j$.
 - $\mathbf{D}^\mathrm{\scriptscriptstyle L}_{ij,l}$: the share of power from load $l$ to branch flow from node $i$ to node $j$.
@@ -340,7 +337,7 @@ Using $\mathbf{D}^\mathrm{\scriptscriptstyle G}$ and $\mathbf{D}^\mathrm{\script
 
 :::
 
-::: {.column width = "4%"}
+::: {.column width = "3%"}
 
 
 
@@ -376,14 +373,13 @@ $$
 
 ::: {.columns}
 
-::: {.column width = "49%"}
+::: {.column width = "50%"}
 
 
 Key Idea: **Network active power losses also carry carbon responsibility.**
 
-Principle: Branch losses inherit the carbon intensity of transmitted electricity.
+Principle: Branch losses inherit the carbon intensity of transmitted power.
 
-<br>
 
 ::: {.callout-note}
 ## Nomenclature
@@ -399,9 +395,9 @@ Principle: Branch losses inherit the carbon intensity of transmitted electricity
 ::: {.callout-caution}
 ## Core Assumptions
 
-- Perfect mixing at each node
+- Perfect mixing at each node (average participation)
 - Carbon follows active power flows, intensity inherited from upstream sources
-- Losses along a branch have the same carbon intensity as the electricity it carries
+- Losses along a branch have the same carbon intensity as the power it carries
 - Carbon responsibility of losses is allocated to loads based on their contribution to the branch flow
 
 
@@ -409,7 +405,7 @@ Principle: Branch losses inherit the carbon intensity of transmitted electricity
 
 
 ::: {.callout-tip}
-## Upstream and Downstream Looking approaches for allocating losses [@bialekTopologicalGenerationLoad1997] 
+## Upstream and Downstream looking for allocating losses [@bialekTopologicalGenerationLoad1997] 
 
 - $\mathbf{D}^\mathrm{\scriptscriptstyle G}_{ij,k}$: the share of power from generator $k$ to branch flow from node $i$ to node $j$.
 - $\mathbf{D}^\mathrm{\scriptscriptstyle L}_{ij,l}$: the share of power from load $l$ to branch flow from node $i$ to node $j$.
@@ -420,7 +416,7 @@ Using $\mathbf{D}^\mathrm{\scriptscriptstyle G}$ and $\mathbf{D}^\mathrm{\script
 
 :::
 
-::: {.column width = "4%"}
+::: {.column width = "3%"}
 
 
 
@@ -455,11 +451,7 @@ $$
 \end{cases}
 $$
 
-The intensity is given by
-
-$$
-{C\!F_x}_i = (P^\mathrm{\scriptscriptstyle G}_i - P^\mathrm{\scriptscriptstyle L}_i){c_x}_i
-$$
+The intensity is given by ${C\!F_x}_i = (P^\mathrm{\scriptscriptstyle G}_i - P^\mathrm{\scriptscriptstyle L}_i){c_x}_i$
 
 
 :::
@@ -585,8 +577,6 @@ Output power of 9 selected PV plants over 4 days within the selected distributio
 
 ### Load Profiles
 
-<br>
-
 BDEW electricity demand profiles [@amedeoOemofDemandlibOemofdemandlib2017] + land use data [@SwissLandUse]
 
 Match the load profiles to the load nodes based on the land use type of the node's location
@@ -598,9 +588,6 @@ Examples:
 - *Residential areas (1 or 2-family houses)*: BDEW type H0 (Households)
 - *Agricultural buildings and surroundings*: BDEW type L0 (General farms)
 - *Public buildings and surroundings*: BDEW type G1 (Business on weekdays 8am - 6pm)
-
-<br>
-<br>
 
 ::: {#fig-load-line}
 ```{=html}
@@ -699,13 +686,12 @@ Carbon intensity of the higher-level grid for the canton of Zurich, Vaud and Tic
 
 ::: {#fig-swiss-pdgs}
 ```{=html}
-<div style="width: 1600px; height: 900px;  margin: auto;">
+<div style="width: 1600px; height: 880px;  margin: auto;">
   <iframe src="./files/res-json/vis-json.html" style="border: none; width: 100%; height: 100%;"></iframe>
 </div>
 ```
 
-Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes,
-33 transformers, and 131 distributed generators. Local PV penetration creates spatial and temporal heterogeneity across the network.
+Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, and 131 PV plants. Local PV penetration creates spatial and temporal heterogeneity across the network.
 :::
 
 ## Case Study: Synthetic Swiss Distribution Grid - Carbon Flow Tracing Results (Cont'd)
@@ -738,7 +724,6 @@ Hourly carbon intensities at the HV level (black) and LV-level aggregates (color
 
 
 <br>
-<br>
 
 
 #### Computational Performance
@@ -758,13 +743,13 @@ Hourly carbon intensities at the HV level (black) and LV-level aggregates (color
 
 :::
 
-::: {.column width="5%"}
+::: {.column width="4%"}
 
 
 
 :::
 
-::: {.column width="47%"}
+::: {.column width="48%"}
 
 
 #### Seasonal Variability
