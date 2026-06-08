@@ -1,6 +1,6 @@
 # CFlowDist
 
-A Python toolkit for tracing carbon flows and allocating carbon intensity in Swiss distribution grids.  Models and data sources are described in our paper titled: *Carbon Flow Tracing in Distribution Grids: From Method to Application*.
+A Python toolkit for tracing carbon flows and allocating carbon intensity in Swiss distribution grids.  Models and data sources are described in [our paper titled](https://pscc.epfl.ch/modules/request.php?module=oc_program&action=view.php&id=61&file=1/61.pdf): *Carbon Flow Tracing in Distribution Grids: From Method to Application*.
 
 ## Documentation
 

@@ -120,28 +120,39 @@ async function loadMap() {
     // daily sunrise/sunset data, save key as 'YYYY-MM-DD' for easy lookup
     meteoData.dailySunMapper = {};
     for (let i = 0; i < meteoData.daily.time.length; i++) {
-        const date = new Date(meteoData.daily.time[i]).toLocaleDateString('en-CA', { timeZone: 'Europe/Zurich' });
-        meteoData.dailySunMapper[date] = {
+
+        const dateKey = meteoData.daily.time[i]; 
+    
+        meteoData.dailySunMapper[dateKey] = {
             sunrise: new Date(meteoData.daily.sunrise[i]).getTime(),
             sunset: new Date(meteoData.daily.sunset[i]).getTime()
         };
     }
+
+    
 
     // create weather code and is_day mapping for quick lookup
     meteoData.weatherMapper = {};
 
     const RainCodes = [51, 52, 53, 54, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82];
     const SnowCodes = [71, 73, 75, 77, 85, 86];
+
     for (let i = 0; i < meteoData.hourly.time.length; i++) {
         const timestamp = new Date(meteoData.hourly.time[i]).getTime();
-        const dateKey = new Date(timestamp).toLocaleDateString('en-CA', { timeZone: 'Europe/Zurich' });
+        
+        // Open-Meteo hourly.time is 'YYYY-MM-DDTHH:mm'. Split at 'T' to get the 'YYYY-MM-DD' part safely.
+        const dateKey = meteoData.hourly.time[i].split('T')[0]; 
+
+        // Guard clause in case API data alignment fails unexpectedly
+        const sunData = meteoData.dailySunMapper[dateKey] || { sunrise: null, sunset: null };
+
         meteoData.weatherMapper[timestamp] = {
             code: meteoData.hourly.weather_code[i],
             is_day: meteoData.hourly.is_day[i],
-            is_rain: RainCodes.includes(parseInt(meteoData.hourly.weather_code[i])), // Rain codes
+            is_rain: RainCodes.includes(parseInt(meteoData.hourly.weather_code[i])), 
             is_snow: SnowCodes.includes(parseInt(meteoData.hourly.weather_code[i])),
-            sunrise: meteoData.dailySunMapper[dateKey].sunrise,
-            sunset: meteoData.dailySunMapper[dateKey].sunset
+            sunrise: sunData.sunrise,
+            sunset: sunData.sunset
         };
     }
 
@@ -163,8 +174,8 @@ function initializeMap() {
             }
         },
         center: initialCenter,
-        zoom: 13.8,
-        pitch: 55,
+        zoom: 14,
+        pitch: 50,
     });
 
     map.on('load', () => {
@@ -326,71 +337,33 @@ function initializeMap() {
 
 }
 
-// function setupSlider() {
-//     const slider = document.getElementById('slider');
-//     const label = document.getElementById('time-label');
-//     const datavalue = document.getElementById('weather-value');
-
-//     slider.max = timeKeys.length - 1;
-
-//     slider.addEventListener('input', (e) => {
-//         const index = parseInt(e.target.value);
-//         const timestamp = timeKeys[index];
-        
-//         // 1. Update Label (Human readable)
-//         const date = new Date(parseInt(timestamp));
-//         label.innerText = date.toLocaleString('en-CA', { 
-//             month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
-//         });
-
-//         const WeatherCode = meteoData.weatherMapper[timestamp].code;
-//         const IsDay = meteoData.weatherMapper[timestamp].is_day ? 'day' : 'night';
-//         const WeatherText = meteoDescriptions[WeatherCode][IsDay].description;
-//         const WeatherIcon = meteoDescriptions[WeatherCode][IsDay].image;
-
-
-//         // Update 
-
-//         needleGeoJSON.features.forEach(feature => {
-//             feature.properties.target_emission = feature.properties.ce_series[index];
-//             feature.properties.target_intensity = feature.properties.ci_series[index]; // Update target intensity as well
-//         });
-//         groundGeoJSON.features.forEach(feature => {
-//             feature.properties.target_intensity = feature.properties.ci_series[index];
-//         });
-
-//         // Fire up the animation loop if it isn't already running
-//         if (!isAnimating) {
-//             isAnimating = true;
-//             animateFrames();
-//         }
-
-
-//         datavalue.innerHTML = `
-//             <img class="weather-icon" src=${WeatherIcon}>  ${WeatherText}
-//         `;
-
-//         // 2. Update Map
-//         updateMapColors(timestamp);
-//         updateBaseMapStyle(timestamp);
-//         updateWeather(timestamp);
-
-
-//     });
-
-//     // Trigger first frame
-//     slider.dispatchEvent(new Event('input'));
-// }
 function dateFormat(timestamp) {
     const date = new Date(parseInt(timestamp));
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-}
 
+    // Create a formatter locked to the Europe/Zurich timezone
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Zurich',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false // Forces 24-hour format
+    });
+
+    // formatter.formatToParts returns an array of objects: [{type: 'year', value: '2026'}, ...]
+    const parts = formatter.formatToParts(date);
+    
+    // Extract the pieces dynamically
+    const year = parts.find(p => p.type === 'year').value;
+    const month = parts.find(p => p.type === 'month').value;
+    const day = parts.find(p => p.type === 'day').value;
+    const hour = parts.find(p => p.type === 'hour').value;
+    const minute = parts.find(p => p.type === 'minute').value;
+
+    // Return your exact desired format: YYYY-MM-DD HH:mm
+    return `${year}-${month}-${day} ${hour}:${minute}`;
+}
 function setupSlider() {
     const slider = document.getElementById('slider');
     const label = document.getElementById('time-label');
@@ -704,17 +677,6 @@ function getColorFromValue(val) {
     else if (val <= 70) return 'red';
     else if (val <= 90) return 'brown';
     else return 'black';
-}
-
-
-function dateFormat(timestamp) {
-    const date = new Date(parseInt(timestamp));
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
 
