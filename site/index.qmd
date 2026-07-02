@@ -12,7 +12,7 @@ author:
       orcid: 0000-0001-7073-9036
     
 description: "Welcome to CFlowDist documentation!"
-date: today
+date: 2026-06-26
 title-block-banner: "#009688"
 
 format: 
@@ -23,7 +23,7 @@ format:
     # html-math-method: katex
 
 execute: 
-  freeze: true
+  freeze: auto
   echo: true
 
 ---
@@ -31,7 +31,43 @@ execute:
 
 # CFlowDist
 
-A Python toolkit for tracing carbon flows and allocating carbon intensity in Swiss distribution grids. Models and data sources are described in [our paper](https://pscc.epfl.ch/modules/request.php?module=oc_program&action=view.php&id=61&file=1/61.pdf) titled: *Carbon Flow Tracing in Distribution Grids: From Method to Application*.
+A Python toolkit for tracing carbon flows and allocating carbon intensity in Swiss distribution grids. Models and data sources are described in our paper titled: [Carbon Flow Tracing in Distribution Grids: From Method to Application](https://doi.org/10.1016/j.epsr.2026.113548).
+
+If you find this work useful, please cite the original article as follows:
+
+::: {.panel-tabset}
+## BibTeX
+
+```bibtex
+@article{liu2027,
+  author = {Liu, Wenyu and Figini, Enea and Paolone, Mario},
+  title = {Carbon Flow Tracing in Distribution Grids: From Method to
+    Application},
+  journal = {Electric Power Systems Research},
+  volume = {262},
+  pages = {113548},
+  date = {2027-01-01},
+  url = {https://www.sciencedirect.com/science/article/pii/S0378779626008412},
+  doi = {10.1016/j.epsr.2026.113548},
+  issn = {0378-7796},
+  langid = {en}
+}
+```
+
+## IEEE
+
+W. Liu, E. Figini, and M. Paolone, “Carbon flow tracing in distribution grids: from method to application,” Electric Power Systems Research, vol. 262, p. 113548, Jan. 2027, doi: 10.1016/j.epsr.2026.113548. Available: https://www.sciencedirect.com/science/article/pii/S0378779626008412
+
+## APA
+
+Liu, W., Figini, E., & Paolone, M. (2027). Carbon flow tracing in distribution grids: From method to application. Electric Power Systems Research, 262, 113548.
+
+## Harvard
+
+Liu, W., Figini, E. and Paolone, M., 2027. Carbon flow tracing in distribution grids: From method to application. Electric Power Systems Research, 262, p.113548.
+
+:::
+
 
 ## Installation
 Clone the repository via:

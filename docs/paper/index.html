@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wenyu Liu">
+<meta name="author" content="Enea Figini">
+<meta name="author" content="Mario Paolone">
+<meta name="dcterms.date" content="2026-06-26">
+<meta name="description" content="Adapted version of the journal article for web browsing.">
+
+<title>Carbon flow tracing in distribution grids: from method to application – CFlowDist Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c6805ecf3c5aed8a45a1a79254cea85.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8966c78e8f13beb93b8e3be1cdee0a2a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background: #009688;
+      }
+</style>
+<script>
+    window.MathJax = {
+      loader: {
+        load: ['[custom]/siunitx.js', '[tex]/gensymb', '[tex]/color', '[tex]/html', '[tex]/cancel', '[tex]/boldsymbol'],
+        paths: {
+            custom: './files'
+        }
+      },
+      tex: {
+        packages: {
+          '[+]': ['siunitx', 'gensymb', 'color', 'html', 'cancel', 'boldsymbol']
+        }
+      }
+    };
+    </script>
+    <script src="https://cdn.plot.ly/plotly-3.3.1.min.js" charset="utf-8"></script>
+    <script src="./files/plotly_renderer.js" charset="utf-8"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="citation_title" content="Carbon flow tracing in distribution grids: from method to application">
+<meta name="citation_author" content="Wenyu Liu">
+<meta name="citation_author" content="Enea Figini">
+<meta name="citation_author" content="Mario Paolone">
+<meta name="citation_publication_date" content="2027-01-01">
+<meta name="citation_cover_date" content="2027-01-01">
+<meta name="citation_year" content="2027">
+<meta name="citation_online_date" content="2026-06-26">
+<meta name="citation_fulltext_html_url" content="https://www.sciencedirect.com/science/article/pii/S0378779626008412">
+<meta name="citation_doi" content="10.1016/j.epsr.2026.113548">
+<meta name="citation_issn" content="0378-7796">
+<meta name="citation_volume" content="262">
+<meta name="citation_language" content="en">
+<meta name="citation_firstpage" content="113548">
+<meta name="citation_journal_title" content="Electric Power Systems Research">
+<meta name="citation_reference" content="citation_title=CVXPY: A Python-Embedded Modeling Language for Convex Optimization;,citation_abstract=CVXPY is a domain-specific language for convex optimization embedded in Python. It allows the user to express convex optimization problems in a natural syntax that follows the math, rather than in the restrictive standard form required by solvers. CVXPY makes it easy to combine convex optimization with high-level features of Python such as parallelism and object- oriented design. CVXPY is available at www.cvxpy.org under the GPL license, along with documentation and examples.;,citation_author=Steven Diamond;,citation_author=Stephen Boyd;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_fulltext_html_url=http://jmlr.org/papers/v17/15-408.html;,citation_issue=83;,citation_issn=1533-7928;,citation_volume=17;,citation_journal_title=Journal of Machine Learning Research;">
+<meta name="citation_reference" content="citation_title=Numba: A LLVM-based Python JIT compiler;,citation_abstract=Dynamic, interpreted languages, like Python, are attractive for domain-experts and scientists experimenting with new ideas. However, the performance of the interpreter is often a barrier when scaling to larger data sets. This paper presents a just-in-time compiler for Python that focuses in scientific and array-oriented computing. Starting with the simple syntax of Python, Numba compiles a subset of the language into efficient machine code that is comparable in performance to a traditional compiled language. In addition, we share our experience in building a JIT compiler using LLVM[1].;,citation_author=Siu Kwan Lam;,citation_author=Antoine Pitrou;,citation_author=Stanley Seibert;,citation_publication_date=2015-11;,citation_cover_date=2015-11;,citation_year=2015;,citation_fulltext_html_url=https://dl.acm.org/doi/10.1145/2833157.2833162;,citation_doi=10.1145/2833157.2833162;,citation_isbn=978-1-4503-4005-2;,citation_conference_title=Proceedings of the Second Workshop on the LLVM Compiler Infrastructure in HPC;,citation_conference=Association for Computing Machinery;,citation_series_title=LLVM ’15;">
+<meta name="citation_reference" content="citation_title=Parallelizing the dual revised simplex method;,citation_abstract=This paper introduces the design and implementation of two parallel dual simplex solvers for general large scale sparse linear programming problems. One approach, called PAMI, extends a relatively unknown pivoting strategy called suboptimization and exploits parallelism across multiple iterations. The other, called SIP, exploits purely single iteration parallelism by overlapping computational components when possible. Computational results show that the performance of PAMI is superior to that of the leading open-source simplex solver, and that SIP complements PAMI in achieving speedup when PAMI results in slowdown. One of the authors has implemented the techniques underlying PAMI within the FICO Xpress simplex solver and this paper presents computational results demonstrating their value. In developing the first parallel revised simplex solver of general utility, this work represents a significant achievement in computational optimization.;,citation_author=Q. Huangfu;,citation_author=J. A. J. Hall;,citation_publication_date=2018-03;,citation_cover_date=2018-03;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.1007/s12532-017-0130-5;,citation_issue=1;,citation_doi=10.1007/s12532-017-0130-5;,citation_issn=1867-2957;,citation_volume=10;,citation_journal_title=Mathematical Programming Computation;">
+<meta name="citation_reference" content="citation_title=Matrix analysis;,citation_author=Roger A Horn;,citation_author=Charles R Johnson;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;">
+<meta name="citation_reference" content="citation_title=Electricity production plants - opendata.swiss;,citation_abstract=An electricity production plant is a technical facility for generating electricity. It is in the public interest to have a spatial overview of all electricity production plants in Switzerland. In...;,citation_fulltext_html_url=https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen;">
+<meta name="citation_reference" content="citation_title=National energy system modeling for decarbonization pathways considering distribution grids;,citation_abstract=Long-term planning tools compute investment in energy technologies to reach techno-economic objectives. These tools are typically used to define decarbonization pathways with the corresponding capacities for several types of technologies. However, for most renewable-based resources that are expected to be connected in distribution grids, the typical temporal and geographical resolutions of long-term models are deemed insufficient. They cannot capture the need for dynamic flexibility and/or grid reinforcement in distribution and thus the impact on the final costs or carbon emissions. This paper assesses the integration of distribution grids in long-term energy system planning. A coupling is proposed between the long-term model POLES, which computes the technology capacities to install each year up to 2050, with the dispatch/investment model Backbone, which optimizes the operation and the repartition of investments at finer resolutions. The coupling being computationally demanding, several simplifications of Backbone are investigated to find a trade-off with accuracy. Results show that simplifying the investment options and distribution grid models can achieve a 90 % precision on investment and energy generation compared to baseline optimization, with a computational time divided by 100. Finally, comparative simulations are run with the models coupling up to 2050 for the French power system with and without considering medium voltage distribution grids in addition to the transmission one. In the latter case, minor changes occur in the capacity investments. However, operational constraints increase the power system decarbonization cost by 20 % due to distribution constraints, underlining the necessity of considering finer temporal and geographical resolutions.;,citation_author=Corentin Jacquier;,citation_author=Rémy Rigo-Mariani;,citation_author=Vincent Debusschere;,citation_author=Jean-Nicolas Louis;,citation_author=Silvana Mima;,citation_publication_date=2025-03;,citation_cover_date=2025-03;,citation_year=2025;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2211467X25000513;,citation_doi=10.1016/j.esr.2025.101688;,citation_issn=2211-467X;,citation_volume=58;,citation_journal_title=Energy Strategy Reviews;">
+<meta name="citation_reference" content="citation_title=Multiple carbon accounting to support just and effective climate policies;,citation_abstract=Greenhouse gas emissions can be allocated to individual countries in various ways depending on where in the supply chain the emissions originated; achieving an effective and just climate policy may require multiple accounting systems.;,citation_author=Karl W. Steininger;,citation_author=Christian Lininger;,citation_author=Lukas H. Meyer;,citation_author=Pablo Muñoz;,citation_author=Thomas Schinko;,citation_publication_date=2016-01;,citation_cover_date=2016-01;,citation_year=2016;,citation_fulltext_html_url=https://www.nature.com/articles/nclimate2867;,citation_issue=1;,citation_doi=10.1038/nclimate2867;,citation_issn=1758-6798;,citation_volume=6;,citation_journal_title=Nature Climate Change;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Net-zero emission targets for major emitting countries consistent with the Paris Agreement;,citation_abstract=Over 100 countries have set or are considering net-zero emissions or neutrality targets. However, most of the information on emissions neutrality (such as timing) is provided for the global level. Here, we look at national-level neutrality-years based on globally cost-effective 1.5 °C and 2 °C scenarios from integrated assessment models. These results indicate that domestic net zero greenhouse gas and CO2 emissions in Brazil and the USA are reached a decade earlier than the global average, and in India and Indonesia later than global average. These results depend on choices like the accounting of land-use emissions. The results also show that carbon storage and afforestation capacity, income, share of non-CO2 emissions, and transport sector emissions affect the variance in projected phase-out years across countries. We further compare these results to an alternative approach, using equity-based rules to establish target years. These results can inform policymakers on net-zero targets.;,citation_author=Heleen L. Soest;,citation_author=Michel G. J. Elzen;,citation_author=Detlef P. Vuuren;,citation_publication_date=2021-04;,citation_cover_date=2021-04;,citation_year=2021;,citation_fulltext_html_url=https://www.nature.com/articles/s41467-021-22294-x;,citation_issue=1;,citation_doi=10.1038/s41467-021-22294-x;,citation_issn=2041-1723;,citation_volume=12;,citation_journal_title=Nature Communications;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Worldwide carbon neutrality transition? Energy efficiency, renewable, carbon trading and advanced energy policies;,citation_abstract=Climate change and energy shortage crisis promptly necessitate achievement of sustainable development goals. However, there is no straightforward pathways for low-carbon transformation on building sectors, and energy/carbon trading and reverse promotion on decarbonization strategies are not clear. In this study, a literature enumeration method with dialectical analysis was adopted for state-of-the-art literature review and comparison. Low-carbon transformation pathways in buildings were holistically reviewed, with a series of integrated techniques, such as energy saving, clean energy supply, flexible demand response for high self-consumption, and even smart electric vehicle (EV) integration. Afterwards, energy/carbon flows and trading in building-related systems were provided, such as peer-to-peer energy trading, building and thermal/power grids, building and energy-integrated EVs, and carbon trading in buildings. Last but not the least, worldwide decarbonization roadmaps across regions and countries are analysed, to identify the most critical aspects and immediate actions on decarbonization. Results indicate that tradeoff strategies are required to compromise the confliction between insufficient feed-in tariff (FiT) incentives (low renewable penetration in the market) and great economic pressures (high investment in renewable systems). Low-carbon building pathway is further enhanced with first priority given to passive/active energy-saving strategies, onsite clean energy supply and then flexible demand response. Energy/carbon trading will significantly affect renewable energy utilization, and acceptance from end-users to actively install renewable systems or participate in EV interactions. Worldwide decarbonization pathways mainly focus on industries, transportation, buildings, renewable sources, carbon sink and carbon capture, utilization and storage (CCUS). This study can contribute to technical roadmaps and strategies on carbon neutrality transition in both academia and industry, together with advanced policies in grid feed-in tariff, energy/carbon trading and business models worldwide.;,citation_author=Yuekuan Zhou;,citation_publication_date=2023-06;,citation_cover_date=2023-06;,citation_year=2023;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2772970223000135;,citation_issue=2;,citation_doi=10.1016/j.enrev.2023.100026;,citation_issn=2772-9702;,citation_volume=2;,citation_journal_title=Energy Reviews;">
+<meta name="citation_reference" content="citation_title=Carbon Emission Flow From Generation to Demand: A Network-Based Model;,citation_abstract=Clarification of the responsibility for carbon emission is fundamental in a carbon-constrained world. Existing statistical methods for carbon emission estimation usually attribute the emission responsibility to the generation side. However, a growing number of analysis across different sectors has pointed out that “consumers” rather than “producers” should be responsible for the CO2 emitted during the production. In power system, it is consumers that create the need for the combustion of fossil fuels and cause substantial carbon emission. In order to account carbon emission from the consumption-based perspective, carbon emission generated by various generators can be seen as a virtual attachment to the power flow and accumulated at the consumer’s side. A novel analytical model for carbon emission flow (CEF) is proposed in this paper to quantify the carbon emission accompanying the power delivery process. The newly developed model of CEF can take into account the operational characteristics and the network features of power system, and elaborately characterize the relationship between power delivery and CEF. Some basic concepts of CEF in power networks are defined, and the fundamental characteristics and distribution principles of CEF are analyzed. Furthermore, a novel calculation model for CEF in power networks is proposed. A case study is conducted based on the IEEE 118 bus system to illustrate the calculation process and result of CEF in power system.;,citation_author=Chongqing Kang;,citation_author=Tianrui Zhou;,citation_author=Qixin Chen;,citation_author=Jianhui Wang;,citation_author=Yanlong Sun;,citation_author=Qing Xia;,citation_author=Huaguang Yan;,citation_publication_date=2015-09;,citation_cover_date=2015-09;,citation_year=2015;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/7021901;,citation_issue=5;,citation_doi=10.1109/TSG.2015.2388695;,citation_issn=1949-3061;,citation_volume=6;,citation_journal_title=IEEE Transactions on Smart Grid;">
+<meta name="citation_reference" content="citation_title=Real-time carbon accounting method for the European electricity markets;,citation_abstract=Electricity accounts for 25% of global greenhouse gas emissions. Reducing emissions related to electricity consumption requires accurate measurements readily available to consumers, regulators and investors. In this case study, we propose a new real-time consumption-based accounting approach based on flow tracing. This method traces power flows from producer to consumer thereby representing the underlying physics of the electricity system, in contrast to the traditional input-output models of carbon accounting. With this method we explore the hourly structure of electricity trade across Europe in 2017, and find substantial differences between production and consumption intensities. This emphasizes the importance of considering cross-border flows for increased transparency regarding carbon emission accounting of electricity.;,citation_author=Bo Tranberg;,citation_author=Olivier Corradi;,citation_author=Bruno Lajoie;,citation_author=Thomas Gibon;,citation_author=Iain Staffell;,citation_author=Gorm Bruun Andresen;,citation_publication_date=2019-11;,citation_cover_date=2019-11;,citation_year=2019;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2211467X19300549;,citation_doi=10.1016/j.esr.2019.100367;,citation_issn=2211-467X;,citation_volume=26;,citation_journal_title=Energy Strategy Reviews;">
+<meta name="citation_reference" content="citation_title=Carbon Emission Flow in Networks;,citation_abstract=As the human population increases and production expands, energy demand and anthropogenic carbon emission rates have been growing rapidly and the need to decrease carbon emission levels has drawn increasing attention. The link between energy production and consumption has required the large-scale transport of energy within energy transmission networks. Within this energy flow, there is a virtual circulation of carbon emissions. To understand this circulation and account for the relationship between energy consumption and carbon emissions, this paper introduces the concept of “carbon emission flow in networks” and establishes a method to calculate carbon emission flow in networks. Using an actual analysis of China’s energy pattern, the authors discuss the significance of this new concept, not only as a feasible approach but also as an innovative theoretical perspective.;,citation_author=Chongqing Kang;,citation_author=Tianrui Zhou;,citation_author=Qixin Chen;,citation_author=Qianyao Xu;,citation_author=Qing Xia;,citation_author=Zhen Ji;,citation_publication_date=2012-06;,citation_cover_date=2012-06;,citation_year=2012;,citation_fulltext_html_url=https://www.nature.com/articles/srep00479;,citation_issue=1;,citation_doi=10.1038/srep00479;,citation_issn=2045-2322;,citation_volume=2;,citation_journal_title=Scientific Reports;,citation_publisher=Nature Publishing Group;">
+<meta name="citation_reference" content="citation_title=Greenhouse gas emission factors of purchased electricity from interconnected grids;,citation_abstract=Electricity trade among power grids leads to difficulties in measuring greenhouse gas (GHG) emission factors of purchased electricity. Traditional methods assume either electricity purchased from a grid is entirely produced locally (Boundary I) or imported electricity is entirely produced by the exporting grid (Boundary II) (in fact a blend of electricity produced by many grids). Both methods ignore the fact that electricity can be indirectly traded between grids. Failing to capture such indirect electricity trade can underestimate or overestimate GHG emissions of purchased electricity in interconnected grid networks, potentially leading to incorrectly accounting for the effects of emission reduction policies involving purchased electricity. We propose a “Boundary III” framework to account for emissions both directly and indirectly caused by purchased electricity in interconnected gird networks. We use three case studies on a national grid network, an Eurasian Continent grid network, and North Europe grid network to demonstrate the proposed Boundary III emission factors. We found that the difference on GHG emissions of purchased electricity estimated using different emission factors can be considerably large. We suggest to standardize the choice of different emission factors based on how interconnected the local grid is with other grids.;,citation_author=Ling Ji;,citation_author=Sai Liang;,citation_author=Shen Qu;,citation_author=Yanxia Zhang;,citation_author=Ming Xu;,citation_author=Xiaoping Jia;,citation_author=Yingtao Jia;,citation_author=Dongxiao Niu;,citation_author=Jiahai Yuan;,citation_author=Yong Hou;,citation_author=Haikun Wang;,citation_author=Anthony S. F. Chiu;,citation_author=Xiaojun Hu;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0306261915012921;,citation_doi=10.1016/j.apenergy.2015.10.065;,citation_issn=0306-2619;,citation_volume=184;,citation_journal_title=Applied Energy;">
+<meta name="citation_reference" content="citation_title=Climate Change and Land: An IPCC special report on climate change, desertification, land degradation, sustainable land management, food security, and greenhouse gas fluxes in terrestrial ecosystems;,citation_author=Priyadarshi R. Shukla;,citation_author=J. Skeg;,citation_author=E. Buend́ıa;,citation_author=Valérie Masson‐Delmotte;,citation_author=Hans-O. Pörtner;,citation_author=Debra Cynthia Roberts;,citation_author=Panmao Zhai;,citation_author=Raphael Slade;,citation_author=Sarah Colleen Connors;,citation_author=S. Diemen;,citation_author=Marion Ferrat;,citation_author=Eamon Haughey;,citation_author=S. Luz;,citation_author=Minal Pathak;,citation_author=Jan Petzold;,citation_author=Joana Portugal Pereira;,citation_author=Pradeep Vyas;,citation_author=Ellen Huntley;,citation_author=Kathy Kissick;,citation_author=Moh Belkacemi;,citation_author=James O. Malley;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_fulltext_html_url=https://api.semanticscholar.org/CorpusID:212790862;">
+<meta name="citation_reference" content="citation_title=2006 IPCC Guidelines for National Greenhouse Gas Inventories;,citation_author=Simon Eggleston;,citation_author=Leandro Buendia;,citation_author=Kyoko Miwa;,citation_author=Todd Ngara;,citation_author=Kiyoto Tanabe;,citation_author=Keith Paustian;,citation_author=André Amstel;,citation_author=Manure Management;,citation_author=Hongmin Dong;,citation_author=Jerry L. Hatfield;,citation_author=Donald E. Johnson;,citation_author=Keith R. Lassey;,citation_author=Magda Aparecida Lima;,citation_author=A. Yu Romanovskaya;,citation_publication_date=2006;,citation_cover_date=2006;,citation_year=2006;,citation_fulltext_html_url=https://api.semanticscholar.org/CorpusID:85690627;">
+<meta name="citation_reference" content="citation_title=A review on carbon emission accounting approaches for the electricity power industry;,citation_abstract=The carbon dioxide (CO2) emissions have reached their highest levels since measurements began in recent years. This is widely regarded as one of the primary factors contributing to the increasing frequency of extreme climate events. Consequently, accurate and reliable CO2 emission data becomes the benchmark in shaping policies and setting targets aimed at reducing emissions, which are essential for carbon emission-related research. Among all industries, the electric power sector takes the highest proportion of CO2 emissions, making the carbon emission accounting for this sector a crucial component of overall carbon emissions accounting. Therefore, the objective of this paper is to provide a comprehensive review of the applied technologies and research progress in electricity carbon emissions accounting. The paper begins by introducing the fundamental concept of electricity carbon emission accounting. Electricity carbon emissions are categorized into two types: direct carbon emissions from electricity production and indirect carbon emissions from electricity consumption. Then, the current applied approaches for accounting for these two types of emissions are reviewed separately. After analyzing the shortages of existing applied carbon emission accounting approaches, the paper proceeds to review the research on the improved approaches of direct and indirect carbon emission accounting. Finally, the paper outlines the future development prospects of carbon emission accounting technology.;,citation_author=Yaowang Li;,citation_author=Xuxin Yang;,citation_author=Ershun Du;,citation_author=Yuliang Liu;,citation_author=Shixu Zhang;,citation_author=Chen Yang;,citation_author=Ning Zhang;,citation_author=Chang Liu;,citation_publication_date=2024-04;,citation_cover_date=2024-04;,citation_year=2024;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0306261924000643;,citation_doi=10.1016/j.apenergy.2024.122681;,citation_issn=0306-2619;,citation_volume=359;,citation_journal_title=Applied Energy;">
+<meta name="citation_reference" content="citation_title=Arealstatistik nach Nomenklatur 2004 - Bodennutzung, Beschreibung: Metainformation zu Geodaten;,citation_author=undefined SFSO;,citation_publication_date=2004;,citation_cover_date=2004;,citation_year=2004;,citation_fulltext_html_url=https://dam-api.bfs.admin.ch/hub/api/dam/assets/256981/master;">
+<meta name="citation_reference" content="citation_title=PVsyst Documentation - Array Thermal losses;,citation_author=PVsyst SA;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://www.pvsyst.com/help/project-design/array-and-system-losses/array-thermal-losses/index.html;">
+<meta name="citation_reference" content="citation_title=Open-Meteo.com Weather API;,citation_author=Patrick Zippenfenig;,citation_publication_date=2024-12;,citation_cover_date=2024-12;,citation_year=2024;,citation_fulltext_html_url=https://doi.org/10.5281/zenodo.14582479;,citation_doi=10.5281/zenodo.14582479;,citation_publisher=Zenodo;">
+<meta name="citation_reference" content="citation_title=PVWatts Version 5 Manual;,citation_author=A. P. Dobos;,citation_publication_date=2014-09;,citation_cover_date=2014-09;,citation_year=2014;,citation_fulltext_html_url=https://www.osti.gov/biblio/1158421;,citation_doi=10.2172/1158421;,citation_technical_report_institution=National Renewable Energy Laboratory (NREL), Golden, CO.;">
+<meta name="citation_reference" content="citation_title=Swiss Land Use Statistics;,citation_fulltext_html_url=https://www.bfs.admin.ch/content/bfs/en/home/services/geostat/swiss-federal-statistics-geodata/land-use-cover-suitability/swiss-land-use-statistics.html;">
+<meta name="citation_reference" content="citation_title=Emissium Docs;,citation_abstract=Main hub for Emissium external documentation.;,citation_fulltext_html_url=https://docs.emissium.tech/;,citation_journal_title=Emissium Docs;">
+<meta name="citation_reference" content="citation_title=Workalendar/workalendar;,citation_abstract=Worldwide holidays and workdays computational toolkit.;,citation_publication_date=2025-08;,citation_cover_date=2025-08;,citation_year=2025;,citation_fulltext_html_url=https://github.com/workalendar/workalendar;,citation_publisher=workalendar;">
+<meta name="citation_reference" content="citation_title=Decarbonization strategies for Switzerland considering embedded greenhouse gas emissions in electricity imports;,citation_abstract=Decarbonizing the energy system by electrification of heat and transport is only effective when using low-carbon electricity sources. As many countries such as Switzerland rely on imported electricity to meet their demand, the greenhouse gas (GHG) content of electricity imports must be correctly accounted for. By assuming an average GHG content for each amount imported, impacts of electricity required in peak periods are underestimated because additional (marginal) demand is primarily met with fossil power plants. This study employs a model to capture marginal GHG contents of imported electricity from a direct and indirect (life-cycle) perspective at an hourly resolution. Implications on GHG are explored for various electricity demand and supply scenarios including electrification of heat and transport, large-scale expansion of renewables, and nuclear phase-out. We find that depending on the scenario, the average GHG intensity of consumed electricity may double, while diurnal and seasonal variations are even larger. Nonetheless, results show substantial GHG mitigation of up to 45% with electrification in case of deploying a diversified electricity generation portfolio including photovoltaics and wind. For optimal GHG mitigation, short-term flexibility as provided by hydropower is necessary to manage electricity surpluses. The main challenge, however, surrounds seasonal energy storage including sector coupling.;,citation_author=Martin Rüdisüli;,citation_author=Elliot Romano;,citation_author=Sven Eggimann;,citation_author=Martin K. Patel;,citation_publication_date=2022-03;,citation_cover_date=2022-03;,citation_year=2022;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0301421522000192;,citation_doi=10.1016/j.enpol.2022.112794;,citation_issn=0301-4215;,citation_volume=162;,citation_journal_title=Energy Policy;">
+<meta name="citation_reference" content="citation_title=Pandapower—An Open-Source Python Tool for Convenient Modeling, Analysis, and Optimization of Electric Power Systems;,citation_abstract=Pandapower is a Python-based BSD-licensed power system analysis tool aimed at automation of static and quasi-static analysis and optimization of balanced power systems. It provides power flow, optimal power flow, state estimation, topological graph searches, and short-circuit calculations according to IEC 60909. pandapower includes a Newton-Raphson power flow solver formerly based on pypower, which has been accelerated with just-in-time compilation. Additional enhancements to the solver include the capability to model constant current loads, grids with multiple reference nodes, and a connectivity check. The pandapower network model is based on electric elements, such as lines, two- and three-winding transformers, or ideal switches. All elements can be defined with nameplate parameters and are internally processed with equivalent circuit models, which have been validated against industry standard software tools. The tabular data structure used to define networks is based on the Python library pandas, which allows comfortable handling of input and output parameters. The implementation in Python makes pandapower easy to use and allows comfortable extension with third-party libraries. pandapower has been successfully applied in several grid studies as well as for educational purposes. A comprehensive publicly available case study demonstrates a possible application of pandapower in an automated time-series calculation.;,citation_author=Leon Thurner;,citation_author=Alexander Scheidler;,citation_author=Florian Schäfer;,citation_author=Jan-Hendrik Menke;,citation_author=Julian Dollichon;,citation_author=Friederike Meier;,citation_author=Steffen Meinecke;,citation_author=Martin Braun;,citation_publication_date=2018-11;,citation_cover_date=2018-11;,citation_year=2018;,citation_fulltext_html_url=https://ieeexplore.ieee.org/document/8344496;,citation_issue=6;,citation_doi=10.1109/TPWRS.2018.2829021;,citation_issn=1558-0679;,citation_volume=33;,citation_journal_title=IEEE Transactions on Power Systems;">
+<meta name="citation_reference" content="citation_title=Pvlib python: 2023 project update;,citation_abstract=Anderson et al., (2023). pvlib python: 2023 project update. Journal of Open Source Software, 8(92), 5994, https://doi.org/10.21105/joss.05994;,citation_author=Kevin S. Anderson;,citation_author=Clifford W. Hansen;,citation_author=William F. Holmgren;,citation_author=Adam R. Jensen;,citation_author=Mark A. Mikofski;,citation_author=Anton Driesse;,citation_publication_date=2023-12;,citation_cover_date=2023-12;,citation_year=2023;,citation_fulltext_html_url=https://joss.theoj.org/papers/10.21105/joss.05994;,citation_issue=92;,citation_doi=10.21105/joss.05994;,citation_issn=2475-9066;,citation_volume=8;,citation_journal_title=Journal of Open Source Software;">
+<meta name="citation_reference" content="citation_title=Countrywide PV hosting capacity and energy storage requirements for distribution networks: The case of Switzerland;,citation_abstract=Distributed photovoltaic (PV) generation is typically connected to power distribution grids, which are not designed to host a large amount of production if it is significantly larger than their nominal electricity demand. Given the prominent role of PV in energy transition pathways, modeling the existing power distribution infrastructure’s constraints and limitations is key for its reliable techno-economical analysis and expansion. As countrywide models of the distribution grids are, in general, not available, this paper first tackles the problem of estimating medium voltage (MV) distribution grids starting from publicly available datasets. It then proposes a method to estimate the PV generation hosting capacity of such grids and extend it through energy storage systems. As a final contribution and ultimate objective, this paper proposes a method to derive cost-optimal plans for countrywide deployment of PV generation and energy storage systems considering the MV power distribution infrastructure’s technical limitations. The distributed PV generation potential is modeled with high-spatially resolved capacity factors. Results are discussed using Switzerland as a case study.;,citation_author=Rahul Gupta;,citation_author=Fabrizio Sossan;,citation_author=Mario Paolone;,citation_publication_date=2021-01;,citation_cover_date=2021-01;,citation_year=2021;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S0306261920314537;,citation_doi=10.1016/j.apenergy.2020.116010;,citation_issn=0306-2619;,citation_volume=281;,citation_journal_title=Applied Energy;">
+<meta name="citation_reference" content="citation_title=Flow tracing as a tool set for the analysis of networked large-scale renewable electricity systems;,citation_author=Jonas Hörsch;,citation_author=Mirko Schäfer;,citation_author=Sarah Becker;,citation_author=Stefan Schramm;,citation_author=Martin Greiner;,citation_publication_date=2018-03;,citation_cover_date=2018-03;,citation_year=2018;,citation_fulltext_html_url=https://linkinghub.elsevier.com/retrieve/pii/S0142061517308517;,citation_doi=10.1016/j.ijepes.2017.10.024;,citation_issn=01420615;,citation_volume=96;,citation_journal_title=International Journal of Electrical Power &amp;amp;amp; Energy Systems;">
+<meta name="citation_reference" content="citation_title=Workalendar - Worldwide holidays and workdays computational toolkit.;,citation_author=Workalendar;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://github.com/workalendar/workalendar;">
+<meta name="citation_reference" content="citation_title=CERRA sub-daily regional reanalysis data for Europe on single levels from 1984 to present;,citation_author=S. Schimanke;,citation_author=M. Ridal;,citation_author=P. Le Moigne;,citation_author=L. Berggren;,citation_author=P. Undén;,citation_author=R. Randriamampianina;,citation_author=U. Andrea;,citation_author=E. Bazile;,citation_author=A. Bertelsen;,citation_author=P. Brousseau;,citation_author=P. Dahlgren;,citation_author=L. Edvinsson;,citation_author=A. El Said;,citation_author=M. Glinton;,citation_author=S. Hopsch;,citation_author=L. Isaksson;,citation_author=R. Mladek;,citation_author=E. Olsson;,citation_author=A. Verrelle;,citation_author=Z. Q. Wang;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_fulltext_html_url=https://cds.climate.copernicus.eu/doi/10.24381/cds.622a565a;,citation_doi=10.24381/CDS.622A565A;,citation_publisher=ECMWF;">
+<meta name="citation_reference" content="citation_title=Arealstatistik: Beschreibung der Geodaten;,citation_publication_date=2024-08;,citation_cover_date=2024-08;,citation_year=2024;,citation_fulltext_html_url=https://dam-api.bfs.admin.ch/hub/api/dam/assets/32376295/master;">
+<meta name="citation_reference" content="citation_title=Swiss BOUNDARIES 3D;,citation_author=Swiss Federal Office Topography;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://www.geocat.ch/geonetwork/srv/api/records/86cb844f-296b-40cb-b972-5b1ae8028f7c?language=all;,citation_publisher=Swisstopo;">
+<meta name="citation_reference" content="citation_title=Directed graph based carbon flow tracing for demand side carbon obligation allocation;,citation_author=Tao Sun;,citation_author=Donghan Feng;,citation_author=Teng Ding;,citation_author=Lixia Chen;,citation_author=Shi You;,citation_publication_date=2016;,citation_cover_date=2016;,citation_year=2016;,citation_conference_title=2016 IEEE Power and Energy Society General Meeting (PESGM);,citation_conference=IEEE;">
+<meta name="citation_reference" content="citation_title=Marginal pricing and supplement cost allocation in transmission open access;,citation_author=Hugh Rudnick;,citation_author=Rodrigo Palma;,citation_author=José E Fernández;,citation_publication_date=1995;,citation_cover_date=1995;,citation_year=1995;,citation_issue=2;,citation_volume=10;,citation_journal_title=IEEE Transactions on Power Systems;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Carbon footprint management: A pathway toward smart emission abatement;,citation_author=Mahdi Pourakbari-Kasmaei;,citation_author=Matti Lehtonen;,citation_author=Javier Contreras;,citation_author=José Roberto Sanches Mantovani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=2;,citation_volume=16;,citation_journal_title=IEEE Transactions on Industrial Informatics;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Large-Scale Inference of Geo-Referenced Power Distribution Grids Using Open Data;,citation_author=Alfredo Ernesto Oneto;,citation_author=Blazhe Gjorgiev;,citation_author=Filippo Tettamanti;,citation_author=Giovanni Sansavini;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_journal_title=Authorea Preprints;,citation_publisher=Authorea;">
+<meta name="citation_reference" content="citation_title=NREL’s PVWatts Calculator;,citation_author=NREL;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://pvwatts.nrel.gov/;">
+<meta name="citation_reference" content="citation_title=Carbon flow tracing method for assessment of demand side carbon emissions obligation;,citation_author=Baowei Li;,citation_author=Yonghua Song;,citation_author=Zechun Hu;,citation_publication_date=2013;,citation_cover_date=2013;,citation_year=2013;,citation_issue=4;,citation_volume=4;,citation_journal_title=IEEE Transactions on Sustainable Energy;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Dokumentation Geodatenmodell Solarenergie: Eignung Dächer (Sonnendach.ch) und Fassaden (Sonnenfassade.ch);,citation_author=Daniel Klauser;,citation_author=Thomas Schlegel;,citation_author=Martin Hertach;,citation_author=Nico Rohrbach;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.bfe.admin.ch/bfe/de/home/versorgung/digitalisierung-und-geoinformation/geoinformation/geodaten/solar/solarenergie-eignung-hausdach.html;,citation_publisher=Bundesamt für Energie BFE;">
+<meta name="citation_reference" content="citation_title=Investigation of temperature coefficients of PV modules through field measured data;,citation_author=Basant Raj Paudyal;,citation_author=Anne Gerd Imenes;,citation_publication_date=2021;,citation_cover_date=2021;,citation_year=2021;,citation_volume=224;,citation_journal_title=Solar Energy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=ERA5-Land hourly data from 2001 to present;,citation_author=J. Muñoz Sabater;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_fulltext_html_url=https://cds.climate.copernicus.eu/doi/10.24381/cds.e2161bac;,citation_doi=10.24381/CDS.E2161BAC;,citation_publisher=ECMWF;">
+<meta name="citation_reference" content="citation_title=Switzerland 2024 Carbon Intensity Data (Version January 17, 2024);,citation_author=Electricity Maps;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://www.electricitymaps.com/data-portal/switzerland;,citation_publisher=Electricity Maps Data Portal;">
+<meta name="citation_reference" content="citation_title=Entwicklung und anwendung parametrisierter standard-lastprofile;,citation_author=Mark Hellwig;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_dissertation_institution=Technische Universität München;">
+<meta name="citation_reference" content="citation_title=Assessing the outdoor operating temperature of photovoltaic modules;,citation_author=David Faiman;,citation_publication_date=2008;,citation_cover_date=2008;,citation_year=2008;,citation_issue=4;,citation_volume=16;,citation_journal_title=Progress in Photovoltaics: Research and Applications;,citation_publisher=Wiley Online Library;">
+<meta name="citation_reference" content="citation_title=Electricity production plants in Switzerland;,citation_author=Swiss Federal Office Energy;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen;,citation_publisher=Bundesamt für Energie;">
+<meta name="citation_reference" content="citation_title=Heat and cooling demand from residential and commercial buildings;,citation_author=Swiss Federal Office Energy;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.bfe.admin.ch/bfe/en/home/supply/digitalization-and-geoinformation/geoinformation/geodata/thermal-networks/heat-and-cooling-demand-from-residential-and-commercial-buildings.html;,citation_publisher=Bundesamt für Energie;">
+<meta name="citation_reference" content="citation_title=Pvlib iotools—Open-source Python functions for seamless access to solar irradiance data;,citation_author=Adam R Jensen;,citation_author=Kevin S Anderson;,citation_author=William F Holmgren;,citation_author=Mark A Mikofski;,citation_author=Clifford W Hansen;,citation_author=Leland J Boeman;,citation_author=Roel Loonen;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_volume=266;,citation_journal_title=Solar Energy;,citation_publisher=Elsevier;">
+<meta name="citation_reference" content="citation_title=Techno-economic criteria to evaluate power flow allocation schemes;,citation_author=Fabian Hofmann;,citation_author=Alexander Zerrahn;,citation_author=Carlos Gaete-Morales;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_journal_title=arXiv preprint arXiv:2010.11000;">
+<meta name="citation_reference" content="citation_title=ERA5 hourly data on single levels from 1940 to present;,citation_author=H. Hersbach;,citation_author=B. Bell;,citation_author=P. Berrisford;,citation_author=G. Biavati;,citation_author=A. Horányi;,citation_author=J. Muñoz Sabater;,citation_author=J. Nicolas;,citation_author=C. Peubey;,citation_author=R. Radu;,citation_author=I. Rozum;,citation_author=D. Schepers;,citation_author=A. Simmons;,citation_author=C. Soci;,citation_author=D. Dee;,citation_author=J-N. Thépaut;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://cds.climate.copernicus.eu/doi/10.24381/cds.adbb2d47;,citation_doi=10.24381/cds.adbb2d47;,citation_publisher=ECMWF;">
+<meta name="citation_reference" content="citation_title=Transmission network cost allocation based on equivalent bilateral exchanges;,citation_author=Francisco D Galiana;,citation_author=Antonio J Conejo;,citation_author=Hugo A Gil;,citation_publication_date=2003;,citation_cover_date=2003;,citation_year=2003;,citation_issue=4;,citation_volume=18;,citation_journal_title=IEEE Transactions on Power Systems;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Folium: Python Data, Leaflet.js Maps;,citation_author=Folium;,citation_publication_date=2020-12;,citation_cover_date=2020-12;,citation_year=2020;,citation_fulltext_html_url=https://python-visualization.github.io/folium/;">
+<meta name="citation_reference" content="citation_title=National Data Infrastructure For Electromobility;,citation_author=Swiss Federal Office Energy;,citation_publication_date=2024;,citation_cover_date=2024;,citation_year=2024;,citation_fulltext_html_url=https://github.com/SFOE/ichtankestrom_Documentation;,citation_publisher=Bundesamt für Energie;">
+<meta name="citation_reference" content="citation_title=Heat and cooling demand from industry;,citation_author=Swiss Federal Office Energy;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;,citation_fulltext_html_url=https://www.bfe.admin.ch/bfe/en/home/supply/digitalization-and-geoinformation/geoinformation/geodata/thermal-networks/heat-and-cooling-demand-from-industry.html;,citation_publisher=Bundesamt für Energie;">
+<meta name="citation_reference" content="citation_title=Arealstatistik nach Nomenklatur 2004 - Bodennutzung, Beschreibung: Metainformation zu Geodaten;,citation_author=Bundesamt für Statistik;,citation_publication_date=2015;,citation_cover_date=2015;,citation_year=2015;,citation_fulltext_html_url=https://www.bfs.admin.ch/bfs/de/home/statistiken/raum-umwelt/nomenklaturen/arealstatistik/nolu2004.assetdetail.256981.html;,citation_publisher=Bundesamt für Statistik;">
+<meta name="citation_reference" content="citation_title=PyPSA: Python for Power System Analysis;,citation_author=T. Brown;,citation_author=J. Hörsch;,citation_author=D. Schlachtberger;,citation_publication_date=2018;,citation_cover_date=2018;,citation_year=2018;,citation_fulltext_html_url=https://doi.org/10.5334/jors.188;,citation_issue=4;,citation_doi=10.5334/jors.188;,citation_volume=6;,citation_journal_title=Journal of Open Research Software;">
+<meta name="citation_reference" content="citation_title=Zbus transmission network cost allocation;,citation_author=Antonio J Conejo;,citation_author=Javier Contreras;,citation_author=Delberis A Lima;,citation_author=Antonio Padilha-Feltrin;,citation_publication_date=2007;,citation_cover_date=2007;,citation_year=2007;,citation_issue=1;,citation_volume=22;,citation_journal_title=IEEE transactions on power systems;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Transmission loss allocation: A comparison of different practical algorithms;,citation_author=AJ Conejo;,citation_author=JM Arroyo;,citation_author=N Alguacil;,citation_author=AL Guijarro;,citation_publication_date=2002;,citation_cover_date=2002;,citation_year=2002;,citation_issue=3;,citation_volume=17;,citation_journal_title=IEEE transactions on Power Systems;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=Topological generation and load distribution factors for supplement charge allocation in transmission open access;,citation_author=Janusz Bialek;,citation_publication_date=1997;,citation_cover_date=1997;,citation_year=1997;,citation_issue=3;,citation_volume=12;,citation_journal_title=IEEE transactions on power systems;,citation_publisher=IEEE;">
+<meta name="citation_reference" content="citation_title=The oemof demandlib (oemof.demandlib);,citation_author=Ceruti Amedeo;,citation_author=Birgit Schachler;,citation_author=Caroline Möller;,citation_author=Florian Maurer;,citation_author=Francesco Witte;,citation_author=Guido Plessmann;,citation_author=Hendrik Huyskens;,citation_author=Jann Launer;,citation_author=Patrik Schönfeldt;,citation_author=Pyosch;,citation_author=Steffen Wehkamp;,citation_author=Stephen Bosch;,citation_author=Uwe Krien;,citation_publication_date=2017-03;,citation_cover_date=2017-03;,citation_year=2017;,citation_fulltext_html_url=https://doi.org/10.5281/zenodo.438786;,citation_doi=10.5281/zenodo.438786;,citation_publisher=Zenodo;">
+<meta name="citation_reference" content="citation_title=Large-scale generation of geo-referenced power distribution grids from open data with load clustering;,citation_abstract=The availability of real power distribution grid data is often restricted due to privacy concerns and the lack of digitized representations, limiting spatially-resolved assessments of these systems. This inaccessibility has motivated the development of methods for generating synthetic grids. However, existing methods face challenges such as computational intractability for large-scale zones, restrictive topological assumptions, insufficient representation of electrical components, and inadequate consideration of geographical constraints. This work addresses the challenges by developing a model for the large-scale generation of synthetic geo-referenced low- and medium-voltage grids using publicly accessible data. It comprises a geographic load clustering algorithm, a procedure for generating graphical grid layouts, and a method for selecting operational topologies and line types. The model’s effectiveness and computational performance are demonstrated by generating synthetic low- and medium-voltage grids for Switzerland, with all generated grids made openly available.;,citation_author=Alfredo Oneto;,citation_author=Blazhe Gjorgiev;,citation_author=Filippo Tettamanti;,citation_author=Giovanni Sansavini;,citation_publication_date=2025-06;,citation_cover_date=2025-06;,citation_year=2025;,citation_fulltext_html_url=https://www.sciencedirect.com/science/article/pii/S2352467725000608;,citation_doi=10.1016/j.segan.2025.101678;,citation_issn=2352-4677;,citation_volume=42;,citation_journal_title=Sustainable Energy, Grids and Networks;">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CFlowDist Documentation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../paper/index.html" aria-current="page"> 
+<span class="menu-text">Paper</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../presentation/index.html"> 
+<span class="menu-text">Presentation</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Carbon flow tracing in distribution grids: from method to application</h1>
+                  <div>
+        <div class="description">
+          Adapted version of the journal article for web browsing.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Authors</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://wenyuliu.ch/">Wenyu Liu</a> <a href="https://orcid.org/0009-0008-8368-4685" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+               <p><a href="https://people.epfl.ch/enea.figini">Enea Figini</a> <a href="mailto:enea.figini@epfl.ch" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-6270-3367" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+               <p><a href="https://people.epfl.ch/mario.paolone">Mario Paolone</a> <a href="https://orcid.org/0000-0001-7073-9036" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 26, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#contributions-of-this-work" id="toc-contributions-of-this-work" class="nav-link" data-scroll-target="#contributions-of-this-work">Contributions of this Work</a></li>
+  </ul></li>
+  <li><a href="#sec-Methodology" id="toc-sec-Methodology" class="nav-link" data-scroll-target="#sec-Methodology">Methodology</a>
+  <ul class="collapse">
+  <li><a href="#framework-flow-chart" id="toc-framework-flow-chart" class="nav-link" data-scroll-target="#framework-flow-chart">Framework Flow Chart</a></li>
+  <li><a href="#step-1-boundary-conditions" id="toc-step-1-boundary-conditions" class="nav-link" data-scroll-target="#step-1-boundary-conditions">Step 1: Boundary Conditions</a></li>
+  <li><a href="#step-2-load-flow" id="toc-step-2-load-flow" class="nav-link" data-scroll-target="#step-2-load-flow">Step 2: Load Flow</a></li>
+  <li><a href="#sec-Carbon-Flow-Tracing" id="toc-sec-Carbon-Flow-Tracing" class="nav-link" data-scroll-target="#sec-Carbon-Flow-Tracing">Step 3: Carbon Flow Tracing</a></li>
+  </ul></li>
+  <li><a href="#sec-study-case-I" id="toc-sec-study-case-I" class="nav-link" data-scroll-target="#sec-study-case-I">Study Case I: 5-node example network</a></li>
+  <li><a href="#sec-study-case-II" id="toc-sec-study-case-II" class="nav-link" data-scroll-target="#sec-study-case-II">Study Case II: synthetic Swiss power distribution grid</a>
+  <ul class="collapse">
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  </ul></li>
+  <li><a href="#sec-Conclusion" id="toc-sec-Conclusion" class="nav-link" data-scroll-target="#sec-Conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>This text is adapted from the original article <em><a href="https://www.sciencedirect.com/science/article/pii/S0378779626008412">Carbon flow tracing in distribution grids: from method to application</a></em> published in Electrical Power and Energy Research, DOI: <a href="https://doi.org/10.1016/j.epsr.2026.113548">10.1016/j.epsr.2026.113548</a>. © by the authors. This content is licensed under a Creative Commons Attribution 4.0 International License (CC-BY-4.0). Layout and styling have been modified for this website.</p>
+<p>If you find this work useful, please cite the original article as follows:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">BibTeX</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">IEEE</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">APA</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Harvard</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">liu2027</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Liu, Wenyu and Figini, Enea and Paolone, Mario},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Carbon Flow Tracing in Distribution Grids: From Method to</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Application},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Electric Power Systems Research},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {262},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {113548},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2027-01-01},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span> = {https://www.sciencedirect.com/science/article/pii/S0378779626008412},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1016/j.epsr.2026.113548},</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">issn</span> = {0378-7796},</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">langid</span> = {en}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>W. Liu, E. Figini, and M. Paolone, “Carbon flow tracing in distribution grids: from method to application,” Electric Power Systems Research, vol.&nbsp;262, p.&nbsp;113548, Jan.&nbsp;2027, doi: 10.1016/j.epsr.2026.113548. Available: https://www.sciencedirect.com/science/article/pii/S0378779626008412</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Liu, W., Figini, E., &amp; Paolone, M. (2027). Carbon flow tracing in distribution grids: From method to application. Electric Power Systems Research, 262, 113548.</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Liu, W., Figini, E. and Paolone, M., 2027. Carbon flow tracing in distribution grids: From method to application. Electric Power Systems Research, 262, p.113548.</p>
+</div>
+</div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p>The accelerating impacts of climate change have placed carbon emissions at the center of global environmental and energy policy agendas <span class="citation" data-cites="zhouWorldwideCarbonNeutrality2023"><a href="#ref-zhouWorldwideCarbonNeutrality2023" role="doc-biblioref">[1]</a></span>. To mitigate these impacts, countries worldwide have committed to achieving net-zero greenhouse gas emissions within the coming decades <span class="citation" data-cites="vansoestNetzeroEmissionTargets2021"><a href="#ref-vansoestNetzeroEmissionTargets2021" role="doc-biblioref">[2]</a></span>. Reaching this goal requires not only the large-scale deployment of renewable energy and electrification technologies but also accurate and transparent carbon accounting across all levels of the energy system <span class="citation" data-cites="liReviewCarbonEmission2024"><a href="#ref-liReviewCarbonEmission2024" role="doc-biblioref">[3]</a></span>. By quantifying where and how emissions occur, carbon accounting provides the analytical foundation for evaluating decarbonization progress, designing effective carbon pricing mechanisms, and supporting climate-aligned investment and operational decisions <span class="citation" data-cites="steiningerMultipleCarbonAccounting2016"><a href="#ref-steiningerMultipleCarbonAccounting2016" role="doc-biblioref">[4]</a></span>.</p>
+<p>Carbon emissions can be categorized into two groups: direct and indirect emissions. In the electricity sector, the former refers to emissions from electricity generation and transmission, while the latter corresponds to emissions associated with electricity consumption <span class="citation" data-cites="liReviewCarbonEmission2024"><a href="#ref-liReviewCarbonEmission2024" role="doc-biblioref">[3]</a></span>. For estimating direct emissions, the Intergovernmental Panel on Climate Change (IPCC) proposed some approaches including the use of emission factors, mass balances, and satellite-based observations <span class="citation" data-cites="eggleston2006IPCCGuidelines2006 shuklaClimateChangeLand2019"><a href="#ref-eggleston2006IPCCGuidelines2006" role="doc-biblioref">[5]</a>, <a href="#ref-shuklaClimateChangeLand2019" role="doc-biblioref">[6]</a></span>. While this direct perspective provides a foundation for quantifying generation-side carbon responsibility, it overlooks the influence of consumers in driving the demand. The issue can be addressed by indirect carbon emission accounting. Traditional indirect accounting methods, however, often rely on national or zonal average emission factors, which fail to capture the spatial and temporal heterogeneity introduced by local renewable generation and network constraints <span class="citation" data-cites="jiGreenhouseGasEmission2016"><a href="#ref-jiGreenhouseGasEmission2016" role="doc-biblioref">[7]</a></span>. To overcome this limitation, <span class="citation" data-cites="kangCarbonEmissionFlow2012"><a href="#ref-kangCarbonEmissionFlow2012" role="doc-biblioref">[8]</a></span> introduced the concept of carbon emission flows, derived from tracking of electricity flows through the network. Fortunately, power flow allocation methods, such as average participation <span class="citation" data-cites="bialekTopologicalGenerationLoad1997"><a href="#ref-bialekTopologicalGenerationLoad1997" role="doc-biblioref">[9]</a></span>, marginal participation <span class="citation" data-cites="rudnickMarginalPricingSupplement1995"><a href="#ref-rudnickMarginalPricingSupplement1995" role="doc-biblioref">[10]</a></span>, and equivalent bilateral exchanges <span class="citation" data-cites="galianaTransmissionNetworkCost2003 conejoZbusTransmissionNetwork2007"><a href="#ref-galianaTransmissionNetworkCost2003" role="doc-biblioref">[11]</a>, <a href="#ref-conejoZbusTransmissionNetwork2007" role="doc-biblioref">[12]</a></span>, have long been developed for costs/losses allocation and/or line congestion attribution. These methods can naturally be extended to trace carbon flows, since emissions are physically coupled with power exchanges. For instance, <span class="citation" data-cites="tranbergRealtimeCarbonAccounting2019"><a href="#ref-tranbergRealtimeCarbonAccounting2019" role="doc-biblioref">[13]</a></span> proposed a real-time carbon accounting method for European electricity markets, while <span class="citation" data-cites="kangCarbonEmissionFlow2015"><a href="#ref-kangCarbonEmissionFlow2015" role="doc-biblioref">[14]</a></span> developed a virtual network flow-based framework to quantify the carbon footprint of electricity transmission and consumption.</p>
+<p>Nevertheless, most existing studies focus primarily on transmission networks, limiting the spatial granularity and practical relevance of the assessments at the local level. Yet, the ongoing decarbonization of power systems increasingly involves distribution networks, where distributed energy resources (DERs) such as photovoltaic (PV) systems and battery storage systems play an important role <span class="citation" data-cites="jacquierNationalEnergySystem2025"><a href="#ref-jacquierNationalEnergySystem2025" role="doc-biblioref">[15]</a></span>. As distribution grids evolve into prosumer-dominated systems, understanding how carbon emissions propagate through the grid’s multiple voltage levels becomes critical for both policy design and operational decision-making. However, extending carbon tracing to distribution grids remains challenging due to the complexity of network topology and the bidirectional nature of power flows. This motivates the development of new frameworks that can extend carbon flow tracing to the distribution level, providing higher spatial resolution and capturing the effects of local generation and consumption behaviors.</p>
+</section>
+<section id="contributions-of-this-work" class="level3">
+<h3 class="anchored" data-anchor-id="contributions-of-this-work">Contributions of this Work</h3>
+<p>Our main contributions are the following:</p>
+<ul>
+<li>A linear programming (LP) formulation of the practical carbon flow tracing. The proposed algorithms are based on the average participation power flow allocation method, complemented by prosumer-oriented and losses allocation schemes.</li>
+<li>Study cases: the performance of the proposed algorithms is first demonstrated using a simplified toy example that illustrates the underlying principles of carbon allocation in mixed-generation systems. Then, the algorithms are integrated into a self-standing framework for the carbon allocation and applied to a synthetic distribution grid of a real city in Switzerland.</li>
+<li>The developed framework is released as <a href="https://github.com/DESL-EPFL/cflowdist">an open-source Python package</a> to facilitate reproducibility and transparency and enable further research studies.</li>
+</ul>
+<p>The rest of this paper is organized as follows: <a href="#sec-Methodology" class="quarto-xref">Section&nbsp;2</a> states the workflow and describes the carbon flow tracing methods, <a href="#sec-study-case-I" class="quarto-xref">Section&nbsp;3</a> presents a small example problem for comparing the proposed tracing methods, <a href="#sec-study-case-II" class="quarto-xref">Section&nbsp;4</a> applies the framework in a synthetic Swiss distribution grid. Finally, <a href="#sec-Conclusion" class="quarto-xref">Section&nbsp;5</a> concludes the paper.</p>
+</section>
+</section>
+<section id="sec-Methodology" class="level2">
+<h2 class="anchored" data-anchor-id="sec-Methodology">Methodology</h2>
+<section id="framework-flow-chart" class="level3">
+<h3 class="anchored" data-anchor-id="framework-flow-chart">Framework Flow Chart</h3>
+<p>To trace carbon flows in distribution grids, we rely on the steps depicted in <a href="#fig-workflow" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-workflow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../presentation/files/flow-pscc.svg" class="img-fluid figure-img" style="width:45.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Workflow of the proposed framework.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="step-1-boundary-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-boundary-conditions">Step 1: Boundary Conditions</h3>
+<p>The framework requires nodal demand and generation data. Since carbon intensity depends on generator types, this information should also be available. Moreover, we assume that carbon intensities of the feeding transmission layer are available (e.g., via sources such as <span class="citation" data-cites="EmissiumDocs mapsSwitzerland2024Carbon2024"><a href="#ref-EmissiumDocs" role="doc-biblioref">[16]</a>, <a href="#ref-mapsSwitzerland2024Carbon2024" role="doc-biblioref">[17]</a></span>). As the definition of boundary conditions is highly dependent on the available data, we provide examples based on open-data in <a href="#sec-study-case-I" class="quarto-xref">Section&nbsp;3</a> and <a href="#sec-study-case-II" class="quarto-xref">Section&nbsp;4</a>.</p>
+</section>
+<section id="step-2-load-flow" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-load-flow">Step 2: Load Flow</h3>
+<p>We perform a non-approximated AC power flow analysis to compute the branch power flows, which are required for the proposed carbon allocation method.</p>
+</section>
+<section id="sec-Carbon-Flow-Tracing" class="level3">
+<h3 class="anchored" data-anchor-id="sec-Carbon-Flow-Tracing">Step 3: Carbon Flow Tracing</h3>
+<section id="sec-Lossless-carbon-allocation" class="level4">
+<h4 class="anchored" data-anchor-id="sec-Lossless-carbon-allocation">Lossless carbon allocation</h4>
+<p>The carbon intensities of electricity sources are coupled with the lossless average-participation power allocation method described in <span class="citation" data-cites="bialekTopologicalGenerationLoad1997 horschFlowTracingTool2018"><a href="#ref-bialekTopologicalGenerationLoad1997" role="doc-biblioref">[9]</a>, <a href="#ref-horschFlowTracingTool2018" role="doc-biblioref">[18]</a></span>.</p>
+<p>For a network with <span class="math inline">\(n\)</span> nodes collected in the set <span class="math inline">\(\mathcal{N}\)</span>, and branches collected in <span class="math inline">\(\mathcal{L}\)</span>, let <span class="math inline">\(p_i^\text{in}\)</span> and <span class="math inline">\(p_i^\text{out}\)</span> be the net power injection and ejection at node <span class="math inline">\(i\in \mathcal{N}\)</span>, we have: <span class="math display">\[
+\begin{cases}
+p_i^\text{in} &amp;= \max{ \{(g_i - l_i),0 \}} + m_i\\
+p_i^\text{out} &amp;= \max{ \{-(g_i - l_i),0 \}} + x_i
+\end{cases}
+\]</span></p>
+<p>where strictly nonnegative <span class="math inline">\(g_i\)</span>, <span class="math inline">\(m_i\)</span>, <span class="math inline">\(l_i\)</span> and <span class="math inline">\(x_i\)</span> are, respectively, the generated power, imported power, load power and exported power at node <span class="math inline">\(i\)</span>. Let nonnegative <span class="math inline">\(F_{i\rightarrow j}^\text{in}\)</span> and <span class="math inline">\(F_{i\rightarrow j}^\text{out}\)</span> denote the power inflow to node <span class="math inline">\(j\)</span> from <span class="math inline">\(i\)</span> and outflow from node <span class="math inline">\(i\)</span> in direction of <span class="math inline">\(j\)</span>, where <span class="math inline">\((i,j)\in\mathcal{L}\)</span>, by imposing the nodal power balance, we get <span class="math inline">\(\eqref{eq-nodal-power-balance}\)</span>: <span id="eq-nodal-power-balance"><span class="math display">\[
+p_i^\text{in} + \sum_{(i,j)\in\mathcal{L}} F_{j\rightarrow i}^\text{in}  = p_i^\text{out} +  \sum_{(i,j)\in\mathcal{L}} F_{i\rightarrow j}^\text{out} \label{eq-nodal-power-balance}
+\tag{1}\]</span></span></p>
+<p>By naming the known injected carbon intensities from the generators and external grid imports as <span class="math inline">\(\rm{\bf{c_g}}\)</span> and <span class="math inline">\(\rm{\bf{c_m}}\)</span>, and by introducing the unknown nodal carbon intensities as <span class="math inline">\(\rm{\bf{c_x}}\)</span>, similar to the nodal power balance in <span class="math inline">\(\eqref{eq-nodal-power-balance}\)</span>, the nodal carbon flow balance for node <span class="math inline">\(i\)</span> is expressed in <span class="math inline">\(\eqref{eq-nodal-carbon-balance}\)</span>. <span id="eq-nodal-carbon-balance"><span class="math display">\[
+g_i {c_g}_i + m_i {c_m}_i + \sum_{j} F_{j\rightarrow i}^\text{in}{c_x}_j = (l_i +x_i){c_x}_i + \sum_{j} F_{i\rightarrow j}^\text{out}{c_x}_i
+\label{eq-nodal-carbon-balance}
+\tag{2}\]</span></span></p>
+<p>Instead of relying on closed-form solutions, we propose an optimization-based formulation of the allocation problem below. Assuming that the carbon intensities extracted from the network are always less than or equal to the highest carbon intensities injected into the network, the determination of <span class="math inline">\(\rm{\bf{c_x}}\)</span> (LL method) can be formulated as the LP problem in <span class="math inline">\(\eqref{eq-LP}\)</span>. <span id="eq-LP"><span class="math display">\[
+\begin{aligned}
+    \min_{\rm{\bf{c_x}}\in\mathbb{R}_+^n}\quad  &amp; \rm{\bf{g}}^\top \rm{\bf{c_g}}+ \rm{\bf{m}}^\top \rm{\bf{c_m}}  -(\rm{\bf{l}}+\rm{\bf{x}})^\top \rm{\bf{c_x}}\\
+    \text{s.t.}\quad &amp;\forall\ i\in \mathcal{N}\\
+    &amp;0 \leq {c_x}_i\leq\max\{{c_g}_i, {c_m}_i\}\\
+    &amp; g_i {c_g}_i + m_i {c_m}_i + \sum_{j} F_{j\rightarrow i}^\text{in}{c_x}_j \\
+    &amp; \qquad \geq (l_i +x_i){c_x}_i + \sum_{j} F_{i\rightarrow j}^\text{out}{c_x}_i
+\end{aligned}\label{eq-LP}
+\tag{3}\]</span></span> The corresponding carbon emission of the load at node <span class="math inline">\(i\)</span> is given by <span class="math inline">\(\eqref{eq-carbon-emission-LL}\)</span>: <span id="eq-carbon-emission-LL"><span class="math display">\[
+    {C\!F_x}_i = l_i{c_x}_i  \label{eq-carbon-emission-LL}
+\tag{4}\]</span></span></p>
+<p>Since <span class="math inline">\(\eqref{eq-nodal-carbon-balance}\)</span> relies on the average participation assumption (i.e., at each node, the flows are “perfectly mixed”), this also holds for the prosumer nodes, an alternative assumption is incorporated: prosumer nodes get priority on their generation and only inject surplus generation into the network. Under this assumption, the nodal carbon balance at node <span class="math inline">\(i\)</span> changes to <span class="math inline">\(\eqref{eq-prosumer}\)</span>. <span id="eq-prosumer"><span class="math display">\[
+    \max\{{(g_i-l_i),0}\}\cdot{c_g}_i + m_i {c_m}_i  + \sum_{j} F_{j\rightarrow i}^\text{in}{c_x}_j \geq p_i^\text{out}{c_x}_i + \sum_{j} F_{i\rightarrow j}^\text{out}{c_x}_i \label{eq-prosumer}
+\tag{5}\]</span></span></p>
+<p>In this case, the real carbon intensities for prosumer loads differ from the extracted carbon intensities from the network. For prosumers with generation shortage, the real load intensities are the weighted average of the extracted carbon intensities from the network and the intensities of local generation. For prosumers with generation surplus, the real load intensities are equivalent to the carbon intensities of their local generation, with the net surpluses injected into the network. Consequently, another variable, namely the ejected intensity, <span class="math inline">\(\rm{\bf{c_o}}\)</span>, is introduced and <span class="math inline">\(\eqref{eq-ejected-intensity}\)</span> is required. <span id="eq-ejected-intensity"><span class="math display">\[
+\begin{cases}
+    (l_i+x_i)\cdot {c_o}_i= p_i^\text{out}{c_x}_i + \min\{g_i,l_i \}\cdot {c_g}_i \quad &amp;\text{if}~l_i+x_i&gt;0,\\
+    {c_o}_i = {c_x}_i  \quad &amp;\text{else}.
+\end{cases} \label{eq-ejected-intensity}
+\tag{6}\]</span></span></p>
+<p>With <span class="math inline">\(\eqref{eq-prosumer}\)</span> and <span class="math inline">\(\eqref{eq-ejected-intensity}\)</span> in mind, we formulate the carbon allocation with self-consumption priority (LL-P method) in <span class="math inline">\(\eqref{eq-LP-self}\)</span>.</p>
+<p><span id="eq-LP-self"><span class="math display">\[
+\begin{aligned}
+    \min_{\rm{\bf{c_x,c_o}}\in\mathbb{R}_+^n}\quad  &amp; \rm{\bf{g^\top c_g+ m^\top c_m  -(l+x)^\top c_o}}\\
+    \text{s.t.}\quad &amp;\forall\ i\in \mathcal{N}\\
+    &amp;0 \leq {c_x}_i\leq\max\{{c_g}_i, {c_m}_i\}\\
+    &amp; \text{and}\quad \eqref{eq-prosumer},\ \eqref{eq-ejected-intensity}
+\end{aligned}\label{eq-LP-self}
+\tag{7}\]</span></span></p>
+<p>Finally, the carbon flow extracted from the network at node <span class="math inline">\(i\)</span>, <span class="math inline">\({C\!F_x}_i\)</span>, and the carbon emission of the load at node <span class="math inline">\(i\)</span>, <span class="math inline">\({C\!F_o}_i\)</span>, in gCO<sub>2</sub>eq/h, are computed in <span class="math inline">\(\eqref{eq-carbon-flows}\)</span>.</p>
+<p><span id="eq-carbon-flows"><span class="math display">\[
+    {C\!F_x}_i = p_i^\text{out}{c_x}_i \qquad {C\!F_o}_i = l_i {c_o}_i \label{eq-carbon-flows}
+\tag{8}\]</span></span></p>
+<p>As problems <span class="math inline">\(\eqref{eq-LP}\)</span> and <span class="math inline">\(\eqref{eq-LP-self}\)</span> are linear and the feasible region is defined by linear constraints with explicit upper and lower bounds, it forms a nonempty and bounded polyhedron and a solution exists (i.e., <span class="math inline">\(\rm{\bf{c_x=0}}\)</span> since generator and grid carbon intensities are non-negative). The carbon imbalance, representing the emissions generated along the branches that are not allocated to users, is selected as the objective for convenience. Because the objective is strictly linear and monotonic in the carbon intensity variables, all carbon balance inequalities bind at optimality. As a result, the solution satisfies an equality system of the form <span class="math inline">\(\rm{\bf{Ac_x = b}}\)</span> where the matrix <span class="math inline">\(\rm{\bf{A}}\)</span> is derived directly from the nodal carbon balance and the uniqueness reduces to proving that <span class="math inline">\(\rm{\bf{A}}\)</span> is nonsingular. Taking <span class="math inline">\(\eqref{eq-nodal-carbon-balance}\)</span> as an example, <span class="math inline">\(\rm{\bf{A}}\)</span> has diagonal element <span class="math inline">\(a_{ii} = l_i + x_i + \sum_j F_{i \to j}^{\text{out}}\)</span> and the sum of the off-diagonal elements <span class="math inline">\(\sum_{j \neq i} |a_{ij}| = \sum_j F_{j \to i}^{\text{in}}\)</span>. From the power balance <span class="math inline">\(\eqref{eq-nodal-power-balance}\)</span>, <span class="math inline">\(|a_{ii}| \geq \sum_{j \neq i} |a_{ij}|\)</span> holds in every row, implying that <span class="math inline">\(\rm{\bf{A}}\)</span> is weakly diagonally dominant. If the power network forms a single strongly connected component, the matrix <span class="math inline">\(\rm{\bf{A}}\)</span> is irreducible <span class="citation" data-cites="horn2012matrix"><a href="#ref-horn2012matrix" role="doc-biblioref">[19]</a></span>. Furthermore, if at least one node exhibits strictly positive injection, i.e., <span class="math inline">\(\exists~ g_i +m_i&gt;0\)</span> in <span class="math inline">\(\eqref{eq-LP}\)</span> and <span class="math inline">\(\exists~ p_i^\text{in}&gt;0\)</span> in <span class="math inline">\(\eqref{eq-LP-self}\)</span>, the corresponding row is strictly diagonally dominant. A classical result in matrix theory states that an irreducible, weakly diagonally dominant matrix with at least one strictly dominant row is nonsingular <span class="citation" data-cites="horn2012matrix"><a href="#ref-horn2012matrix" role="doc-biblioref">[19]</a></span>. Hence, under standard power system conditions, connected network and the existence of at least one positive nodal injection, the matrix <span class="math inline">\(\rm{\bf{A}}\)</span> is full rank, and the carbon intensity solution is unique.</p>
+<p>It is worth noting that, although a closed-form solution can be obtained under the above conditions, the LP formulation is retained for reasons of robustness, physical admissibility, computational efficiency, and flexibility. In practical distribution systems with high penetration of DERs, the balance matrix may become close to singular or badly conditioned, particularly in the presence of weakly connected subsystems. In such cases, the matrix inversion and direct linear solvers may fail or produce unstable results. The LP formulation avoids these issues by ensuring a well-posed solution for each connected sub-component even when the system matrix is rank-deficient. Moreover, direct solving does not inherently enforce physical bounds. Small numerical inconsistencies in power flow results can produce negative or unreasonably large carbon intensities while the optimization approach explicitly imposes intensity bounds, guaranteeing physically meaningful solutions. From a computational perspective, the LP formulation can also be competitive for large sparse networks since modern LP solvers efficiently exploit sparsity and presolve reductions. In our experiments on a network with 3109 nodes, the LP approach (formulated in <code>CVXPY</code> <span class="citation" data-cites="diamondCVXPYPythonEmbeddedModeling2016"><a href="#ref-diamondCVXPYPythonEmbeddedModeling2016" role="doc-biblioref">[20]</a></span> and solved using <code>HiGHS</code> <span class="citation" data-cites="huangfuParallelizingDualRevised2018"><a href="#ref-huangfuParallelizingDualRevised2018" role="doc-biblioref">[21]</a></span>) achieved a solution time of <span class="math inline">\(\sim\qty{0.2}{s}\)</span>, compared to <span class="math inline">\(\sim\qty{0.5}{s}\)</span> when solving the linear system using standard numerical routines in <code>NumPy</code>. Finally, the LP structure enables seamless integration into higher-level applications, such as carbon-aware bidding and multi-energy system operation, where carbon attribution can be incorporated as a set of constraints.</p>
+</section>
+<section id="sec-Carbon-allocation-with-losses" class="level4">
+<h4 class="anchored" data-anchor-id="sec-Carbon-allocation-with-losses">Carbon allocation with losses (LA method)</h4>
+<p><span class="citation" data-cites="bialekTopologicalGenerationLoad1997"><a href="#ref-bialekTopologicalGenerationLoad1997" role="doc-biblioref">[9]</a></span> introduced the upstream- and downstream-looking approaches to allocate transmission losses and impose corresponding charges on individual generators and loads. Using the topological generation and load distribution factors, denoted as <span class="math inline">\(\mathbf{D}^\mathrm{\scriptscriptstyle G}\)</span> and <span class="math inline">\(\mathbf{D}^\mathrm{\scriptscriptstyle L}\)</span>, the method allows emissions associated with network losses to be attributed to specific generators or loads. In this work, these loss-related emissions are allocated to consumers, which is inspired by similar markets where users typically pay a fee based on their infrastructure usage (e.g., mobile telecom, electricity markets, highways, etc). Since the primary focus here is on carbon flow tracing rather than the detailed losses allocation procedure, the mathematical formulation of these factors is not reproduced.</p>
+<p>Denote the flow from node <span class="math inline">\(i\)</span> in branch <span class="math inline">\(i\rightarrow j\)</span> as <span class="math inline">\(F_{ij}\)</span>, and let, <span class="math inline">\(\rm{\bf{P}}^\mathrm{\scriptscriptstyle G}\)</span> and <span class="math inline">\(\rm{\bf{P}}^\mathrm{\scriptscriptstyle L}\)</span> denote the generalized generator and load power respectively, i.e.&nbsp;<span class="math inline">\(\rm{\bf{P}}^\mathrm{\scriptscriptstyle G} = \max\{(\rm{\bf{g+m - l-x), 0}}\}\)</span> and <span class="math inline">\(\rm{\bf{P}}^\mathrm{\scriptscriptstyle L} = \max\{\rm{\bf{(l+x-g-m), 0}}\}\)</span>. This approach ensures that the priority of self-consumption for prosumers is maintained, similar to the methodology applied in <span class="math inline">\(\eqref{eq-LP-self}\)</span>. Using upstream decomposition, branch carbon flows can be computed in <span class="math inline">\(\eqref{eq-branch-carbon-flow-generation}\)</span>, which traces the carbon flow back to generation assets: <span id="eq-branch-carbon-flow-generation"><span class="math display">\[
+    C\!F^\text{from}_{ij} = \sum_{k\in\mathcal{N}_\mathrm{\scriptscriptstyle G}} D^\mathrm{\scriptscriptstyle G}_{ij,k}\cdot{P_k^\mathrm{\scriptscriptstyle G}}\cdot C\!I^\mathrm{\scriptscriptstyle G}_k \label{eq-branch-carbon-flow-generation}
+\tag{9}\]</span></span></p>
+<p>where <span class="math inline">\(C\!I^\mathrm{\scriptscriptstyle G}_k\)</span> is the known carbon intensity of the generalized generator at node <span class="math inline">\(k\)</span> and <span class="math inline">\(\mathcal{N}_\mathrm{\scriptscriptstyle G}\)</span> is the corresponding set of nodes. Assuming that the losses along a branch have the same carbon intensity of the electricity it carries, the branch carbon intensity is computed in <span class="math inline">\(\eqref{eq-branch-carbon-intensity}\)</span>. <span id="eq-branch-carbon-intensity"><span class="math display">\[
+C\!I_{ij} = \frac{C\!F^\text{from}_{ij}}{F_{ij}} \label{eq-branch-carbon-intensity}
+\tag{10}\]</span></span></p>
+<p>Assuming that the share of losses in a branch that are attributed to a load is equal to the node’s contribution to the power flow along that branch, we use the load distribution factor <span class="math inline">\(\mathbf{D}^\mathrm{\scriptscriptstyle L}\)</span> to compute the contribution of the load in node <span class="math inline">\(k\)</span> to the losses occurring in the branch going from node <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in <span class="math inline">\(\eqref{eq-load-contribution-to-losses}\)</span>. <span id="eq-load-contribution-to-losses"><span class="math display">\[
+Contri_{ij,k} = \frac{D^\mathrm{\scriptscriptstyle L}_{ij,k}\cdot{P^\mathrm{\scriptscriptstyle L}_{k}}}{F_{ij}} \label{eq-load-contribution-to-losses}
+\tag{11}\]</span></span></p>
+<p>Then, <span class="math inline">\(\eqref{eq-additional-carbon}\)</span> computes the additional losses-related carbon allocated to node <span class="math inline">\(k\)</span>, where <span class="math inline">\(Losses_{ij} = F_{ij}+F_{ji}\)</span>. <span id="eq-additional-carbon"><span class="math display">\[
+Surcharge_k = \sum_i\sum_j Contri_{ij,k} \cdot Losses_{ij}\cdot C\!I_{ij} \label{eq-additional-carbon}
+\tag{12}\]</span></span></p>
+<p>The carbon flow injected to the network at node <span class="math inline">\(i\)</span> without considering losses: <span class="math display">\[
+{\hat{C\!F_x}}_i = \sum_j F_{ij}\cdot C\!I_{ij}
+\]</span></p>
+<p>With surcharges: <span class="math display">\[
+{C\!F_x}_i = \begin{cases}
+    {\hat{C\!F_x}}_i + Surcharge_i\quad &amp;\text{for}\quad i\in\mathcal{N}_\mathrm{\scriptscriptstyle L}\\
+    {\hat{C\!F_x}}_i &amp;\text{for}\quad i\in\mathcal{N}_\mathrm{\scriptscriptstyle G}
+\end{cases}
+\]</span></p>
+<p>Note that <span class="math inline">\(\sum_{i\in\mathcal{N}} {C\!F_x}_i = 0\)</span> should hold, as the injected flows must balance with the ejected flows within the system, and <span class="math inline">\({C\!F_x}_i = (P^\mathrm{\scriptscriptstyle G}_i - P^\mathrm{\scriptscriptstyle L}_i){c_x}_i\)</span> gives the intensity. For the pure transit nodes, the intensity is the flow-weighted average of all outgoing branches. The emission of the load at node <span class="math inline">\(i\)</span>, <span class="math inline">\({C\!F_o}_i\)</span>, as well as the ejected intensity, <span class="math inline">\({c_o}_i\)</span>, introduced in <a href="#sec-Lossless-carbon-allocation" class="quarto-xref">Section&nbsp;2.4.1</a>, are also applied here to handle the case of prosumer nodes.</p>
+</section>
+</section>
+</section>
+<section id="sec-study-case-I" class="level2">
+<h2 class="anchored" data-anchor-id="sec-study-case-I">Study Case I: 5-node example network</h2>
+<p>To compare the carbon allocation algorithms developed in the previous sections and understand their logic in a reproducible way, a 5-node example network is constructed, as illustrated in <a href="#fig-5node" class="quarto-xref">Figure&nbsp;2</a>. This network contains five nodes, each representing a distinct component of a power grid:</p>
+<ul>
+<li>Node 1 and 4 represent consumers with associated loads.</li>
+<li>Node 2 is a prosumer equipped with PV generation and self-consumption; in the depicted snapshot, it has a net deficiency and extracts electricity from the network.</li>
+<li>Node 3 imports electricity from higher-level grids.</li>
+<li>Node 5, without loads or generators, functions as an interconnected transfer node.</li>
+</ul>
+<div id="fig-5node" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-5node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../presentation/files/5-node.svg" class="img-fluid figure-img" style="width:55.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-5node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: 5-node example network.
+</figcaption>
+</figure>
+</div>
+<p>The links between the nodes are defined by the power flow, expressed in the active power (in <span class="math inline">\(\unit{kW}\)</span>), and each link is annotated with the magnitude and direction of the power flow. In addition, distribution losses are present along each link.</p>
+<p>A comparison of the results obtained from the 3 allocation methods introduced in <a href="#sec-Carbon-Flow-Tracing" class="quarto-xref">Section&nbsp;2.4</a> is presented in <a href="#tbl-5node" class="quarto-xref">Table&nbsp;1</a>, where LL, LL-P, and LA denote the lossless, lossless with prosumer priority, and loss-inclusive allocation methods, respectively. Not accounting for the priority of self-consumption for prosumers introduces discrepancies in the carbon intensities of both the prosumers and their neighboring nodes when compared to the counterpart method. Node 3, as the slack node, is exempted from the allocation obligation in the method design and therefore behaves identically in all methods. Moreover, the inclusion of losses allocation slightly raises the carbon intensities for consumers due to the applied surcharges. We highlight two observations in <a href="#tbl-5node" class="quarto-xref">Table&nbsp;1</a>:</p>
+<ul>
+<li>LL and LL-P lead to different carbon emissions attributed to node 1 and node 2. The difference comes (as expected) from the fact that LL-P allocation allocates all the emissions due to the PV plant to node 2 (since demand is larger than production at that node), while LL applies the average participation assumption and, therefore, some of the emissions of the PV plant are attributed to node 1.</li>
+<li>The total carbon emissions injected in the network are equal to 686 gCO<sub>2</sub>eq/h (i.e., the sum of power injections weighed with respective carbon intensities). The LA method is, out of the three methods, the only one to conserve this amount (i.e., emissions in equal emissions out). Again, this is expected, as LL and LL-P do not allocate losses.</li>
+</ul>
+<div id="tbl-5node" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-5node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Comparison of the 3 Developed Algorithms.
+</figcaption>
+<div aria-describedby="tbl-5node-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../presentation/files/table-comparison.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+</figure>
+</div>
+</section>
+<section id="sec-study-case-II" class="level2">
+<h2 class="anchored" data-anchor-id="sec-study-case-II">Study Case II: synthetic Swiss power distribution grid</h2>
+<p>We present a case study in the Swiss city of Dietlikon, an area characterized by both high solar penetration and dense electricity demand. This study illustrates the full workflow of the framework, from data preparation to result analysis.</p>
+<section id="data-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
+<section id="sec-Network-Topology" class="level4">
+<h4 class="anchored" data-anchor-id="sec-Network-Topology">Network topology</h4>
+<p>To trace carbon flows in the distribution grid, the network topology is required. Such data can either be obtained directly from distribution system operators or inferred from publicly available datasets using dedicated algorithms. For example, <span class="citation" data-cites="guptaCountrywidePVHosting2021 onetoLargescaleGenerationGeoreferenced2025"><a href="#ref-guptaCountrywidePVHosting2021" role="doc-biblioref">[22]</a>, <a href="#ref-onetoLargescaleGenerationGeoreferenced2025" role="doc-biblioref">[23]</a></span> proposed a method to infer low- and medium-voltage distribution grid models for Switzerland. The approach combines publicly available data (such as electricity demand and transport infrastructure) through k-means clustering to construct representative networks. In the dataset, the MV grids are considered to be linked to HV grids with 25MVA 110/20kV transformers and operate at 20kV. LV grids are linked to MV grids through 630kVA 20/0.4kV or 250kVA 20/0.4kV transformers, and operate at 400V. Nominal active power demand is also modeled and specified at each node.</p>
+<p>In this work, this original dataset is preprocessed: LV grids are connected to their corresponding MV grids through transformers and the resulting multi-level networks are hosted in <a href="https://github.com/DESL-EPFL/swiss-mv-lv-grids/">a GitHub repository</a> with public access. A visualization of the synthetic Swiss MV–LV distribution grid is shown in <a href="#fig-swiss-pdgs" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<div id="fig-swiss-pdgs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-swiss-pdgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="width: 100%; height: 600px;  margin: auto;">
+  <iframe src="../presentation/swiss-pdgs-vis/show.html" style="border: none; width: 100%; height: 100%;"></iframe>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-swiss-pdgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Synthetic Swiss MV–LV distribution grid inferred from open geospatial and infrastructure datasets from <span class="citation" data-cites="guptaCountrywidePVHosting2021 onetoLargescaleGenerationGeoreferenced2025"><a href="#ref-guptaCountrywidePVHosting2021" role="doc-biblioref">[22]</a>, <a href="#ref-onetoLargescaleGenerationGeoreferenced2025" role="doc-biblioref">[23]</a></span>, with generation plant data from <span class="citation" data-cites="ElectricityProductionPlants"><a href="#ref-ElectricityProductionPlants" role="doc-biblioref">[24]</a></span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="generation-profiles" class="level4">
+<h4 class="anchored" data-anchor-id="generation-profiles">Generation profiles</h4>
+<p>The dataset <em><a href="https://www.uvek-gis.admin.ch/BFE/storymaps/EE_Elektrizitaetsproduktionsanlagen/?lang=en">Electricity Production Plants in Switzerland</a></em> provides detailed information on generation facilities across the country <span class="citation" data-cites="energyElectricityProductionPlants2024"><a href="#ref-energyElectricityProductionPlants2024" role="doc-biblioref">[25]</a></span>. It includes almost all plants registered in the Swiss system for guarantees of origin, covering capacity, location, and technology type (e.g., hydroelectric, photovoltaic, nuclear, and gas). Facilities larger than <span class="math inline">\(\qty{30}{kVA}\)</span> are systematically included, while smaller units (above <span class="math inline">\(\qty{2}{kW}\)</span>) may also appear if voluntarily registered. Although the dataset includes the geographic coordinates of each generator, it is not natively coupled with the synthetic network in <a href="#sec-Network-Topology" class="quarto-xref">Section&nbsp;4.1.1</a>. To integrate the two, generators are cleaned (drop generators with missing location information) and assigned to nodes using a nearest-node heuristic based on Cartesian distance. If the installed capacity of a generator exceeds the cumulative nominal power of branches connected to a candidate node, the generator is instead mapped to the next-closest node with sufficient capacity. This procedure ensures physically consistent allocation without requiring explicit utility data.</p>
+<div id="tbl-gen-stats" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-gen-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: The statistics of Swiss generation types <span class="citation" data-cites="ElectricityProductionPlants"><a href="#ref-ElectricityProductionPlants" role="doc-biblioref">[24]</a></span> and carbon intensities <span class="citation" data-cites="mapsSwitzerland2024Carbon2024"><a href="#ref-mapsSwitzerland2024Carbon2024" role="doc-biblioref">[17]</a></span> in 2023.
+</figcaption>
+<div aria-describedby="tbl-gen-stats-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 15%">
+<col style="width: 27%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Category</th>
+<th style="text-align: center;">Number</th>
+<th style="text-align: center;">Total capacity [MW]</th>
+<th style="text-align: center;">Carbon intensity [gCO<sub>2</sub>eq/kWh]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Photovoltaic</td>
+<td style="text-align: center;">226268</td>
+<td style="text-align: center;">5391.0</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Hydroelectric</td>
+<td style="text-align: center;">990</td>
+<td style="text-align: center;">13979.1</td>
+<td style="text-align: center;">24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Biomass</td>
+<td style="text-align: center;">327</td>
+<td style="text-align: center;">151.1</td>
+<td style="text-align: center;">230</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Natural gas</td>
+<td style="text-align: center;">117</td>
+<td style="text-align: center;">266.3</td>
+<td style="text-align: center;">528</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Wind</td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;">77.47</td>
+<td style="text-align: center;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Waste</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">220.8</td>
+<td style="text-align: center;">580</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Nuclear</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3014.6</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Crude oil</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.0053</td>
+<td style="text-align: center;">650</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-gen-stats" class="quarto-xref">Table&nbsp;2</a> summarizes the number and installed capacity of Swiss generation plants in 2023 by generation type together with their associated carbon intensities in gCO<sub>2</sub>eq/kWh. The intensities are sourced from <span class="citation" data-cites="mapsSwitzerland2024Carbon2024"><a href="#ref-mapsSwitzerland2024Carbon2024" role="doc-biblioref">[17]</a></span>. Additionally, the dynamic carbon intensity at the transmission substation level is recovered via the data provider <span class="citation" data-cites="EmissiumDocs"><a href="#ref-EmissiumDocs" role="doc-biblioref">[16]</a></span>. As the <a href="#tbl-gen-stats" class="quarto-xref">Table&nbsp;2</a> shows, photovoltaic units dominate in terms of plant count and are predominantly connected within the distribution grid. Therefore, a model that accounts for local meteorological conditions and roof suitability has been developed in this work.</p>
+<p>The output power of a PV panel is calculated in <span class="math inline">\(\eqref{eq-pv-power}\)</span>, where <span class="math inline">\(f_\text{PV}\)</span> is de-rate factor (assumed to be 0.86, based on NREL’s PVWatts calculator <span class="citation" data-cites="dobosPVWattsVersion52014"><a href="#ref-dobosPVWattsVersion52014" role="doc-biblioref">[26]</a></span>), which accounts for such factors as soiling of the panels, wiring losses, shading, snow cover and aging. <span id="eq-pv-power"><span class="math display">\[
+\label{eq-pv-power}
+P_\text{ac} = f_\text{PV}P_\text{dc} \quad
+P_\text{dc} = \frac{I_\text{tilt}}{1000} P_\text{rated} ( 1 + \gamma_\text{pdc} (T_\text{cell} - T_\text{ref}))
+\tag{13}\]</span></span></p>
+<p><span class="math inline">\(\gamma_\text{pdc}\)</span> is the temperature coefficient of power (<span class="math inline">\(\qty{-0.004}{\per\degreeCelsius}\)</span> is chosen in this work according to <span class="citation" data-cites="paudyalInvestigationTemperatureCoefficients2021"><a href="#ref-paudyalInvestigationTemperatureCoefficients2021" role="doc-biblioref">[27]</a></span>), <span class="math inline">\(T_\text{cell}\)</span> represents the panel temperature, and <span class="math inline">\(T_\text{ref}\)</span> is the reference temperature (<span class="math inline">\(\qty{25}{\degreeCelsius}\)</span> by default). The panel temperature <span class="math inline">\(T_\text{cell}\)</span> is calculated in <span class="math inline">\(\eqref{eq-pv-temp}\)</span>, following <span class="citation" data-cites="faimanAssessingOutdoorOperating2008"><a href="#ref-faimanAssessingOutdoorOperating2008" role="doc-biblioref">[28]</a></span>. <span id="eq-pv-temp"><span class="math display">\[
+\label{eq-pv-temp}
+T_\text{cell} = T_\text{am} + \frac{\alpha E (1 - \eta_{m})}{U_{c} + U_{v} \times \mathrm{WS}}
+\tag{14}\]</span></span></p>
+<p>where <span class="math inline">\(T_\text{am}\)</span> is the ambient air temperature, <span class="math inline">\(\alpha\)</span> is the absorption coefficient (0.9 is the default value of <img src="https://pvlib-python.readthedocs.io/en/stable/_images/pvlib_powered_logo_horiz.png" alt="pvlib" height="26px" style="vertical-align: middle;"> <span class="citation" data-cites="andersonPvlibPython20232023"><a href="#ref-andersonPvlibPython20232023" role="doc-biblioref">[29]</a></span>), <span class="math inline">\(\eta_{m}\)</span> is the module efficiency (assumed to be 0.20, according to <span class="citation" data-cites="klauserDokumentationGeodatenmodellSolarenergie2023"><a href="#ref-klauserDokumentationGeodatenmodellSolarenergie2023" role="doc-biblioref">[30]</a></span>), <span class="math inline">\(\mathrm{WS}\)</span> is wind speed at module height, <span class="math inline">\(U_{c}\)</span> and <span class="math inline">\(U_{v}\)</span> represent the combined heat loss factor coefficient and the combined heat loss factor influenced by wind, respectively. Based on <span class="citation" data-cites="saPVsystDocumentationArray2024"><a href="#ref-saPVsystDocumentationArray2024" role="doc-biblioref">[31]</a></span>, <span class="math inline">\(U_{c} =  \qty{20}{W/m^2/K}\)</span> and <span class="math inline">\(U_{v} = \qty{0}{W/m/K/s}\)</span> are selected (note that, with these values, wind speed is not considered).</p>
+<p>The irradiance on a tilted surface, <span class="math inline">\(I_\text{tilt}\)</span> is computed in <span class="math inline">\(\eqref{eq-tilt-irradiance}\)</span>, where <span class="math inline">\(\rho\)</span> is albedo, <span class="math inline">\(\mathrm{GHI}\)</span> is the global horizontal irradiance, total solar radiation received on a horizontal surface; <span class="math inline">\(\mathrm{DNI}\)</span> is the diffuse horizontal irradiance, solar radiation scattered by the atmosphere and received on a horizontal surface; and <span class="math inline">\(\mathrm{DHI}\)</span> is the direct normal irradiance, solar radiation received per unit area on a surface normal to the sun rays. <span id="eq-tilt-irradiance"><span class="math display">\[
+I_\text{tilt} = \mathrm{DNI} \cdot \cos\theta + \mathrm{DHI} \cdot \left(\frac{1 + \cos\beta}{2}\right) + \mathrm{GHI} \cdot \rho \cdot \left(\frac{1 - \cos\beta}{2}\right) \label{eq-tilt-irradiance}
+\tag{15}\]</span></span> The irradiance and ground temperature data are retrieved from the <a href="https://open-meteo.com/">Open-Meteo API</a> with an hourly resolution for the selected location <span class="citation" data-cites="zippenfenigOpenMeteocomWeatherAPI2024"><a href="#ref-zippenfenigOpenMeteocomWeatherAPI2024" role="doc-biblioref">[32]</a></span>. It is assumed that spatial weather variations within the network are negligible; therefore, a single set of meteorological data is applied to all nodes of the selected system. For instance, the network of Dietlikon (as shown later in <a href="#fig-Dietlikon" class="quarto-xref">Figure&nbsp;7</a>) covers a convex hull area of approximately <span class="math inline">\(\qty{4.85}{km^2}\)</span>, making this assumption reasonable. The incidence angle <span class="math inline">\(\theta\)</span> is determined using the solar declination <span class="math inline">\(\delta\)</span>, solar azimuth angle <span class="math inline">\(\gamma_s\)</span>, surface azimuth angle <span class="math inline">\(\gamma\)</span>, tilt angle of the surface relative to the horizontal plane <span class="math inline">\(\beta\)</span>, and latitude <span class="math inline">\(\phi\)</span>: <span class="math display">\[
+\cos(\theta) = \sin\delta \cdot \sin\phi \cdot \cos\beta - \cos\delta \cdot \cos\phi \cdot \sin\beta \cdot \cos(\gamma - \gamma_s)
+\]</span> <span class="citation" data-cites="klauserDokumentationGeodatenmodellSolarenergie2023"><a href="#ref-klauserDokumentationGeodatenmodellSolarenergie2023" role="doc-biblioref">[30]</a></span> provides a roof PV suitability dataset, for all buildings in Switzerland. Roof area, orientation and inclination are recorded. Using this data, PV plants in <a href="#tbl-gen-stats" class="quarto-xref">Table&nbsp;2</a> are assumed to be installed on the closest building, on the roof with largest PV potential. This roof-matching algorithm is pre-executed and stored alongside the generation plant dataset.</p>
+<p><a href="#fig-sgen-line" class="quarto-xref">Figure&nbsp;4</a> illustrates the output power of 9 selected PV plants in the Dietlikon network, as well as the local weather codes as icons from Dec.18, 2023, to Dec.21, 2023. Each plant is represented by a different line color, clearly demonstrating the influence of weather variations and roof suitability on the generation patterns. Other generation types, such as biomass and hydropower, are not explicitly modeled in this work. Instead, a simple constant output corresponding to their rated power is assumed, which could be improved in future updates. Nuclear plants are excluded as they are assumed to be directly connected to HV transmission grids.</p>
+<div id="fig-sgen-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="sgen-line" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("sgen-line", "../presentation/files/sgen_line.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sgen-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Output power of 9 selected PV plants over 4 days within the selected distribution network.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="load-profiles" class="level4">
+<h4 class="anchored" data-anchor-id="load-profiles">Load profiles</h4>
+<p>A load model considering the land-use categories is developed to generate time-variant load profiles for consumers in this work.</p>
+<p><code>BDEW</code> <span class="citation" data-cites="amedeoOemofDemandlibOemofdemandlib2017"><a href="#ref-amedeoOemofDemandlibOemofdemandlib2017" role="doc-biblioref">[33]</a></span> provides a methodology to generate electricity demand profiles by scaling standard <code>BDEW</code> load profiles, which have a resolution of 15 minutes. There are 12 profile types, listed in <a href="https://demandlib.readthedocs.io/en/latest/bdew.html">BDEW demandlib</a>. Before generating load profiles, local public holidays are identified using the <code>Workalendar</code>, based on the Swiss canton in which the area is located <span class="citation" data-cites="WorkalendarWorkalendar2025"><a href="#ref-WorkalendarWorkalendar2025" role="doc-biblioref">[34]</a></span>. As shown in <a href="#fig-load-line" class="quarto-xref">Figure&nbsp;5</a>, the load profiles for the mentioned types are generated using <code>BDEW</code> for a week in 2023 in the canton of Zurich, where the city of Dietlikon is located in, and then normalized between 0 and 1. Clear differences can be observed between profile types and different days. Notably, distinct patterns are evident during public holidays, Jan.1 (New Year) and Jan.2 (Berchtold’s Day), as well as on the weekend of Jan.7 (Saturday), where certain types show significantly different behaviors.</p>
+<div id="fig-load-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="load-line" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("load-line", "../presentation/files/load_line.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-load-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Normalized load factor generated for Dietlikon over a week.
+</figcaption>
+</figure>
+</div>
+<p><em><a href="https://www.bfs.admin.ch/bfs/en/home/services/geostat/swiss-federal-statistics-geodata/land-use-cover-suitability/swiss-land-use-statistics.html">Swiss Land Use Statistics</a></em> <span class="citation" data-cites="SwissLandUse"><a href="#ref-SwissLandUse" role="doc-biblioref">[35]</a></span> provide detailed information on land use in Switzerland, with a spatial resolution of <span class="math inline">\(\qty{100}{m}\)</span>. The land-use information is categorized using the NOLU04 nomenclature, which includes 46 core categories. For each core category, a corresponding standard <code>BDEW</code> type is proposed, shown in <a href="#fig-NOLU04" class="quarto-xref">Figure&nbsp;6</a>. Similarly to the generation model, the load model described above is implemented to generate load profiles for consumers in the network. For each load type, the load profile is scaled using the normalized load factor shown in <a href="#fig-load-line" class="quarto-xref">Figure&nbsp;5</a>, based on its rated demand.</p>
+<div id="fig-NOLU04" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-NOLU04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./files/NOLU04.svg" class="img-fluid figure-img" style="width:65.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-NOLU04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: NOLU04 nomenclature and the proposed BDEW types <span class="citation" data-cites="sfsoArealstatistikNachNomenklatur2004"><a href="#ref-sfsoArealstatistikNachNomenklatur2004" role="doc-biblioref">[36]</a></span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="power-flow" class="level4">
+<h4 class="anchored" data-anchor-id="power-flow">Power flow</h4>
+<p>Non-linear AC power flow calculations are performed for the entire MV-LV network. In this project, the open-source software <img src="https://www.pandapower.org/images/pandapower_color.svg" alt="pandapower" height="26px" style="vertical-align: middle;"> is used <span class="citation" data-cites="thurnerPandapowerOpenSourcePython2018"><a href="#ref-thurnerPandapowerOpenSourcePython2018" role="doc-biblioref">[37]</a></span>. For each network, the following assumptions are made:</p>
+<ul>
+<li>Slack node: The primary side of a 25MVA 110/20kV$ transformer, which connects the MV grid to the HV grid, is considered as the sole slack node.</li>
+<li>PQ nodes: Representing loads or small generators;</li>
+<li>PV nodes: Large generators (assumed to have a capacity <span class="math inline">\(&gt; \qty{5}{MW}\)</span> in this study) are modeled as PV nodes.</li>
+</ul>
+</section>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p>Using the aforementioned data, the local distribution network of Dietlikon is constructed from the synthetic Swiss network topology. As shown in <a href="#fig-Dietlikon" class="quarto-xref">Figure&nbsp;7</a>, the modeled network covers the municipalities of Dietlikon, Wangen-Brüttisellen, and Baltenwil. It comprises 122 MV nodes, 2986 LV nodes, 33 transformers, and 131 distributed generators (all PV installations). In the figure, LV nodes and lines are shown as circles and gray edges, while MV nodes and lines are represented by larger circles and black edges. Distributed generators are shown as gold circles, with their diameters scaled according to installed capacities. Based on this network model, power flow calculations are first performed, followed by the carbon flow allocation. <a href="#tbl-benchmark" class="quarto-xref">Table&nbsp;3</a> presents a runtime and memory benchmark for 3 carbon allocation methods applied to a single snapshot. All models were implemented in Python 3.12 and executed on a computer running Ubuntu 24.04 with an AMD Ryzen 7840HS CPU. The LL and LL-P methods were formulated using <code>CVXPY v1.8.0</code> <span class="citation" data-cites="diamondCVXPYPythonEmbeddedModeling2016"><a href="#ref-diamondCVXPYPythonEmbeddedModeling2016" role="doc-biblioref">[20]</a></span> and solved with the <code>HiGHS (v1.11)</code> solver <span class="citation" data-cites="huangfuParallelizingDualRevised2018"><a href="#ref-huangfuParallelizingDualRevised2018" role="doc-biblioref">[21]</a></span>, with convergence defined by a primal/dual tolerance of <span class="math inline">\(10^{-6}\)</span>. The LA method was implemented using <code>NumPy v2.3.5</code> and optionally accelerated with the <code>Numba</code> JIT compiler <span class="citation" data-cites="lamNumbaLLVMbasedPython2015"><a href="#ref-lamNumbaLLVMbasedPython2015" role="doc-biblioref">[38]</a></span>.</p>
+<div id="tbl-benchmark" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-benchmark-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Benchmark of the three allocation methods for a single snapshot of the selected network.
+</figcaption>
+<div aria-describedby="tbl-benchmark-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Metric</th>
+<th style="text-align: center;">LL</th>
+<th style="text-align: center;">LL-P</th>
+<th style="text-align: center;">LA</th>
+<th style="text-align: center;">LA (Numba)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Runtime [s]</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">198</td>
+<td style="text-align: center;">9.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Peak memory [MB]</td>
+<td style="text-align: center;">310</td>
+<td style="text-align: center;">310</td>
+<td style="text-align: center;">1162</td>
+<td style="text-align: center;">715</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The results indicate that the LL and LL-P methods achieve significantly lower runtime and memory usage compared to the LA method, even with JIT acceleration. Therefore, for the subsequent spatiotemporal analysis of carbon flows in the distribution grid, the LL-P method is adopted without loss of generality, and the ejected carbon intensity <span class="math inline">\(\rm{\bf{c_o}}\)</span> is reported. This choice is motivated by the fact that the LA method becomes computationally intensive when applied to long simulation horizons, such as yearly timescale analyses.</p>
+<p><a href="#fig-Dietlikon" class="quarto-xref">Figure&nbsp;7</a> also illustrates the resulting nodal carbon intensities in gCO<sub>2</sub>eq/kWh over two days in June 2023, visualized using a color gradient. <a href="#fig-Dietlikon" class="quarto-xref">Figure&nbsp;7</a> (toggle switch) further presents the aggregated carbon intensities of nodes within each LV network, obtained as load-weighted averages of the nodal values, as well as the aggregated emissions. The color gradients between the convex hulls distinctly highlights the variations in carbon intensities across different communities, while the vertical needles indicate the absolute magnitude of aggregated carbon emissions, reflecting the diverse contributions of local distributed generation and consumption patterns. The results highlight that the carbon intensity and emission have geographical difference, and the communities with a higher penetration of PV generation exhibit locally reduced carbon intensities. Such figure can be used to easily identify emission hot spots in a distribution grid, potentially steering carbon-aware planning decisions.</p>
+<div id="fig-Dietlikon" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Dietlikon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="width: 100%; height: 600px;  margin: auto;">
+  <iframe src="../presentation/files/res-json/vis-json.html" style="border: none; width: 100%; height: 100%;"></iframe>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Dietlikon-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Visualization of the carbon tracing results (LL-P method) of a synthetic Swiss distribution network over two days with hourly resolution. The network comprises 122 MV nodes, 2986 LV nodes, and 131 PV plants. Local PV penetration creates spatial and temporal heterogeneity across the network.
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-line" class="quarto-xref">Figure&nbsp;8</a> shows the temporal evolution of carbon intensity over four representative winter days. The black line denotes the carbon intensity at the HV network, while the colored lines represent the aggregated intensities of the LV networks. The results indicate that, although LV-level intensities generally follow the trend of the HV-level signal, noticeable deviations from the intensities of the HV grid emerge during daylight hours and converge toward the HV baseline at night once PV generation ceases. Moreover, these deviations are influenced by local weather conditions: on snowy/rainy days, such as Dec.&nbsp;21, the differences across LV networks are negligible. These findings support the importance of geographically and temporally precise data on electricity carbon intensity, which is essential for energy communities that want to implement planning and operational strategies integrating CO<sub>2</sub> signals alongside with price signals.</p>
+<div id="fig-line" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="line" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("line", "../presentation/files/line.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Hourly carbon intensities at the HV level (black) and LV-level aggregates (colored) over four winter days.
+</figcaption>
+</figure>
+</div>
+<p>The seasonal differences are significant by comparing results of June 2023 (summer) and December 2023 (winter). <a href="#fig-violin" class="quarto-xref">Figure&nbsp;9</a> shows the distribution of carbon intensities across all LV networks for the two representative months. Given that Swiss electricity carbon intensity is significantly higher during the winter months than in the summer due to being a net importer of fossil-fuel-heavy electricity from neighboring countries to cover domestic deficits <span class="citation" data-cites="rudisuliDecarbonizationStrategiesSwitzerland2022"><a href="#ref-rudisuliDecarbonizationStrategiesSwitzerland2022" role="doc-biblioref">[39]</a></span>, the violin plots indicate that the winter distribution shifts to higher intensities with a broader spread, driven by reduced PV availability and a stronger dependence on imported electricity.</p>
+<div id="fig-violin" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="violin" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("violin", "../presentation/files/violin.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-violin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Distribution of carbon intensities of the LV networks.
+</figcaption>
+</figure>
+</div>
+<p>The seasonality is also reflected in <a href="#fig-pie" class="quarto-xref">Figure&nbsp;10</a>, which shows the electricity and carbon shares of the local PV generation and imports from the higher-level network, illustrating the seasonal decline of PV contribution in both energy supply and associated emissions. During summer, local PV covers a significant fraction of the electricity demand whereas in winter its share drops sharply. This seasonal imbalance is amplified in the carbon source mix: in summer, PV accounts for nearly one-third of the emission, but in winter its contribution diminishes to just <span class="math inline">\(\qty{3.5}{\percent}\)</span>, leaving imported electricity as the dominant source of both energy and emissions.</p>
+<div id="fig-pie" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div style="display: flex; justify-content: center; gap: 50px; text-align: center;">
+    <div id="pie" style="display: flex; justify-content: center; gap: 0px; "></div>
+</div>
+
+<script>
+renderPlotly("pie", "../presentation/files/pie.json");
+</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Electricity and CO2 source mix of a representative LV network.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-Conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="sec-Conclusion">Conclusion</h2>
+<p>This work presents a framework for carbon flow tracing in power distribution grids, offering a practical and consistent approach to allocate carbon emissions across interconnected nodes in prosumer-dominated networks. The framework can help achieve transparent and fair attribution of carbon responsibilities in increasingly decentralized energy systems.</p>
+<p>In the short term, the proposed framework can serve as a valuable tool for studying flow allocation strategies from both engineering and political–economic perspectives. As carbon intensity is not a directly measurable property of power flows, such a systematic approach is essential to ensure that emission responsibilities are assigned in a realistic and physically coherent manner, both temporally and geographically. Furthermore, it can assist policy-makers in assessing the impact of local measures on electricity consumption from a carbon perspective. For example, incorporating stationary or EV-based storage systems into the framework would allow for the design of pricing mechanisms that encourage storage control strategies aimed at minimizing the collective carbon footprint of consumer groups.</p>
+<p>In the medium to long term, the framework holds potential for deployment in operational contexts. It could (i) inform consumers about their real-time carbon footprint or (ii) provide system operators with spatially resolved insights into carbon emissions within their distribution grids. In both cases, the framework can function as an informational platform or as a decision-support tool, facilitating more sustainable and data-driven energy system management.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-zhouWorldwideCarbonNeutrality2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Y. Zhou, <span>“Worldwide carbon neutrality transition? <span>Energy</span> efficiency, renewable, carbon trading and advanced energy policies,”</span> <em>Energy Reviews</em>, vol. 2, no. 2, p. 100026, June 2023, doi: <a href="https://doi.org/10.1016/j.enrev.2023.100026">10.1016/j.enrev.2023.100026</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S2772970223000135">https://www.sciencedirect.com/science/article/pii/S2772970223000135</a>. [Accessed: Oct. 05, 2025]</div>
+</div>
+<div id="ref-vansoestNetzeroEmissionTargets2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">H. L. van Soest, M. G. J. den Elzen, and D. P. van Vuuren, <span>“Net-zero emission targets for major emitting countries consistent with the <span>Paris</span> <span>Agreement</span>,”</span> <em>Nature Communications</em>, vol. 12, no. 1, p. 2140, Apr. 2021, doi: <a href="https://doi.org/10.1038/s41467-021-22294-x">10.1038/s41467-021-22294-x</a>. Available: <a href="https://www.nature.com/articles/s41467-021-22294-x">https://www.nature.com/articles/s41467-021-22294-x</a>. [Accessed: Oct. 05, 2025]</div>
+</div>
+<div id="ref-liReviewCarbonEmission2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Y. Li <em>et al.</em>, <span>“A review on carbon emission accounting approaches for the electricity power industry,”</span> <em>Applied Energy</em>, vol. 359, p. 122681, Apr. 2024, doi: <a href="https://doi.org/10.1016/j.apenergy.2024.122681">10.1016/j.apenergy.2024.122681</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0306261924000643">https://www.sciencedirect.com/science/article/pii/S0306261924000643</a>. [Accessed: Oct. 04, 2025]</div>
+</div>
+<div id="ref-steiningerMultipleCarbonAccounting2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">K. W. Steininger, C. Lininger, L. H. Meyer, P. Muñoz, and T. Schinko, <span>“Multiple carbon accounting to support just and effective climate policies,”</span> <em>Nature Climate Change</em>, vol. 6, no. 1, pp. 35–41, Jan. 2016, doi: <a href="https://doi.org/10.1038/nclimate2867">10.1038/nclimate2867</a>. Available: <a href="https://www.nature.com/articles/nclimate2867">https://www.nature.com/articles/nclimate2867</a>. [Accessed: Oct. 05, 2025]</div>
+</div>
+<div id="ref-eggleston2006IPCCGuidelines2006" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">S. Eggleston <em>et al.</em>, <span>“2006 <span>IPCC</span> <span>Guidelines</span> for <span>National</span> <span>Greenhouse</span> <span>Gas</span> <span>Inventories</span>,”</span> 2006. Available: <a href="https://api.semanticscholar.org/CorpusID:85690627">https://api.semanticscholar.org/CorpusID:85690627</a></div>
+</div>
+<div id="ref-shuklaClimateChangeLand2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">P. R. Shukla <em>et al.</em>, <span>“Climate <span>Change</span> and <span>Land</span>: An <span>IPCC</span> special report on climate change, desertification, land degradation, sustainable land management, food security, and greenhouse gas fluxes in terrestrial ecosystems,”</span> 2019. Available: <a href="https://api.semanticscholar.org/CorpusID:212790862">https://api.semanticscholar.org/CorpusID:212790862</a></div>
+</div>
+<div id="ref-jiGreenhouseGasEmission2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">L. Ji <em>et al.</em>, <span>“Greenhouse gas emission factors of purchased electricity from interconnected grids,”</span> <em>Applied Energy</em>, vol. 184, pp. 751–758, Dec. 2016, doi: <a href="https://doi.org/10.1016/j.apenergy.2015.10.065">10.1016/j.apenergy.2015.10.065</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0306261915012921">https://www.sciencedirect.com/science/article/pii/S0306261915012921</a>. [Accessed: Oct. 04, 2025]</div>
+</div>
+<div id="ref-kangCarbonEmissionFlow2012" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">C. Kang, T. Zhou, Q. Chen, Q. Xu, Q. Xia, and Z. Ji, <span>“Carbon <span>Emission</span> <span>Flow</span> in <span>Networks</span>,”</span> <em>Scientific Reports</em>, vol. 2, no. 1, p. 479, June 2012, doi: <a href="https://doi.org/10.1038/srep00479">10.1038/srep00479</a>. Available: <a href="https://www.nature.com/articles/srep00479">https://www.nature.com/articles/srep00479</a>. [Accessed: Oct. 04, 2025]</div>
+</div>
+<div id="ref-bialekTopologicalGenerationLoad1997" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">J. Bialek, <span>“Topological generation and load distribution factors for supplement charge allocation in transmission open access,”</span> <em>IEEE transactions on power systems</em>, vol. 12, no. 3, pp. 1185–1193, 1997.</div>
+</div>
+<div id="ref-rudnickMarginalPricingSupplement1995" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">H. Rudnick, R. Palma, and J. E. Fernández, <span>“Marginal pricing and supplement cost allocation in transmission open access,”</span> <em>IEEE Transactions on Power Systems</em>, vol. 10, no. 2, pp. 1125–1132, 1995.</div>
+</div>
+<div id="ref-galianaTransmissionNetworkCost2003" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">F. D. Galiana, A. J. Conejo, and H. A. Gil, <span>“Transmission network cost allocation based on equivalent bilateral exchanges,”</span> <em>IEEE Transactions on Power Systems</em>, vol. 18, no. 4, pp. 1425–1431, 2003.</div>
+</div>
+<div id="ref-conejoZbusTransmissionNetwork2007" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">A. J. Conejo, J. Contreras, D. A. Lima, and A. Padilha-Feltrin, <span>“Zbus transmission network cost allocation,”</span> <em>IEEE transactions on power systems</em>, vol. 22, no. 1, pp. 342–349, 2007.</div>
+</div>
+<div id="ref-tranbergRealtimeCarbonAccounting2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">B. Tranberg, O. Corradi, B. Lajoie, T. Gibon, I. Staffell, and G. B. Andresen, <span>“Real-time carbon accounting method for the <span>European</span> electricity markets,”</span> <em>Energy Strategy Reviews</em>, vol. 26, p. 100367, Nov. 2019, doi: <a href="https://doi.org/10.1016/j.esr.2019.100367">10.1016/j.esr.2019.100367</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S2211467X19300549">https://www.sciencedirect.com/science/article/pii/S2211467X19300549</a>. [Accessed: Oct. 04, 2025]</div>
+</div>
+<div id="ref-kangCarbonEmissionFlow2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">C. Kang <em>et al.</em>, <span>“Carbon <span>Emission</span> <span>Flow</span> <span>From</span> <span>Generation</span> to <span>Demand</span>: <span>A</span> <span>Network</span>-<span>Based</span> <span>Model</span>,”</span> <em>IEEE Transactions on Smart Grid</em>, vol. 6, no. 5, pp. 2386–2394, Sept. 2015, doi: <a href="https://doi.org/10.1109/TSG.2015.2388695">10.1109/TSG.2015.2388695</a>. Available: <a href="https://ieeexplore.ieee.org/document/7021901">https://ieeexplore.ieee.org/document/7021901</a>. [Accessed: Oct. 04, 2025]</div>
+</div>
+<div id="ref-jacquierNationalEnergySystem2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">C. Jacquier, R. Rigo-Mariani, V. Debusschere, J.-N. Louis, and S. Mima, <span>“National energy system modeling for decarbonization pathways considering distribution grids,”</span> <em>Energy Strategy Reviews</em>, vol. 58, p. 101688, Mar. 2025, doi: <a href="https://doi.org/10.1016/j.esr.2025.101688">10.1016/j.esr.2025.101688</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S2211467X25000513">https://www.sciencedirect.com/science/article/pii/S2211467X25000513</a>. [Accessed: Oct. 05, 2025]</div>
+</div>
+<div id="ref-EmissiumDocs" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[16] </div><div class="csl-right-inline"><span>“Emissium <span>Docs</span>,”</span> <em>Emissium Docs</em>. Available: <a href="https://docs.emissium.tech/">https://docs.emissium.tech/</a>. [Accessed: Oct. 02, 2025]</div>
+</div>
+<div id="ref-mapsSwitzerland2024Carbon2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[17] </div><div class="csl-right-inline">E. Maps, <span>“Switzerland 2024 <span>Carbon</span> <span>Intensity</span> <span>Data</span> (<span>Version</span> <span>January</span> 17, 2024).”</span> Electricity Maps Data Portal, 2024. Available: <a href="https://www.electricitymaps.com/data-portal/switzerland">https://www.electricitymaps.com/data-portal/switzerland</a></div>
+</div>
+<div id="ref-horschFlowTracingTool2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[18] </div><div class="csl-right-inline">J. Hörsch, M. Schäfer, S. Becker, S. Schramm, and M. Greiner, <span>“Flow tracing as a tool set for the analysis of networked large-scale renewable electricity systems,”</span> <em>International Journal of Electrical Power &amp; Energy Systems</em>, vol. 96, pp. 390–397, Mar. 2018, doi: <a href="https://doi.org/10.1016/j.ijepes.2017.10.024">10.1016/j.ijepes.2017.10.024</a>. Available: <a href="https://linkinghub.elsevier.com/retrieve/pii/S0142061517308517">https://linkinghub.elsevier.com/retrieve/pii/S0142061517308517</a>. [Accessed: Nov. 21, 2024]</div>
+</div>
+<div id="ref-horn2012matrix" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[19] </div><div class="csl-right-inline">R. A. Horn and C. R. Johnson, <em>Matrix analysis</em>. Cambridge university press, 2012.</div>
+</div>
+<div id="ref-diamondCVXPYPythonEmbeddedModeling2016" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[20] </div><div class="csl-right-inline">S. Diamond and S. Boyd, <span>“<span>CVXPY</span>: <span>A</span> <span>Python</span>-<span>Embedded</span> <span>Modeling</span> <span>Language</span> for <span>Convex</span> <span>Optimization</span>,”</span> <em>Journal of Machine Learning Research</em>, vol. 17, no. 83, pp. 1–5, 2016, Available: <a href="http://jmlr.org/papers/v17/15-408.html">http://jmlr.org/papers/v17/15-408.html</a>. [Accessed: Mar. 10, 2026]</div>
+</div>
+<div id="ref-huangfuParallelizingDualRevised2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[21] </div><div class="csl-right-inline">Q. Huangfu and J. A. J. Hall, <span>“Parallelizing the dual revised simplex method,”</span> <em>Mathematical Programming Computation</em>, vol. 10, no. 1, pp. 119–142, Mar. 2018, doi: <a href="https://doi.org/10.1007/s12532-017-0130-5">10.1007/s12532-017-0130-5</a>. Available: <a href="https://doi.org/10.1007/s12532-017-0130-5">https://doi.org/10.1007/s12532-017-0130-5</a>. [Accessed: Mar. 10, 2026]</div>
+</div>
+<div id="ref-guptaCountrywidePVHosting2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[22] </div><div class="csl-right-inline">R. Gupta, F. Sossan, and M. Paolone, <span>“Countrywide <span>PV</span> hosting capacity and energy storage requirements for distribution networks: <span>The</span> case of <span>Switzerland</span>,”</span> <em>Applied Energy</em>, vol. 281, p. 116010, Jan. 2021, doi: <a href="https://doi.org/10.1016/j.apenergy.2020.116010">10.1016/j.apenergy.2020.116010</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0306261920314537">https://www.sciencedirect.com/science/article/pii/S0306261920314537</a>. [Accessed: Sept. 25, 2025]</div>
+</div>
+<div id="ref-onetoLargescaleGenerationGeoreferenced2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[23] </div><div class="csl-right-inline">A. Oneto, B. Gjorgiev, F. Tettamanti, and G. Sansavini, <span>“Large-scale generation of geo-referenced power distribution grids from open data with load clustering,”</span> <em>Sustainable Energy, Grids and Networks</em>, vol. 42, p. 101678, June 2025, doi: <a href="https://doi.org/10.1016/j.segan.2025.101678">10.1016/j.segan.2025.101678</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S2352467725000608">https://www.sciencedirect.com/science/article/pii/S2352467725000608</a>. [Accessed: Sept. 12, 2025]</div>
+</div>
+<div id="ref-ElectricityProductionPlants" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[24] </div><div class="csl-right-inline"><span>“Electricity production plants - opendata.swiss.”</span> Available: <a href="https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen">https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen</a>. [Accessed: Sept. 17, 2024]</div>
+</div>
+<div id="ref-energyElectricityProductionPlants2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[25] </div><div class="csl-right-inline">S. F. O. of Energy, <span>“Electricity production plants in <span>Switzerland</span>.”</span> Bundesamt für Energie, 2024. Available: <a href="https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen">https://opendata.swiss/en/dataset/elektrizitatsproduktionsanlagen</a></div>
+</div>
+<div id="ref-dobosPVWattsVersion52014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[26] </div><div class="csl-right-inline">A. P. Dobos, <span>“<span>PVWatts</span> <span>Version</span> 5 <span>Manual</span>,”</span> National Renewable Energy Laboratory (NREL), Golden, CO., Sept. 2014. doi: <a href="https://doi.org/10.2172/1158421">10.2172/1158421</a>. Available: <a href="https://www.osti.gov/biblio/1158421">https://www.osti.gov/biblio/1158421</a></div>
+</div>
+<div id="ref-paudyalInvestigationTemperatureCoefficients2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[27] </div><div class="csl-right-inline">B. R. Paudyal and A. G. Imenes, <span>“Investigation of temperature coefficients of <span>PV</span> modules through field measured data,”</span> <em>Solar Energy</em>, vol. 224, pp. 425–439, 2021.</div>
+</div>
+<div id="ref-faimanAssessingOutdoorOperating2008" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[28] </div><div class="csl-right-inline">D. Faiman, <span>“Assessing the outdoor operating temperature of photovoltaic modules,”</span> <em>Progress in Photovoltaics: Research and Applications</em>, vol. 16, no. 4, pp. 307–315, 2008.</div>
+</div>
+<div id="ref-andersonPvlibPython20232023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[29] </div><div class="csl-right-inline">K. S. Anderson, C. W. Hansen, W. F. Holmgren, A. R. Jensen, M. A. Mikofski, and A. Driesse, <span>“Pvlib python: 2023 project update,”</span> <em>Journal of Open Source Software</em>, vol. 8, no. 92, p. 5994, Dec. 2023, doi: <a href="https://doi.org/10.21105/joss.05994">10.21105/joss.05994</a>. Available: <a href="https://joss.theoj.org/papers/10.21105/joss.05994">https://joss.theoj.org/papers/10.21105/joss.05994</a>. [Accessed: Oct. 01, 2025]</div>
+</div>
+<div id="ref-klauserDokumentationGeodatenmodellSolarenergie2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[30] </div><div class="csl-right-inline">D. Klauser, T. Schlegel, M. Hertach, and N. Rohrbach, <span>“Dokumentation <span>Geodatenmodell</span> <span>Solarenergie</span>: <span>Eignung</span> <span>Dächer</span> (<span>Sonnendach</span>.ch) und <span>Fassaden</span> (<span>Sonnenfassade</span>.ch).”</span> Bundesamt für Energie BFE, 2023. Available: <a href="https://www.bfe.admin.ch/bfe/de/home/versorgung/digitalisierung-und-geoinformation/geoinformation/geodaten/solar/solarenergie-eignung-hausdach.html">https://www.bfe.admin.ch/bfe/de/home/versorgung/digitalisierung-und-geoinformation/geoinformation/geodaten/solar/solarenergie-eignung-hausdach.html</a></div>
+</div>
+<div id="ref-saPVsystDocumentationArray2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[31] </div><div class="csl-right-inline">Pv. SA, <span>“<span>PVsyst</span> <span>Documentation</span> - <span>Array</span> <span>Thermal</span> losses.”</span> 2024. Available: <a href="https://www.pvsyst.com/help/project-design/array-and-system-losses/array-thermal-losses/index.html">https://www.pvsyst.com/help/project-design/array-and-system-losses/array-thermal-losses/index.html</a></div>
+</div>
+<div id="ref-zippenfenigOpenMeteocomWeatherAPI2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[32] </div><div class="csl-right-inline">P. Zippenfenig, <span>“Open-<span>Meteo</span>.com <span>Weather</span> <span>API</span>.”</span> Zenodo, Dec. 2024. doi: <a href="https://doi.org/10.5281/zenodo.14582479">10.5281/zenodo.14582479</a>. Available: <a href="https://doi.org/10.5281/zenodo.14582479">https://doi.org/10.5281/zenodo.14582479</a></div>
+</div>
+<div id="ref-amedeoOemofDemandlibOemofdemandlib2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[33] </div><div class="csl-right-inline">C. Amedeo <em>et al.</em>, <span>“The oemof demandlib (oemof.demandlib).”</span> Zenodo, Mar. 2017. doi: <a href="https://doi.org/10.5281/zenodo.438786">10.5281/zenodo.438786</a>. Available: <a href="https://doi.org/10.5281/zenodo.438786">https://doi.org/10.5281/zenodo.438786</a></div>
+</div>
+<div id="ref-WorkalendarWorkalendar2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[34] </div><div class="csl-right-inline"><span>“Workalendar/workalendar.”</span> workalendar, Aug. 2025. Available: <a href="https://github.com/workalendar/workalendar">https://github.com/workalendar/workalendar</a>. [Accessed: Oct. 02, 2025]</div>
+</div>
+<div id="ref-SwissLandUse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[35] </div><div class="csl-right-inline"><span>“Swiss <span>Land</span> <span>Use</span> <span>Statistics</span>.”</span> Available: <a href="https://www.bfs.admin.ch/content/bfs/en/home/services/geostat/swiss-federal-statistics-geodata/land-use-cover-suitability/swiss-land-use-statistics.html">https://www.bfs.admin.ch/content/bfs/en/home/services/geostat/swiss-federal-statistics-geodata/land-use-cover-suitability/swiss-land-use-statistics.html</a>. [Accessed: Oct. 02, 2025]</div>
+</div>
+<div id="ref-sfsoArealstatistikNachNomenklatur2004" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[36] </div><div class="csl-right-inline">SFSO, <em>Arealstatistik nach <span>Nomenklatur</span> 2004 - <span>Bodennutzung</span>, <span>Beschreibung</span>: <span>Metainformation</span> zu <span>Geodaten</span></em>. BFS, 2004. Available: <a href="https://dam-api.bfs.admin.ch/hub/api/dam/assets/256981/master">https://dam-api.bfs.admin.ch/hub/api/dam/assets/256981/master</a></div>
+</div>
+<div id="ref-thurnerPandapowerOpenSourcePython2018" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[37] </div><div class="csl-right-inline">L. Thurner <em>et al.</em>, <span>“Pandapower—<span>An</span> <span>Open</span>-<span>Source</span> <span>Python</span> <span>Tool</span> for <span>Convenient</span> <span>Modeling</span>, <span>Analysis</span>, and <span>Optimization</span> of <span>Electric</span> <span>Power</span> <span>Systems</span>,”</span> <em>IEEE Transactions on Power Systems</em>, vol. 33, no. 6, pp. 6510–6521, Nov. 2018, doi: <a href="https://doi.org/10.1109/TPWRS.2018.2829021">10.1109/TPWRS.2018.2829021</a>. Available: <a href="https://ieeexplore.ieee.org/document/8344496">https://ieeexplore.ieee.org/document/8344496</a>. [Accessed: Oct. 01, 2025]</div>
+</div>
+<div id="ref-lamNumbaLLVMbasedPython2015" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[38] </div><div class="csl-right-inline">S. K. Lam, A. Pitrou, and S. Seibert, <span>“Numba: A <span>LLVM</span>-based <span>Python</span> <span>JIT</span> compiler,”</span> in <em>Proceedings of the <span>Second</span> <span>Workshop</span> on the <span>LLVM</span> <span>Compiler</span> <span>Infrastructure</span> in <span>HPC</span></em>, in <span>LLVM</span> ’15. New York, NY, USA: Association for Computing Machinery, Nov. 2015, pp. 1–6. doi: <a href="https://doi.org/10.1145/2833157.2833162">10.1145/2833157.2833162</a>. Available: <a href="https://dl.acm.org/doi/10.1145/2833157.2833162">https://dl.acm.org/doi/10.1145/2833157.2833162</a>. [Accessed: Mar. 10, 2026]</div>
+</div>
+<div id="ref-rudisuliDecarbonizationStrategiesSwitzerland2022" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[39] </div><div class="csl-right-inline">M. Rüdisüli, E. Romano, S. Eggimann, and M. K. Patel, <span>“Decarbonization strategies for <span>Switzerland</span> considering embedded greenhouse gas emissions in electricity imports,”</span> <em>Energy Policy</em>, vol. 162, p. 112794, Mar. 2022, doi: <a href="https://doi.org/10.1016/j.enpol.2022.112794">10.1016/j.enpol.2022.112794</a>. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0301421522000192">https://www.sciencedirect.com/science/article/pii/S0301421522000192</a>. [Accessed: Oct. 02, 2025]</div>
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@article{liu2027,
+  author = {Liu, Wenyu and Figini, Enea and Paolone, Mario},
+  title = {Carbon Flow Tracing in Distribution Grids: From Method to
+    Application},
+  journal = {Electric Power Systems Research},
+  volume = {262},
+  pages = {113548},
+  date = {2027-01-01},
+  url = {https://www.sciencedirect.com/science/article/pii/S0378779626008412},
+  doi = {10.1016/j.epsr.2026.113548},
+  issn = {0378-7796},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-liu2027" class="csl-entry quarto-appendix-citeas" role="listitem">
+<div class="">W.
+Liu, E. Figini, and M. Paolone, <span>“Carbon flow tracing in
+distribution grids: from method to application,”</span> <em>Electric
+Power Systems Research</em>, vol. 262, p. 113548, Jan. 2027, doi: <a href="https://doi.org/10.1016/j.epsr.2026.113548">10.1016/j.epsr.2026.113548</a>.
+Available: <a href="https://www.sciencedirect.com/science/article/pii/S0378779626008412">https://www.sciencedirect.com/science/article/pii/S0378779626008412</a></div>
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><span class="faux-block"> <i class="bi bi-c-circle"></i> 2026 Distributed Electrical Systems Laboratory </span> <span class="faux-block">Licensed under GNU General Public License v3.0</span></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><span class="faux-block"> Made at <svg id="epfl-logo" data-name="logo epfl 2019" xmlns="http://www.w3.org/2000/svg" style="height: 1em; width: auto; vertical-align: middle;" viewbox="0 0 182.4 53" fill="currentColor"> <polygon points="0 21.6 11.43 21.6 11.43 9.8 38.34 9.8 38.34 0 0 0 0 21.6"></polygon> <polygon points="0 53 38.34 53 38.34 43.2 11.43 43.2 11.43 31.4 0 31.4 0 53"></polygon> <rect x="11.43" y="21.6" width="24.61" height="9.8"></rect> <path d="M86,4.87a16.12,16.12,0,0,0-5.68-3.53A23.76,23.76,0,0,0,71.82,0H48.14V53H59.57V31.4H71.82a23.76,23.76,0,0,0,8.46-1.34A16.12,16.12,0,0,0,86,26.53a13.43,13.43,0,0,0,3.19-5,17.38,17.38,0,0,0,0-11.62A13.52,13.52,0,0,0,86,4.87ZM78,18.73a5.7,5.7,0,0,1-2.26,1.8,11.33,11.33,0,0,1-3.27.85,32,32,0,0,1-3.86.22H59.57V9.8h9.05a32,32,0,0,1,3.86.22,11,11,0,0,1,3.27.86A5.59,5.59,0,0,1,78,12.67a5,5,0,0,1,.86,3A5,5,0,0,1,78,18.73Z"></path> <polygon points="155.47 43.2 155.47 0 144.04 0 144.04 53 182.38 53 182.38 43.2 155.47 43.2"></polygon> <polygon points="97.42 21.6 108.85 21.6 108.85 9.8 135.76 9.8 135.76 0 97.42 0 97.42 21.6"></polygon> <rect x="97.42" y="31.4" width="11.43" height="21.6"></rect> <rect x="108.85" y="21.6" width="24.61" height="9.8"></rect> </svg> </span> <span class="faux-block">Built with <a href="https://quarto.org/">Quarto</a> &amp; <a href="https://machow.github.io/quartodoc">Quartodoc</a></span></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -16,6 +16,8 @@ website:
         text: Home
       - href: reference/index.qmd
         text: Reference
+      - href: paper/index.qmd
+        text: Paper
       - href: presentation/index.qmd
         text: Presentation
   page-footer:
